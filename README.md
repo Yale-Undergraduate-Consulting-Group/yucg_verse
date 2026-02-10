@@ -1,0 +1,2 @@
+# transcript_sentiment_analyzer_pipeline
+Interview transcript sentiment analyzer for YUCG

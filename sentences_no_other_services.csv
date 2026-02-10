@@ -1,0 +1,925 @@
+interviewee,role,speaker,line_number,sentence,hf_label,hf_score,hf_compound,mentions_other_service
+Lauren,interviewer,D,1,So can you first tell us a little bit about yourself?,neutral,0.9225060939788818,0.0,False
+Lauren,interviewer,D,1,"Your name, your age, um, your job/occupation, and then what you tend to do in your free time to keep yourself busy, what you're interested in, what activities you're involved in.",neutral,0.9017406105995178,0.0,False
+Lauren,interviewee,Lauren,2,"Um, I'm Lauren.",neutral,0.8666442036628723,0.0,False
+Lauren,interviewee,Lauren,2,I'm 19 years old.,neutral,0.8294577598571777,0.0,False
+Lauren,interviewee,Lauren,2,"I'm a student at Yale, and what I do in my free time, I'm a member of the acapella group the New Blue, so I do a lot of just organization and management for them.",neutral,0.8172993063926697,0.0,False
+Lauren,interviewee,Lauren,2,I enjoy going on runs.,positive,0.9739782810211182,0.9479565620422364,False
+Lauren,interviewee,Lauren,2,I enjoy going on walks as well.,positive,0.938528060913086,0.8770561218261719,False
+Lauren,interviewee,Lauren,2,Reading.,neutral,0.6337629556655884,0.0,False
+Lauren,interviewee,Lauren,2,And generally spending time outdoors.,neutral,0.7894481420516968,0.0,False
+Lauren,interviewer,D,3,Awesome.,positive,0.9535717368125916,0.9071434736251832,False
+Lauren,interviewer,D,3,Um.,neutral,0.7751049399375916,0.0,False
+Lauren,interviewer,D,3,"So my first question for you is, um, do you use Canva and what kinds of circumstances have you used it for in the past?",neutral,0.940976858139038,0.0,False
+Lauren,interviewee,Lauren,4,"Um, I use it not often, but I have used it before.",neutral,0.8776227831840515,0.0,False
+Lauren,interviewee,Lauren,4,I've used it usually for flyers for events.,neutral,0.8267377614974976,0.0,False
+Lauren,interviewee,Lauren,4,So often those are events for New Blue or for other extracurriculars.,neutral,0.8991350531578064,0.0,False
+Lauren,interviewee,Lauren,4,"We've also used it for—during New Blue Rush—we used it for our info packets on the members and also for like just general information, like packets and flyers for Rush.",neutral,0.8512479662895203,0.0,False
+Lauren,interviewee,Lauren,4,"I'm trying to think of… I have used it for class, for presentations.",neutral,0.8627735376358032,0.0,False
+Lauren,interviewee,Lauren,4,I think that's it.,neutral,0.762839138507843,0.0,False
+Lauren,interviewer,D,5,Awesome.,positive,0.9535717368125916,0.9071434736251832,False
+Lauren,interviewer,D,5,"Okay, do you have Canva Pro by any chance?",neutral,0.9192317128181458,0.0,False
+Lauren,interviewee,Lauren,6,I do not.,neutral,0.6735533475875854,0.0,False
+Lauren,interviewee,Lauren,6,I don't think?,neutral,0.862518310546875,0.0,False
+Lauren,interviewee,Lauren,6,I know—um.,neutral,0.8182841539382935,0.0,False
+Lauren,interviewer,D,7,"And then, are you aware that Yale partners with Canva for a platform called Canva Campus where students get free Pro features?",neutral,0.8433514833450317,0.0,False
+Lauren,interviewee,Lauren,8,I did not know that.,neutral,0.6556071043014526,0.0,False
+Lauren,interviewee,Lauren,8,No.,neutral,0.5609904527664185,0.0,False
+Lauren,interviewer,D,9,"Are you aware of Canva’s education, um, specifically education features or plans?",neutral,0.9445449113845824,0.0,False
+Lauren,interviewee,Lauren,10,No.,neutral,0.5609904527664185,0.0,False
+Lauren,interviewer,D,11,"Um, great.",positive,0.9456941485404968,0.8913882970809937,False
+Lauren,interviewer,D,11,Okay.,neutral,0.5692517757415771,0.0,False
+Lauren,interviewer,D,11,"Um, so what is the biggest value Canva provides for you currently?",neutral,0.7635563015937805,0.0,False
+Lauren,interviewer,D,11,Why do you use Canva?,neutral,0.8999018669128418,0.0,False
+Lauren,interviewee,Lauren,12,Um.,neutral,0.7751049399375916,0.0,False
+Lauren,interviewee,Lauren,12,"I guess it's just, like, easier to make flyers on it than it is on other websites.",neutral,0.7537983059883118,0.0,False
+Lauren,interviewee,Lauren,12,The designs are like pre-made.,neutral,0.6519160866737366,0.0,False
+Lauren,interviewee,Lauren,12,There's no need to like really download them.,neutral,0.563406229019165,0.0,False
+Lauren,interviewee,Lauren,12,You just kind of edit them yourself.,neutral,0.8878188729286194,0.0,False
+Lauren,interviewee,Lauren,12,"Also, it's just like, um, it was easy to share the site and like to share the flyers and like edit at the same time during Rush, which was necessary.",positive,0.5391015410423279,0.0782030820846557,False
+Lauren,interviewee,Lauren,12,Um.,neutral,0.7751049399375916,0.0,False
+Lauren,interviewer,D,13,Great.,positive,0.8795907497406006,0.7591814994812012,False
+Lauren,interviewer,D,13,"And then on the flip side, what are some reasons why maybe you would stop using Canva?",neutral,0.697137713432312,0.0,False
+Lauren,interviewer,D,13,Have you switched to other design tools before?,neutral,0.9205387234687804,0.0,False
+Lauren,interviewer,D,13,"If yes, which ones and why?",neutral,0.9132046103477478,0.0,False
+Lauren,interviewee,Lauren,14,"I don't think I have, but I guess like the only reason I would stop using it is because I would no longer need it.",neutral,0.5261338949203491,0.0,False
+Lauren,interviewee,Lauren,14,"Like, um… I don't have any—like, I wouldn't… If there was like a thing I had to design, I would probably just like immediately go to Canva to do it.",neutral,0.6352787613868713,0.0,False
+Lauren,interviewee,Lauren,14,The only reason I would see myself like stopping using it for like the things I've been using it for is like just because I won't need to use it.,neutral,0.569848358631134,0.0,False
+Lauren,interviewer,D,15,Okay.,neutral,0.5692517757415771,0.0,False
+Lauren,interviewer,D,15,"And then along that same line, what do you find are some of your current pain points when using the Canva platform?",neutral,0.6772966980934143,0.0,False
+Lauren,interviewee,Lauren,16,Um… hmm.,neutral,0.8871281147003174,0.0,False
+Lauren,interviewee,Lauren,16,I think sometimes like editing it can be a little finicky.,neutral,0.5082010626792908,0.0,False
+Lauren,interviewee,Lauren,16,"Like, like it's not always easy to edit sometimes—like editing certain things.",negative,0.576082706451416,-0.152165412902832,False
+Lauren,interviewee,Lauren,16,"Like, or the fact that you need Pro to do other things when you don't have it, which is like, I guess, on me for not getting it, but I don't want to buy it.",negative,0.767735481262207,-0.5354709625244141,False
+Lauren,interviewee,Lauren,16,"And at least at the beginning, it was a learning curve to share it and like figure out where to locate shared documents or shared flyers when we were like collaborating on documents together.",neutral,0.8363663554191589,0.0,False
+Lauren,interviewer,D,17,I see.,neutral,0.7033473253250122,0.0,False
+Lauren,interviewer,D,17,So what are some changes or improvements that you think Canva could make to fit your needs better?,neutral,0.6211033463478088,0.0,False
+Lauren,interviewee,Lauren,18,I mean like… I can't think of any off the top of my head that aren't like fixable just by me myself.,negative,0.4965070784091949,0.0069858431816101,False
+Lauren,interviewee,Lauren,18,"Like, like the sharing thing, it was like—I guess like just maybe organizationally making that easier to find on the homepage.",neutral,0.7888662219047546,0.0,False
+Lauren,interviewee,Lauren,18,But otherwise it's like literally just me not wanting to get Pro.,negative,0.7607969045639038,-0.5215938091278076,False
+Lauren,interviewee,Lauren,18,And so… yeah.,neutral,0.7426506876945496,0.0,False
+Lauren,interviewer,D,19,Great.,positive,0.8795907497406006,0.7591814994812012,False
+Lauren,interviewer,D,19,Okay.,neutral,0.5692517757415771,0.0,False
+Lauren,interviewer,D,19,"Um, and then you're a college student now, but have you used Canva in other educational periods of your life and has your interaction and engagement with Canva changed at all?",neutral,0.93003511428833,0.0,False
+Lauren,interviewee,Lauren,20,"Um, yes, I have.",neutral,0.8241860866546631,0.0,False
+Lauren,interviewee,Lauren,20,I used it in high school for similar purposes.,neutral,0.902641236782074,0.0,False
+Lauren,interviewee,Lauren,20,"Even outside of school, I was part of a committee that was doing like organizing donations, so I used it for that, like flyers and presentations.",neutral,0.8421018123626709,0.0,False
+Lauren,interviewee,Lauren,20,"I've used it for both of those before, outside of college.",neutral,0.8246567249298096,0.0,False
+Lauren,interviewee,Lauren,20,But it hasn't really like—I don't think the way I've interacted with it has changed much.,negative,0.6733118891716003,-0.3466237783432007,False
+Lauren,interviewer,D,21,"Okay, cool.",positive,0.6889756321907043,0.3779512643814087,False
+Lauren,interviewer,D,21,"Um, are there any other kind of qualms you have, or maybe good things about Canva that you want to point out, or anything that you want to touch on that I haven't asked you about?",neutral,0.7105663418769836,0.0,False
+Lauren,interviewee,Lauren,22,No.,neutral,0.5609904527664185,0.0,False
+Lauren,interviewer,D,23,"Okay, great.",positive,0.9291732907295228,0.8583465814590454,False
+Lauren,interviewer,D,23,"Thank you so much, Lauren.",positive,0.9669753909111024,0.9339507818222046,False
+Erin,interviewer,Danielle,1,"Okay, tell us a bit about yourself.",neutral,0.8728139400482178,0.0,False
+Erin,interviewee,Erin,2,"Yeah, I'm Erin.",neutral,0.6229122281074524,0.0,False
+Erin,interviewee,Erin,2,I am 22 years old.,neutral,0.7713720798492432,0.0,False
+Erin,interviewee,Erin,2,"I just recently graduated from college, and right now I'm currently working as a research assistant and I'm also studying for an entrance exam for grad school.",neutral,0.8125017285346985,0.0,False
+Erin,interviewer,Danielle,3,Do you currently use Canva?,neutral,0.9476908445358276,0.0,False
+Erin,interviewee,Erin,4,"I'm currently not using Canva, but I have used it in the past.",neutral,0.9063587784767152,0.0,False
+Erin,interviewer,Danielle,5,"And when you did use Canva, did you ever use the pro plan?",neutral,0.9156296849250792,0.0,False
+Erin,interviewee,Erin,6,"I did not, no.",neutral,0.7518505454063416,0.0,False
+Erin,interviewer,Danielle,7,"So, can you tell me about when and why you first started using Canva and what you mainly used it for?",neutral,0.8973343372344971,0.0,False
+Erin,interviewee,Erin,8,"Yeah, I think I mainly started using Canva in college, and it was mostly to create flyers for club events and things of that sort.",neutral,0.8739327788352966,0.0,False
+Erin,interviewee,Erin,8,"I also remember using Canva because they had presentation templates as well, so I used Canva for some projects.",neutral,0.6843917369842529,0.0,False
+Erin,interviewer,Danielle,9,"And when did you stop using Canva, and what changed that led you to stop using it or use it less often?",neutral,0.7148728966712952,0.0,False
+Erin,interviewee,Erin,10,"I stopped using Canva because I graduated from school, and so there's not really a need for me to be creating flyers or club materials anymore since I'm no longer involved with those organizations.",neutral,0.5736817717552185,0.0,False
+Erin,interviewer,Danielle,11,"When you were using Canva in college, were you aware of the Canva Education platform and its features, as well as Canva for Campus and the partnerships with universities across the U.S.?",neutral,0.8560745120048523,0.0,False
+Erin,interviewee,Erin,12,"I have not heard of those plans, no.",neutral,0.7794216871261597,0.0,False
+Erin,interviewer,Danielle,13,Were there any particular challenges or frustrations that made Canva harder to use or less valuable for you?,negative,0.5856903791427612,-0.1713807582855224,False
+Erin,interviewee,Erin,14,I didn't find Canva to be particularly challenging to use.,negative,0.6819345355033875,-0.3638690710067749,False
+Erin,interviewee,Erin,14,I found the usability of the website to be very easy and suited my needs when I needed to create a graphic quickly.,positive,0.919739544391632,0.8394790887832642,False
+Erin,interviewer,Danielle,15,"But if you were to point out any pain points, what would you bring up?",neutral,0.6858046650886536,0.0,False
+Erin,interviewee,Erin,16,I think one of the pain points was when I was looking for certain graphics or icons.,negative,0.7747282981872559,-0.5494565963745117,False
+Erin,interviewee,Erin,16,You weren’t able to sort between the Pro icons and the free plan.,neutral,0.5503770709037781,0.0,False
+Erin,interviewee,Erin,16,"So if there was a way to filter between those two for icons, that would be helpful when looking for graphics I could actually use.",neutral,0.4934867620468139,0.0,False
+Erin,interviewer,Danielle,17,And have you started using any other tools instead of Canva now that you’ve dropped off the platform?,neutral,0.920325517654419,0.0,False
+Erin,interviewer,Danielle,17,"If yes, what do they offer that Canva didn’t?",neutral,0.8693512082099915,0.0,False
+Erin,interviewee,Erin,18,I'm not using any graphic-making websites at the moment.,neutral,0.7371048331260681,0.0,False
+Erin,interviewer,Danielle,19,"It could also be digital materials in general—presentations, resume-building websites, any platform.",neutral,0.8636305928230286,0.0,False
+Erin,interviewee,Erin,20,"For my resume, I typically just use Word or Google Docs.",neutral,0.8479126691818237,0.0,False
+Erin,interviewee,Erin,20,"I don’t need to be designing or adding icons, so there’s not a need for a site like Canva for that.",neutral,0.500093400478363,0.0,False
+Erin,interviewee,Erin,20,"As for presentations or projects, I haven't had to make anything that warrants a website like Canva.",neutral,0.6563615798950195,0.0,False
+Erin,interviewer,Danielle,21,And can you articulate why you fall back on those platforms now that you're out of college?,neutral,0.8994943499565125,0.0,False
+Erin,interviewee,Erin,22,I think it's mostly because it's built into what I typically use.,neutral,0.8361189365386963,0.0,False
+Erin,interviewee,Erin,22,I’m very comfortable with Google Drive because I've used it throughout my education.,positive,0.9651578664779664,0.9303157329559326,False
+Erin,interviewee,Erin,22,"Also, the people I work with on my research project use those applications too, so it's easy to collaborate since everyone already has institutional access.",positive,0.6919318437576294,0.3838636875152588,False
+Erin,interviewer,Danielle,23,Cool.,positive,0.7078977227210999,0.4157954454421997,False
+Erin,interviewer,Danielle,23,So what university did you graduate from?,neutral,0.961734414100647,0.0,False
+Erin,interviewee,Erin,24,I graduated from Emory.,neutral,0.7993831038475037,0.0,False
+Erin,interviewer,Danielle,25,"And Emory is a Canva for Campus partner, I believe.",neutral,0.8874242901802063,0.0,False
+Erin,interviewer,Danielle,25,"Did you ever hear of any of your peers, professors, or clubs utilizing Canva for Campus?",neutral,0.9425135254859924,0.0,False
+Erin,interviewee,Erin,26,"I know that a few organizations used an upper level of Canva, but I'm not sure if that was directly related to the Canva for Campus plan.",neutral,0.8973409533500671,0.0,False
+Erin,interviewer,Danielle,27,What would convince you to come back to using Canva in the future?,neutral,0.69926917552948,0.0,False
+Erin,interviewer,Danielle,27,"Or why might you come back, if you foresee it happening?",neutral,0.7303540110588074,0.0,False
+Erin,interviewee,Erin,28,"Right now there’s just not a need for me to use an application like Canva, because I’m not creating high-level graphics or documents that require design elements like icons or photographs.",negative,0.5864866375923157,-0.1729732751846313,False
+Erin,interviewee,Erin,28,"If I ever needed something that required more design, I might return to Canva.",neutral,0.697437584400177,0.0,False
+Erin,interviewer,Danielle,29,Great.,positive,0.8795907497406006,0.7591814994812012,False
+Erin,interviewer,Danielle,29,"Is there anything else you'd like to touch on in terms of difficulties you find, or about the transition from college to newly graduated life?",neutral,0.7875279188156128,0.0,False
+Erin,interviewee,Erin,30,"Not particularly, no.",neutral,0.7576244473457336,0.0,False
+Erin,interviewer,Danielle,31,"Okay, great.",positive,0.9291732907295228,0.8583465814590454,False
+Erin,interviewer,Danielle,31,Thanks.,positive,0.7302910685539246,0.4605821371078491,False
+Michelle,interviewer,Frank,1,Let's get started.,positive,0.5464385151863098,0.0928770303726196,False
+Michelle,interviewer,Frank,1,How long have you been using Canva?,neutral,0.9412386417388916,0.0,False
+Michelle,interviewee,Michelle,2,I started using Canva as a freshman in high school.,neutral,0.8913166522979736,0.0,False
+Michelle,interviewee,Michelle,2,That's probably year 5 or year 6 now.,neutral,0.8685246706008911,0.0,False
+Michelle,interviewer,Frank,3,How were you introduced to Canva?,neutral,0.8970581889152527,0.0,False
+Michelle,interviewee,Michelle,4,"I was in student council in high school, and they told me I had to make a flyer for the first time as a freshman.",neutral,0.92454993724823,0.0,False
+Michelle,interviewee,Michelle,4,"I needed to find out how to make flyers, and then I realized Canva existed.",neutral,0.7401254177093506,0.0,False
+Michelle,interviewee,Michelle,4,It was probably other students or a teacher who told me.,neutral,0.8727400302886963,0.0,False
+Michelle,interviewee,Michelle,4,I didn't have Canva Pro at that point.,neutral,0.7092602849006653,0.0,False
+Michelle,interviewer,Frank,5,When did you get Canva Pro?,neutral,0.9282332062721252,0.0,False
+Michelle,interviewee,Michelle,6,"I was a sophomore or a junior when my student council advisor, the student activities manager, figured out that you could do a classroom.",neutral,0.8721318244934082,0.0,False
+Michelle,interviewee,Michelle,6,She gave all of us the Canva code so we could be on her classroom.,neutral,0.8159155249595642,0.0,False
+Michelle,interviewer,Frank,7,How frequent would you say your use for Canva is?,neutral,0.9208434224128724,0.0,False
+Michelle,interviewee,Michelle,8,"In different stages of my life, it's been different.",neutral,0.7911316752433777,0.0,False
+Michelle,interviewee,Michelle,8,"My junior year, I was secretary for student council, and all I did was make flyers, so I made more than one every week.",neutral,0.7280565500259399,0.0,False
+Michelle,interviewee,Michelle,8,Now I make about one or two flyers a week.,neutral,0.84443199634552,0.0,False
+Michelle,interviewer,Frank,9,What's your major?,neutral,0.8487083911895752,0.0,False
+Michelle,interviewer,Frank,9,Do you do any design-related stuff?,neutral,0.907453954219818,0.0,False
+Michelle,interviewee,Michelle,10,"No, my major's Economics and Global Affairs.",neutral,0.8349115252494812,0.0,False
+Michelle,interviewer,Frank,11,"So when you go to the professional world, you probably wouldn't be looking at roles like social media manager or design-heavy positions?",neutral,0.8151911497116089,0.0,False
+Michelle,interviewee,Michelle,12,Probably not.,neutral,0.6784133315086365,0.0,False
+Michelle,interviewer,Frank,13,"When you used Canva before to make those flyers, what drove you to use Canva?",neutral,0.8964971303939819,0.0,False
+Michelle,interviewer,Frank,13,What made you stay?,neutral,0.8319811224937439,0.0,False
+Michelle,interviewee,Michelle,14,I'm not a graphic design person.,neutral,0.4815915524959564,0.0,False
+Michelle,interviewee,Michelle,14,"For me, with no experience, that's too technical.",negative,0.5521539449691772,-0.1043078899383544,False
+Michelle,interviewee,Michelle,14,Canva is great because you can get somewhat technical with experience—background remover and other features—but it's still user-friendly.,positive,0.9330486059188844,0.8660972118377686,False
+Michelle,interviewee,Michelle,14,"I just play around with it, and that's all the training I need.",neutral,0.6614254713058472,0.0,False
+Michelle,interviewer,Frank,15,Do you see yourself using Canva more or less in the future?,neutral,0.9163023829460144,0.0,False
+Michelle,interviewee,Michelle,16,"I really like nonprofits, and they use it a lot even if you're not a design person.",positive,0.92783385515213,0.8556677103042603,False
+Michelle,interviewee,Michelle,16,"For example, I interned with my El Paso Community Foundation two summers ago.",neutral,0.8659247756004333,0.0,False
+Michelle,interviewee,Michelle,16,"I didn't go in for graphic design, but when they found out I could make a flyer, that's all I was doing.",neutral,0.7630681991577148,0.0,False
+Michelle,interviewee,Michelle,16,"It's not my experience or interest, but it comes with the kind of work I'm interested in—nonprofit work or smaller local organizations.",neutral,0.683660089969635,0.0,False
+Michelle,interviewer,Frank,17,"So the biggest value Canva provides you is that it's easy to use, and since you're not a graphic design-type person, you can still make things look good and aesthetic?",positive,0.8602901697158813,0.7205803394317627,False
+Michelle,interviewee,Michelle,18,Yes.,neutral,0.5811464786529541,0.0,False
+Michelle,interviewee,Michelle,18,I also like how many pre-made designs they have.,positive,0.930231511592865,0.86046302318573,False
+Michelle,interviewee,Michelle,18,There's no barrier to entry.,neutral,0.8109650611877441,0.0,False
+Michelle,interviewee,Michelle,18,"Once you get more familiar with it, you can look through designs for ideas, replicate them, and change what you want.",neutral,0.653252124786377,0.0,False
+Michelle,interviewee,Michelle,18,I'm not limited to what they have but can still take ideas.,neutral,0.727243959903717,0.0,False
+Michelle,interviewee,Michelle,20,No.,neutral,0.5609904527664185,0.0,False
+Michelle,interviewee,Michelle,20,"I might have tried one once, and I didn't like it.",negative,0.7304302453994751,-0.4608604907989502,False
+Michelle,interviewee,Michelle,20,I don't remember why.,neutral,0.6726951003074646,0.0,False
+Michelle,interviewee,Michelle,20,"It must have been not as easy, and I never went back.",negative,0.8492319583892822,-0.6984639167785645,False
+Michelle,interviewer,Frank,21,"When I was using Canva, one frustration was transferring from one school account to another.",neutral,0.6034239530563354,0.0,False
+Michelle,interviewer,Frank,21,I couldn't bulk copy my templates.,negative,0.6747904419898987,-0.3495808839797973,False
+Michelle,interviewer,Frank,21,Did that happen to you?,neutral,0.8433049321174622,0.0,False
+Michelle,interviewee,Michelle,22,No.,neutral,0.5609904527664185,0.0,False
+Michelle,interviewee,Michelle,22,I always used my Gmail because I knew my high school account would be deleted.,neutral,0.6000781059265137,0.0,False
+Michelle,interviewee,Michelle,22,"I never used my school district account for Canva, Quizlet, or other things.",neutral,0.8072143793106079,0.0,False
+Michelle,interviewer,Frank,23,"When you went to Yale, did you continue using your personal Gmail?",neutral,0.9252031445503236,0.0,False
+Michelle,interviewee,Michelle,24,"For emails, I use my Yale account.",neutral,0.9093591570854188,0.0,False
+Michelle,interviewee,Michelle,24,"For accounts not connected to other people, I use my Gmail.",neutral,0.8791576027870178,0.0,False
+Michelle,interviewee,Michelle,24,It keeps my Yale inbox cleaner.,positive,0.7503721117973328,0.5007442235946655,False
+Michelle,interviewer,Frank,25,"When you're using Canva, did you have any frustrations?",neutral,0.749533474445343,0.0,False
+Michelle,interviewee,Michelle,26,I haven't run into anything that frustrates me.,neutral,0.4625633060932159,0.0,False
+Michelle,interviewee,Michelle,26,"If I wanted to transfer designs, that might be frustrating, but I've never needed to do that.",negative,0.5701794624328613,-0.1403589248657226,False
+Michelle,interviewer,Frank,27,What do you think Canva could do better?,neutral,0.8043359518051147,0.0,False
+Michelle,interviewer,Frank,27,Is there a feature that could be improved or added?,neutral,0.8522887825965881,0.0,False
+Michelle,interviewee,Michelle,28,Maybe a training feature.,neutral,0.8640576601028442,0.0,False
+Michelle,interviewee,Michelle,28,I've had to mess around with things until I figured them out.,neutral,0.5325407385826111,0.0,False
+Michelle,interviewee,Michelle,28,"Maybe they do have a training thing, and I haven't looked at it, but a crash course or option to revisit it would be helpful.",neutral,0.7542792558670044,0.0,False
+Michelle,interviewee,Michelle,28,"For example, I didn't discover the background remover until year 3 or 4.",neutral,0.8317651748657227,0.0,False
+Michelle,interviewee,Michelle,28,It would have been useful to know earlier.,neutral,0.6087290048599243,0.0,False
+Liv,interviewer,Navaa,1,"So, first tell us a bit about yourself.",neutral,0.899898111820221,0.0,False
+Liv,interviewer,Navaa,1,"Name, age, job.",neutral,0.8791843056678772,0.0,False
+Liv,interviewer,Navaa,1,What do you do with your with your time?,neutral,0.9226228594779968,0.0,False
+Liv,interviewee,Liv,2,My name's Liv Amiri.,neutral,0.838972270488739,0.0,False
+Liv,interviewee,Liv,2,I'm 19 years old.,neutral,0.8294577598571777,0.0,False
+Liv,interviewee,Liv,2,"Oh, it's my birthday, actually.",positive,0.8869550228118896,0.7739100456237793,False
+Liv,interviewee,Liv,2,"Right now, I'm unemployed.",negative,0.7468748092651367,-0.4937496185302734,False
+Liv,interviewee,Liv,2,I am a student.,neutral,0.8748804330825806,0.0,False
+Liv,interviewee,Liv,2,"Previously, I've been employed for a PR company, and I've also worked as a museum docent.",neutral,0.8428627848625183,0.0,False
+Liv,interviewee,Liv,2,"Um, I currently am a freshman at Yale University and I do a lot of humanities stuff.",neutral,0.876361608505249,0.0,False
+Liv,interviewer,Navaa,3,Would you say that you are a current user of Canva or that you don't tend to use it at all?,neutral,0.8596032857894897,0.0,False
+Liv,interviewee,Liv,4,"I would say that over the summer I used Canva and now I have stopped because there hasn't been any projects that I've worked on, but if there was a project that called for it, I would use it.",neutral,0.6083502173423767,0.0,False
+Liv,interviewer,Navaa,5,Got it.,neutral,0.6065152287483215,0.0,False
+Liv,interviewer,Navaa,5,"So, can you tell me about when and why you first started using Canva and what you used it for?",neutral,0.919242262840271,0.0,False
+Liv,interviewer,Navaa,5,"Um, I started using Canva probably in the 8th grade for mostly science classes for labs.",neutral,0.8858242034912109,0.0,False
+Liv,interviewer,Navaa,5,"Um, we would organize our lab data and everything in Canva.",neutral,0.8991994261741638,0.0,False
+Liv,interviewer,Navaa,5,So that's how we would present it and that's how we would turn it in.,neutral,0.8975206017494202,0.0,False
+Liv,interviewer,Navaa,5,"And then also as I got older for English and history classes, when we needed to do a poster or a kind of slideshow base thing or make a graphic.",neutral,0.8671005368232727,0.0,False
+Liv,interviewer,Navaa,5,"We would use Canva also for clubs, for recruitment and events and stuff.",neutral,0.8965634703636169,0.0,False
+Liv,interviewer,Navaa,6,"Okay, so it sounds like your school definitely had some version of like Canva for education subscription.",neutral,0.8394140601158142,0.0,False
+Liv,interviewer,Navaa,6,Can you just like talk me through what specific plan your school had?,neutral,0.8425083756446838,0.0,False
+Liv,interviewee,Liv,7,"Um, I'm not sure what specific one.",neutral,0.6431002616882324,0.0,False
+Liv,interviewee,Liv,7,"Um, and like a bunch of other also film stuff, like Blender and other film editing tools.",neutral,0.8450594544410706,0.0,False
+Liv,interviewee,Liv,7,So we got like a lot of subscriptions to different things.,neutral,0.8932493925094604,0.0,False
+Liv,interviewee,Liv,7,"It's probably a plan through the school where just every student, like they make an agreement with the company and every student gets access through that email until they graduate.",neutral,0.9313802719116212,0.0,False
+Liv,interviewer,Navaa,8,"And when you say you submitted things from your science classes, like on Canva, was that partnering or like through some kind of like, like cross-platform collaboration with like a learning management platform, like Schoology, canvas, stuff like that?",neutral,0.9009682536125184,0.0,False
+Liv,interviewer,Navaa,8,Or was it directly on the canva platform?,neutral,0.9365010261535645,0.0,False
+Liv,interviewee,Liv,9,"Um, so I would share it with the teacher on the Canva platform, but I would also often submit it in Google Classroom or our black bod program, which had like a lot of our assignments, but yeah, and then when I was working on it with other people, we would work on it in Canada and I would share it with them by email.",neutral,0.8856196403503418,0.0,False
+Liv,interviewee,Liv,9,So it'd be through Google.,neutral,0.896876335144043,0.0,False
+Liv,interviewer,Navaa,10,"When did you stop using Canva, and what changed that led you to stop using Canva, or use it less often?",neutral,0.7165918946266174,0.0,False
+Liv,interviewee,Liv,11,I'd say that the most helpful thing about Canva is making it very easy to make graphics and like flyers and stuff like that.,positive,0.950508713722229,0.901017427444458,False
+Liv,interviewee,Liv,11,"And I think that during the college prep process, I was in a lot of things where that was required.",neutral,0.8307062387466431,0.0,False
+Liv,interviewee,Liv,11,"I was an event planner for a certain club and also for my PR company, I would use Canva.",neutral,0.8684447407722473,0.0,False
+Liv,interviewee,Liv,11,I think I stopped using it because here a lot of my classes don't call for design or recruitment posters.,negative,0.6020649075508118,-0.2041298151016235,False
+Liv,interviewer,Navaa,12,"And when you did use Canva, what were your biggest pain points with the platform?",neutral,0.4857149422168731,0.0,False
+Liv,interviewee,Liv,13,I used it for I had my own poetry in an art magazine that was online.,neutral,0.8664178252220154,0.0,False
+Liv,interviewee,Liv,13,And the entire thing was formatted through Canva.,neutral,0.8396667838096619,0.0,False
+Liv,interviewee,Liv,13,"Um, I will say sometimes it was difficult mass formatting, like if a magazine is 20 pages versus one flyer.",negative,0.4871708750724792,0.0256582498550415,False
+Liv,interviewee,Liv,13,It's harder to streamline a design on multiple pages.,neutral,0.5213556885719299,0.0,False
+Liv,interviewee,Liv,13,"I think that, It's a little difficult, the layout of the website.",negative,0.6374858617782593,-0.2749717235565185,False
+Liv,interviewee,Liv,13,"Like, you immediately kind of know what the tools do.",neutral,0.75929856300354,0.0,False
+Liv,interviewee,Liv,13,So it's a little harder in that way.,neutral,0.5066142678260803,0.0,False
+Liv,interviewer,Luv,15,It's a lot more detail oriented.,positive,0.569135308265686,0.138270616531372,False
+Liv,interviewer,Luv,15,I don't think Canva is very detail oriented.,negative,0.6922768354415894,-0.3845536708831787,False
+Liv,interviewer,Luv,15,It's very nice in the sense that it has all of these cutouts and fonts and preset designs and stuff.,positive,0.961374282836914,0.922748565673828,False
+Liv,interviewer,Luv,15,It's not very professional.,negative,0.814897894859314,-0.6297957897186279,False
+Liv,interviewer,Navaa,16,Got it.,neutral,0.6065152287483215,0.0,False
+Liv,interviewer,Navaa,16,"Um, and were there any challenges or frustrations that made Canva less valuable for you specifically?",negative,0.6259517669677734,-0.2519035339355469,False
+Liv,interviewee,Liv,17,"No, I just outgrew it a little bit.",neutral,0.7469208240509033,0.0,False
+Liv,interviewee,Liv,17,"I do think it's very helpful when you're doing stuff for school or like for a club or maybe even just if you're making a flyer for a party or something, like that.",positive,0.7417012453079224,0.4834024906158447,False
+Liv,interviewee,Liv,17,"But when you get to professional things, I think it calls for a more refined tool.",neutral,0.6960160136222839,0.0,False
+Liv,interviewer,Navaa,18,"And for those more professional roles or maybe high-level roles that you might occupy now, have you started using any other tools that aren't Canva?",neutral,0.8895612359046936,0.0,False
+Liv,interviewer,Navaa,18,"And if yes, what do they offer for those specific needs that you might have now that Canva didn't?",neutral,0.8699057102203369,0.0,False
+Liv,interviewee,Liv,19,"As of now, I just think the AI editing things and editing softwares and apps are pretty interesting, and I might turn to that before I use Canva.",positive,0.9136172533035278,0.8272345066070557,False
+Liv,interviewee,Liv,19,"And then, you know, maybe check out AI before I go back to Canva, but if it's just making a poster, then I would use Canva.",neutral,0.8446164131164551,0.0,False
+Liv,interviewer,Navaa,20,"Got it, okay.",neutral,0.5561825633049011,0.0,False
+Liv,interviewer,Navaa,20,"And what would make you consider coming back to Canva, aside from like what you just listed?",neutral,0.9122627377510072,0.0,False
+Liv,interviewee,Liv,21,"I think if it incorporated more AI, if it had an AI option, I think that'd be kind of cool.",positive,0.8219068050384521,0.6438136100769043,False
+Liv,interviewee,Liv,21,"If there's not a preset that you like, you can even tell the AI, like, hey, I kind of want this kind of layout with this vibe and these components.",neutral,0.5780639052391052,0.0,False
+Liv,interviewee,Liv,21,"Even though it has so many presets, if there's something you have specific that you're looking for, I think would be cool for it to be able to generate that.",positive,0.7096860408782959,0.4193720817565918,False
+Liv,interviewee,Liv,21,I don't know if that's the thing in Canva.,neutral,0.703975260257721,0.0,False
+Liv,interviewee,Liv,21,"But what I do like about Canva, I will say, is when you put input a photo, it puts all of your photos that you've imported in one area.",positive,0.7985687255859375,0.597137451171875,False
+Liv,interviewee,Liv,21,I wish that other apps had that.,neutral,0.5449388027191162,0.0,False
+Liv,interviewee,Liv,21,I don't really know if you can edit the photos in Canada.,negative,0.528901219367981,-0.0578024387359619,False
+Liv,interviewee,Liv,21,That might be a cool addition.,positive,0.952864110469818,0.9057282209396362,False
+Liv,interviewee,Liv,21,There's not a ton of like alterations you can make to the actual things you're importing.,neutral,0.6096284985542297,0.0,False
+Liv,interviewee,Liv,21,And I think that that would be helpful.,positive,0.8252062201499939,0.6504124402999878,False
+Queena,interviewee,Queena,1,"Um, that I… that I use quite a lot.",neutral,0.8208328485488892,0.0,False
+Queena,interviewee,Queena,1,"So that… That's why I used Canva for the, um, text feature, but I wasn't really able to edit much.",neutral,0.6706647872924805,0.0,False
+Queena,interviewee,Queena,1,"I think it might be because of the layering option, or I… it just felt, like, really laggy when I was using it.",negative,0.7494516372680664,-0.4989032745361328,False
+Queena,interviewer,Frank,2,"Oh, for video editing?",neutral,0.830451250076294,0.0,False
+Queena,interviewee,Queena,3,Yeah.,neutral,0.5797717571258545,0.0,False
+Queena,interviewee,Queena,3,"Yeah, for video editing.",neutral,0.7693383097648621,0.0,False
+Queena,interviewer,Frank,4,"Mmm, okay.",neutral,0.6585166454315186,0.0,False
+Queena,interviewer,Frank,4,"Oh, okay.",neutral,0.6342689990997314,0.0,False
+Queena,interviewer,Frank,4,Cool.,positive,0.7078977227210999,0.4157954454421997,False
+Queena,interviewee,Queena,5,"And… let me see, I don't think I could import a very long video and… make it background transparent, which was one of the downsides.",negative,0.820215106010437,-0.640430212020874,False
+Queena,interviewee,Queena,5,"So… but I don't know if it's because of the way they operate, if they put it into cloud, and it's too much storage for them, or something, but… Yeah, for our user's perspective, we don't really think that much.",neutral,0.5250809192657471,0.0,False
+Queena,interviewee,Queena,5,"We're just like, oh, it's not allowing me to, I'm switching to another software.",negative,0.7395749092102051,-0.4791498184204101,False
+Queena,interviewer,Frank,6,"Yeah, exactly.",neutral,0.4948466122150421,0.0,False
+Queena,interviewer,Frank,6,"Um, so… Just to get a better overview.",neutral,0.8763322234153748,0.0,False
+Queena,interviewer,Frank,6,"What are some of the other apps or features as a designer, as a student, that you've used alongside Canva?",neutral,0.87456876039505,0.0,False
+Queena,interviewer,Frank,6,"or you think are similar to Canva, or you… like, think could replace Canva.",neutral,0.8440968990325928,0.0,False
+Queena,interviewee,Queena,7,"Um, one of them, I would say, I actually… oh yeah, before I paid the subscription for… for the Canva, I would… I would go to about it this way.",neutral,0.7926086783409119,0.0,False
+Queena,interviewee,Queena,7,I would use my iPad to draw it myself.,neutral,0.8105428814888,0.0,False
+Queena,interviewee,Queena,7,"Like, I would reference the template that Canva has.",neutral,0.8658068776130676,0.0,False
+Queena,interviewee,Queena,7,Template is such a strong asset in Canva.,positive,0.9220423698425292,0.8440847396850586,False
+Queena,interviewee,Queena,7,Because of how professional it looks for some of them.,neutral,0.6774551868438721,0.0,False
+Queena,interviewee,Queena,7,"And then I would just draw it, like, using the same shape, same color, and then I would draw it onto, like, um… That's like, what is it called?",neutral,0.8828532695770264,0.0,False
+Queena,interviewee,Queena,7,Let me see.,neutral,0.6620604991912842,0.0,False
+Queena,interviewee,Queena,7,That's… that's what it's.,neutral,0.7348116040229797,0.0,False
+Queena,interviewee,Queena,7,"And also, yeah, I use Canva for thumbnail making for YouTube videos.",neutral,0.6708327531814575,0.0,False
+Queena,interviewee,Queena,7,"And sometimes I want to add those, like, hand-drawn details to make it look a bit more, you know, handmade, personal.",neutral,0.7023996710777283,0.0,False
+Queena,interviewee,Queena,7,"Um, I have to use, like, um… the cursor to draw it, and it's slightly, like… it's not… it's not as customizable, like, the pen options aren't that many.",negative,0.770391583442688,-0.540783166885376,False
+Queena,interviewee,Queena,7,"And it's, like, all limited to probably, like, 3 options, and they have, like, very specific functions, like, for example, they… I don't know if you know the, um, streamline function, but they would, like, When you draw, you don't have, like, the full control over it.",neutral,0.7884445786476135,0.0,False
+Queena,interviewee,Queena,7,"They would, like, kind of curve you back to where your previous like drawing is, so it's kind of like that.",neutral,0.8874392509460449,0.0,False
+Queena,interviewee,Queena,7,"Um, I wish they have, um, I don't know, I haven't used it on iPad, but if they have an option to, like, draw stuff nicely on Canva, that would be nice.",neutral,0.5023980736732483,0.0,False
+Queena,interviewee,Queena,7,"It doesn't have to be, like, very elaborate.",neutral,0.6640228033065796,0.0,False
+Queena,interviewee,Queena,7,"It could be just, like, Um, just, it could be just, like, good notes.",positive,0.8765179514884949,0.7530359029769897,False
+Queena,interviewee,Queena,7,"Like, we're… we're the pen functions or something is slightly more customizable, but not to the extent of park rate.",neutral,0.825385332107544,0.0,False
+Queena,interviewee,Queena,7,"But it then would be enough for me like, handwrite stuff, because, like, I feel like I'm able to draw, like, tiny little stars or tiny little outlines, but then it wouldn't be enough for me to write, like… happy, or something, like, without making them look very… like, obvious that I'm writing it with my trackpad.",neutral,0.6258981227874756,0.0,False
+Queena,interviewer,Frank,8,Okay.,neutral,0.5692517757415771,0.0,False
+Queena,interviewer,Frank,8,"Yeah, that makes sense.",positive,0.664050817489624,0.328101634979248,False
+Queena,interviewee,Queena,9,"And also, it's slightly limited in terms of, like, the pen functions, like, you can't change how it's tapered, like, towards the end, I think it's just, like, if you let go, then it's like a sharp ending instead of, like, around edges, which I know this is, like, so, like, minute, but, like, sometimes those stuff just… matters.",neutral,0.6482189297676086,0.0,False
+Queena,interviewer,Frank,10,Got it.,neutral,0.6065152287483215,0.0,False
+Queena,interviewer,Frank,10,"Do you think going to a professional setting when you're in college or looking for SARPs or whatever, and when you go to a professional setting once you graduate college, when you land a real job.",neutral,0.9058039784431458,0.0,False
+Queena,interviewer,Frank,10,Do you think he'll keep using Canva?,neutral,0.9583183526992798,0.0,False
+Queena,interviewee,Queena,11,"And that's also because of the fact, if they have subscription for it, and then people can, whether they can collaborate on it.",neutral,0.8800593614578247,0.0,False
+Queena,interviewee,Queena,11,"So, I feel like, in terms of the industry, if… If the company itself is reluctant in changing, or, like, using that as a team, then you wouldn't be using it.",negative,0.5247339606285095,-0.049467921257019,False
+Queena,interviewee,Queena,11,"So it's less of a matter of personal choice, but more of, like, if the company operates on it or not.",neutral,0.7995784878730774,0.0,False
+Queena,interviewee,Queena,11,"And for… for… as for my experience so far in working at startup, they're very flexible.",positive,0.8762006163597107,0.7524012327194214,False
+Queena,interviewee,Queena,11,"And if you want to use Canva Pro, they would give you Canva Pro, like, they would give you a budget, and you can… they can work within that.",neutral,0.6560291647911072,0.0,False
+Queena,interviewee,Queena,11,"Um, but… for a more, like, I don't know, for more… bigger company or more established one, I think if they already have a system in place, It'd be hard to convince them to switch, unless for a compelling reason.",neutral,0.5947570204734802,0.0,False
+Queena,interviewer,Frank,12,Okay.,neutral,0.5692517757415771,0.0,False
+Queena,interviewee,Queena,13,And they usually wouldn't require you to work within the workspace.,neutral,0.8178983926773071,0.0,False
+Queena,interviewee,Queena,13,For purposes of collaborating and also consistency.,neutral,0.6849647760391235,0.0,False
+Queena,interviewer,Frank,14,Mm-hmm.,neutral,0.8152696490287781,0.0,False
+Queena,interviewer,Frank,14,"So, for the current university level of professionalism, Would you keep using Canva coming from high school curriculars to uni clubs?",neutral,0.9233026504516602,0.0,False
+Queena,interviewee,Queena,15,"Okay, that's interesting.",positive,0.8379567265510559,0.6759134531021118,False
+Queena,interviewee,Queena,15,"Because the clubs that I'm in right now, it's more… okay, I'm in the Trojan news, which I'm part of the video editing team.",neutral,0.7897987961769104,0.0,False
+Queena,interviewee,Queena,15,"For video editing, I won't be using Canva, just because of how limiting it is.",negative,0.784943699836731,-0.5698873996734619,False
+Queena,interviewee,Queena,15,"And I'll be using… Uh, like, I think even iMovie would be better, honestly.",neutral,0.4828967452049255,0.0,False
+Queena,interviewee,Queena,15,"Um, so I would be using Final Cut, as usual.",neutral,0.8365100622177124,0.0,False
+Queena,interviewee,Queena,15,"And then for… Marketing purposes, um… I'm think… we haven't started actual marketing yet, because we've been doing branding for the past 2 months, but moving into that, I think I might be for posts, because of the fact that it's still very nice for… quick and easy, um… layouts.",positive,0.6733508706092834,0.3467017412185669,False
+Queena,interviewer,Frank,16,Right.,neutral,0.6263926029205322,0.0,False
+Queena,interviewer,Frank,16,Yeah.,neutral,0.5797717571258545,0.0,False
+Queena,interviewee,Queena,17,And I think Canva just has better layouts and better templates.,positive,0.6541697382926941,0.3083394765853882,False
+Queena,interviewee,Queena,17,"So I think for that, I would.",neutral,0.6663632988929749,0.0,False
+Queena,interviewee,Queena,17,"Um… But other… otherwise… and for YouTube thumbnails, I still would be using Canva, just because of just how ease of use it is for background removing.",neutral,0.5218822956085205,0.0,False
+Queena,interviewee,Queena,17,"That itself, like, it's solely, like… That kind of movie, like, that one feature sold me, because of just how incredibly good it is, but yeah.",positive,0.935848355293274,0.8716967105865479,False
+Queena,interviewee,Queena,17,Um… Yeah.,neutral,0.7914702296257019,0.0,False
+Queena,interviewee,Queena,17,For other ones?,neutral,0.9004431962966919,0.0,False
+Queena,interviewee,Queena,17,"Nope, I don't know.",neutral,0.6804510951042175,0.0,False
+Queena,interviewer,Frank,18,Okay.,neutral,0.5692517757415771,0.0,False
+Queena,interviewer,Frank,18,What would you say your design service using percentage transitioning from highschool to university was like?,neutral,0.8877376914024353,0.0,False
+Queena,interviewee,Queena,19,"Okay, I think… Canva definitely peaked for me in probably grade 11.",positive,0.4799381792545318,-0.0401236414909362,False
+Queena,interviewee,Queena,19,"It used to be, like, 100% Canva.",neutral,0.7877929210662842,0.0,False
+Queena,interviewee,Queena,19,"And then now it's slowly transitioning into, like, also having to learn other softwares.",neutral,0.7639888525009155,0.0,False
+Queena,interviewer,Frank,20,"Okay, got it.",neutral,0.6025015115737915,0.0,False
+Queena,interviewee,Queena,21,"Probably still, like, 60% Canva, because of just how… how… how, like, how much I've been using it in the past, and most of my past works has been on it.",neutral,0.7595356106758118,0.0,False
+Queena,interviewee,Queena,22,"Oh yeah, and also one thing that's very confusing is you know how there's, like, workspace within Canva?",negative,0.687876284122467,-0.3757525682449341,False
+Queena,interviewee,Queena,22,And I can't transition it from one workspace to another.,negative,0.6215612292289734,-0.2431224584579467,False
+Queena,interviewee,Queena,22,"For example, if I've been using Mr. Kwong's workspace, and I've been having Hemet stuff in there, which is my company.",neutral,0.9202011823654176,0.0,False
+Queena,interviewer,Frank,23,Mm-hmm.,neutral,0.8152696490287781,0.0,False
+Queena,interviewee,Queena,24,"I've been using it there, um, and we have… now have a Hemo workspace.",neutral,0.7905805110931396,0.0,False
+Queena,interviewee,Queena,24,I can't really transition it into that.,neutral,0.5044959783554077,0.0,False
+Queena,interviewee,Queena,24,"Like, or I don't know how to in an easy way.",negative,0.6109239459037781,-0.2218478918075561,False
+Queena,interviewee,Queena,24,That's what's quite frustrating.,negative,0.9081188440322876,-0.8162376880645752,False
+Queena,interviewer,Frank,25,"Okay, I totally agree, that was one of the things that was frustrating for me as well transitioning to a Yale email account.",negative,0.768552839756012,-0.5371056795120239,False
+Queena,interviewer,Frank,25,Has that been a big issue for you?,neutral,0.7926714420318604,0.0,False
+Queena,interviewee,Queena,26,"Yeah, it really has… I’ve been using my old LMS account for Canva for so long, and since its non-existent now, there’s almost 100 files on a non-existent account right now.",negative,0.5868964791297913,-0.1737929582595825,False
+Queena,interviewee,Queena,26,"And I don't want to lose them all, but, like, I have, like, no way to deal with it.",negative,0.8749321699142456,-0.7498643398284912,False
+Queena,interviewer,Frank,27,Hmm.,neutral,0.7122845649719238,0.0,False
+Queena,interviewer,Frank,27,"Okay, cool.",positive,0.6889756321907043,0.3779512643814087,False
+Queena,interviewer,Frank,27,"Wait, so have you tried transitioning from one email account to another?",neutral,0.9414508938789368,0.0,False
+Queena,interviewee,Queena,28,"I have, but I don't think it ever worked.",negative,0.8081427812576294,-0.6162855625152588,False
+Queena,interviewee,Queena,28,I'm not sure why.,neutral,0.5896182656288147,0.0,False
+Queena,interviewee,Queena,28,"I think I tried, like, probably 2 or 3 times by now, but… The last time I tried, I think it just made me, like, give up.",negative,0.7500112056732178,-0.5000224113464355,False
+Queena,interviewee,Queena,28,So this is not happening.,negative,0.5280591249465942,-0.0561182498931884,False
+Queena,interviewer,Frank,29,"Ok, thank you so much for your time.",positive,0.9552626013755798,0.9105252027511596,False
+Queena,interviewer,Frank,29,That was a very long time.,negative,0.4575033187866211,0.0849933624267578,False
+Queena,interviewer,Frank,29,"Um, I'll end the recording now, so this will be the end of our formal interview.",neutral,0.8991271257400513,0.0,False
+Jane,interviewer,Navaa,1,"So if you can just tell us a bit about yourself, name, age, what you do, what like your hobbies are, how you use Canva, sure.",neutral,0.8185641765594482,0.0,False
+Jane,interviewee,Jane,2,"Hi, my name is Jane.",neutral,0.6739557981491089,0.0,False
+Jane,interviewee,Jane,2,"I'm a senior at UCLA, studying polysign econ in my free time, I like to do yoga.",positive,0.5822387337684631,0.1644774675369262,False
+Jane,interviewee,Jane,2,"Shop go, you know, look at different cafes in LA with my friends, hang out with friends, watch movies.",neutral,0.5640467405319214,0.0,False
+Jane,interviewer,Navaa,3,"So would you describe yourself as, like, a current user of Canva to like, in in this moment as a student?",neutral,0.9339826107025146,0.0,False
+Jane,interviewee,Jane,4,"We do use Canva, we do have our premium accounts.",neutral,0.8450539708137512,0.0,False
+Jane,interviewee,Jane,4,"I cannot access it, to be honest.",negative,0.8296853303909302,-0.6593706607818604,False
+Jane,interviewee,Jane,4,"We use all the time for group projects, like earlier today, I was doing a group project for one of my classes, and we used Canva for slideshows.",neutral,0.77241450548172,0.0,False
+Jane,interviewee,Jane,4,"I think we've had Canva premium, like, accessible to students for either two or three years.",neutral,0.8289841413497925,0.0,False
+Jane,interviewee,Jane,4,"Now, I know it wasn't a thing my freshman year, but definitely my sophomore or junior year.",neutral,0.7384679913520813,0.0,False
+Jane,interviewee,Jane,4,"Like, everyone used to  access Canva Pro, um, yeah, I think it's pretty good.",positive,0.9072315692901612,0.8144631385803223,False
+Jane,interviewer,Navaa,5,"Yeah, that is kind of like a nice segue into the next question, which is, like, what's the biggest value that you would say Canva provides for you currently?",positive,0.6418489813804626,0.2836979627609253,False
+Jane,interviewer,Navaa,5,"And like, why do you use it?",neutral,0.5378771424293518,0.0,False
+Jane,interviewee,Jane,6,"I just think I know how to use Google, like the Google Cloud stuff, better than I know how to use other, secondary party stuff like Canva.",positive,0.6756500601768494,0.3513001203536987,False
+Jane,interviewee,Jane,6,"But I guess if I were to use it, it would for it to be for, if I want to make an Instagram post for a club or something, or if I want to make a flyer for a club, or even if I want to do like a presentation or something, I think Canva offers a lot more like templates and stickers and to think make things more eye catching.",neutral,0.7152762413024902,0.0,False
+Jane,interviewee,Jane,6,I think that's why a lot of people like to use it.,positive,0.6555924415588379,0.3111848831176758,False
+Jane,interviewer,Navaa,7,"Yeah, absolutely like aesthetic value.",positive,0.9253323674201964,0.8506647348403931,False
+Jane,interviewer,Navaa,7,"Yeah, yeah.",neutral,0.5609479546546936,0.0,False
+Jane,interviewer,Navaa,7,And then what are some reasons that you would like stop using Canva and have you switched to another design tool before?,neutral,0.8513713479042053,0.0,False
+Jane,interviewer,Navaa,7,"And if yes, which one and why it's just like stuff you don't like about it?",negative,0.7392557263374329,-0.4785114526748657,False
+Jane,interviewee,Jane,8,"Actually, today, I was having a hard time trying to add a text box to Canva.",negative,0.7605912685394287,-0.5211825370788574,False
+Jane,interviewee,Jane,8,So I think that's kind of confusing.,negative,0.6824290156364441,-0.3648580312728882,False
+Jane,interviewee,Jane,8,"I think like, you can add a text box, then if you click out of it, it clicks away, or something, it's kind of hard to find.",neutral,0.7044610381126404,0.0,False
+Jane,interviewee,Jane,8,"I think, honestly, that's it.",neutral,0.6799607872962952,0.0,False
+Jane,interviewee,Jane,8,"Like, I think it's pretty intuitive.",positive,0.6469755172729492,0.2939510345458984,False
+Jane,interviewee,Jane,8,"But I think besides Canva, I haven't really used other stuff, like for UCLA.",neutral,0.7248896956443787,0.0,False
+Jane,interviewee,Jane,8,"I would use it because my firm had it, so I would use it and have my Canva Pro.",neutral,0.5079631805419922,0.0,False
+Jane,interviewer,Navaa,9,"Um, and I guess this next question is, is very similar to the last one I just asked.",neutral,0.8410794734954834,0.0,False
+Jane,interviewer,Navaa,9,But what do you find are your current pain points when using Canva?,neutral,0.7268982529640198,0.0,False
+Jane,interviewer,Navaa,9,"If there isn't anything, you don't have to answer it.",neutral,0.6156631708145142,0.0,False
+Jane,interviewee,Jane,10,"Um, I think the pain points, I don't really have one, to be honest.",negative,0.5962880253791809,-0.1925760507583618,False
+Jane,interviewee,Jane,10,I think it's  what I was thinking about the text boxes.,neutral,0.9102556109428406,0.0,False
+Jane,interviewee,Jane,10,"But I think that's just like, I don't use Canva as much as other people do.",neutral,0.6053366661071777,0.0,False
+Jane,interviewee,Jane,10,So that's just a skill issue that I personally have.,neutral,0.6016116738319397,0.0,False
+Jane,interviewer,Navaa,11,"I got you, if there's like, any like, like, logistical, like, account stuff as well that you've, like, run into?",neutral,0.8703334331512451,0.0,False
+Jane,interviewee,Jane,12,"Well, I think like for us, you have Canva premium as a UCLA student, I just personally don't know how to access it and that's okay with me, because I don't really find the need to use it.",neutral,0.6065671443939209,0.0,False
+Jane,interviewee,Jane,12,"And yeah, I don't really find the need to use Canva premium.",negative,0.6080331206321716,-0.2160662412643432,False
+Jane,interviewee,Jane,12,So I don't really use it that much.,neutral,0.6025440096855164,0.0,False
+Jane,interviewee,Jane,12,"I don't really, like, have a lot of skills or hardships with it, to be honest.",negative,0.7920381426811218,-0.5840762853622437,False
+Jane,interviewer,Navaa,13,I got you.,positive,0.7181219458580017,0.4362438917160034,False
+Jane,interviewer,Navaa,13,And then what are some changes or improvements that you think Canva should make to fit your needs specifically better.,neutral,0.7768951654434204,0.0,False
+Jane,interviewee,Jane,14,I don't know.,neutral,0.6740085482597351,0.0,False
+Jane,interviewee,Jane,14,"I honestly feel like Canva is a great, like, tool.",positive,0.9572717547416688,0.9145435094833374,False
+Jane,interviewee,Jane,14,It's just I haven't taken my own time to learn more about it.,negative,0.5685209035873413,-0.1370418071746826,False
+Jane,interviewee,Jane,14,"And that’s the main thing that, like, I don't really use Canva because I don't really see a need to most of the time, but I think like that, the fact that a lot of other people use Canva speaks to, you know, how it's grown and everything, and how it seems to be doing pretty well, and, like, suiting a lot of people's needs.",positive,0.4860312640666961,-0.0279374718666076,False
+Jane,interviewer,Navaa,15,Yeah.,neutral,0.5797717571258545,0.0,False
+Jane,interviewer,Navaa,15,"And I guess one last question is, do you know a lot of people that are accessing Canva premium, and are using Canva pro at UCLA specifically?",neutral,0.9432801008224488,0.0,False
+Jane,interviewer,Navaa,15,"Or is it just that the people you interact with, the people you work with, are also the same, where they don't really feel the need to use it?",neutral,0.6986039280891418,0.0,False
+Jane,interviewee,Jane,16,I think a lot of people I know use Canva Pro.,neutral,0.7963238954544067,0.0,False
+Jane,interviewee,Jane,16,"I think, if it's free at UCLA, then why not use it?",neutral,0.8636428713798523,0.0,False
+Jane,interviewee,Jane,16,"I think is the main thing, but it's also, for example, UCLA gives you Microsoft Outlook for free.",neutral,0.7765241861343384,0.0,False
+Jane,interviewee,Jane,16,"And I don't know how to use it either, and I think it depends like, how much you actively try to look for it.",negative,0.8201243281364441,-0.6402486562728882,False
+Jane,interviewee,Jane,16,"But I think a lot of people use it, like whoever I was working with on the Micro project today.",positive,0.6156965494155884,0.2313930988311767,False
+Yoyo,interviewer,Frank,1,Do you mind if we disclose your demographic information?,neutral,0.9557896256446838,0.0,False
+Yoyo,interviewer,Frank,1,Your age and your gender?,neutral,0.9248621463775636,0.0,False
+Yoyo,interviewee,Yoyo,2,"Yeah, sure, that's fine.",positive,0.7375046610832214,0.4750093221664428,False
+Yoyo,interviewer,Frank,3,"Okay, great, thank you.",positive,0.9732479453086852,0.9464958906173706,False
+Yoyo,interviewer,Frank,3,Cool.,positive,0.7078977227210999,0.4157954454421997,False
+Yoyo,interviewer,Frank,3,"Then, first question is, how long have you been using Canva for?",neutral,0.9216521978378296,0.0,False
+Yoyo,interviewee,Yoyo,4,"Um, I've probably been using Canva for at least, like, 8 years since, like, grade 4.",neutral,0.7905972599983215,0.0,False
+Yoyo,interviewer,Frank,5,Did you ever have a premium account?,neutral,0.922856330871582,0.0,False
+Yoyo,interviewer,Frank,5,"Did you pay for them, or did you always… have you always used a free account?",neutral,0.921549677848816,0.0,False
+Yoyo,interviewee,Yoyo,6,"Um, I never paid for it, I just got a free premium account from my high school, yeah.",neutral,0.7934750318527222,0.0,False
+Yoyo,interviewer,Frank,7,Where did you get this free account from?,neutral,0.903483748435974,0.0,False
+Yoyo,interviewee,Yoyo,8,"I mean, like, my school kind of provided it, but then, like, Okay, like, they provided it when I was in, like, grade 10 or something, so before that, I just used it for free, like, I never really paid for it.",neutral,0.827389121055603,0.0,False
+Yoyo,interviewer,Frank,9,"Okay, got it.",neutral,0.6025015115737915,0.0,False
+Yoyo,interviewer,Frank,9,Do you remember which teacher you got Canva Premium from?,neutral,0.9554594159126282,0.0,False
+Yoyo,interviewee,Yoyo,10,"Um, I think my school just sent me an email, and then they were like, oh, if you're, like, interested in this, you can sign yourself up, but there's, like, limited, like, spots for it, and I just, like, got it, like, immediately.",neutral,0.7476588487625122,0.0,False
+Yoyo,interviewer,Frank,11,"Um, yeah.",neutral,0.7708285450935364,0.0,False
+Yoyo,interviewer,Frank,11,"So, you've always been using Canva for a while.",neutral,0.9122794270515442,0.0,False
+Yoyo,interviewer,Frank,11,What do you normally use Canva for?,neutral,0.929024875164032,0.0,False
+Yoyo,interviewee,Yoyo,12,"I guess, I feel like Canva's really useful if you're, like, making, like, low-stakes social media posts, especially for, like, different clubs or, like, For, like, I guess, like, school clubs, too.",positive,0.6566783785820007,0.3133567571640014,False
+Yoyo,interviewee,Yoyo,12,"I don't think it's, like, the best kind of, like, platform for making more advanced design, but if I'm just doing it for, like, I really, really, like, mini project, and I'll probably use Canva.",negative,0.6537555456161499,-0.3075110912322998,False
+Yoyo,interviewer,Frank,13,"Then, specifically, could you describe how you use Canva?",neutral,0.930916428565979,0.0,False
+Yoyo,interviewer,Frank,13,"How is Canva used as a part of your workflow when designing posters, websites, flyers?",neutral,0.8959261775016785,0.0,False
+Yoyo,interviewee,Yoyo,14,"Okay, for flyers and, like, for graphic designs in general, like, Canva's good, because, like, especially if you want to make it, like, in a really short time, because they provide you, like, things like templates.",positive,0.8335394263267517,0.6670788526535034,False
+Yoyo,interviewee,Yoyo,14,"Which is, like, quite useful, but if we're talking about, like, website design, like, it's really, really hard to navigate.",negative,0.6936131715774536,-0.3872263431549072,False
+Yoyo,interviewer,Frank,15,"Okay, got it.",neutral,0.6025015115737915,0.0,False
+Yoyo,interviewer,Frank,15,Could you list all the design services you use?,neutral,0.910603642463684,0.0,False
+Yoyo,interviewee,Yoyo,16,All the softwares I use?,neutral,0.8989887833595276,0.0,False
+Yoyo,interviewee,Yoyo,16,"And then there's, like, a bunch of, like, um, kind of, like, 3D modeling things I do.",neutral,0.8196037411689758,0.0,False
+Yoyo,interviewee,Yoyo,16,I also use a bit of Blender.,neutral,0.7003886699676514,0.0,False
+Yoyo,interviewee,Yoyo,16,"Yeah, that's basically it.",neutral,0.6871253848075867,0.0,False
+Yoyo,interviewer,Frank,17,Wow.,positive,0.6795675754547119,0.3591351509094238,False
+Yoyo,interviewer,Frank,17,"The reason I ask is because I want to know how much of each software do you use, or do you rely on?",neutral,0.9017353057861328,0.0,False
+Yoyo,interviewer,Frank,17,What would be the percentage distribution of the time you spend usinh these different services?,neutral,0.912858784198761,0.0,False
+Yoyo,interviewee,Yoyo,18,"And then I feel like the rest… I said 30% for Canvas, so, like, the rest, like, 20%...",neutral,0.7953714728355408,0.0,False
+Yoyo,interviewee,Yoyo,20,"Yeah, I specifically asked that.",neutral,0.8533043265342712,0.0,False
+Yoyo,interviewee,Yoyo,20,"Yeah, because I feel like, um, I think it's mainly because, like, Canva, it's like, they provide you so many templates, and it's just, like, really easy for you to just, like, replicate designs that are, like, not that original.",neutral,0.615447461605072,0.0,False
+Yoyo,interviewer,Frank,21,"Oh, okay.",neutral,0.6342689990997314,0.0,False
+Yoyo,interviewer,Frank,21,"Wait, I didn't know that.",neutral,0.6373668909072876,0.0,False
+Yoyo,interviewee,Yoyo,22,"Um, I asked them, like, oh, do you guys usually use Canva, or do you accept, like, using Canva for it?",neutral,0.9215133786201476,0.0,False
+Yoyo,interviewer,Frank,23,"What do you think you'll be doing in the future, career-wise, and what's your major currently?",neutral,0.7575012445449829,0.0,False
+Yoyo,interviewer,Frank,23,"Do you think you're gonna need to be doing mainly just UI design, graphics design?",neutral,0.892707109451294,0.0,False
+Yoyo,interviewer,Frank,24,"Do you see yourself using Canva as you progress into more professional settings, like professional clubs and internships, or when you eventually get a job?",neutral,0.8705490231513977,0.0,False
+Yoyo,interviewee,Yoyo,25,"more, because I feel like… I don't know, I feel like Canva is something for, like, more, like, casual designers and people who just need to design for, like, And, like, at a beginner's level, so I'm not really sure about that, but I, like… If I had to, like, really answer that question, I don't think I would be using Canva in the long term.",neutral,0.5601487755775452,0.0,False
+Yoyo,interviewer,Frank,26,"Could you describe your use of Canva, how frequently have you used Canva since you started to use it, all the way till now, and also how frequent do you think you’ll use it in the future?",neutral,0.8249695301055908,0.0,False
+Yoyo,interviewee,Yoyo,27,"Okay, um, I definitely use it a lot when I just started, because I wasn't great for it, and I had, like, I had, like, basic, basic knowledge on design, so I felt like it was really useful, because it's super, super easy to, like, navigate, for example, to, like, make shapes and, like, just, like, format them, because it's, like, It's on a… it's on… it's usually used on a website, so it's, like, relatively easy and things like that.",positive,0.79928058385849,0.59856116771698,False
+Yoyo,interviewee,Yoyo,27,"Um, and then I feel like when I got to, like, grade 10 or grade 9, I kind of used it, like, extensively.",neutral,0.8507927656173706,0.0,False
+Yoyo,interviewee,Yoyo,27,"I feel like grade 10, especially because I got, like, the premium account for free, and then that's when I started, like, using it for, like, social media posts and things like that.",neutral,0.803391695022583,0.0,False
+Yoyo,interviewee,Yoyo,28,"So I feel like, in the long term, Um, I might be using less of, like, Canva, maybe?",neutral,0.8348255753517151,0.0,False
+Yoyo,interviewee,Yoyo,28,"Like, I said 30% in general.",neutral,0.7776334881782532,0.0,False
+Yoyo,interviewee,Yoyo,28,"I think… I feel like it's gonna drop to, like, 10 or 5. like, maybe next year.",neutral,0.7003799676895142,0.0,False
+Yoyo,interviewer,Frank,29,"So, Canva isn't very suited for what you want to do now, which is more professional work, Is that what I'm hearing?",negative,0.6527639627456665,-0.305527925491333,False
+Yoyo,interviewee,Yoyo,30,"Like, Canva does offer that, but it's super hard to, like, navigate, especially when you're, like, forming, like, curves and things like that.",negative,0.6816477179527283,-0.3632954359054565,False
+Yoyo,interviewee,Yoyo,30,"Especially with, like, just, like, editing images and, like, lighting, and then, like, shades in general, and I feel like with Canva, I feel like there's… Like, they only give you, like, a few filters, and that's it.",neutral,0.5794359445571899,0.0,False
+Yoyo,interviewee,Yoyo,30,"So it's, like, really hard if I'm, like, switching between different platforms, like, I'd rather just focus, like, on one platform that allows me to do, like, everything I need.",negative,0.5058661103248596,-0.0117322206497192,False
+Yoyo,interviewer,Frank,31,"Hmm, okay, got it.",neutral,0.5998784303665161,0.0,False
+Yoyo,interviewer,Frank,31,"So, specifically, you mentioned the filters feature.",neutral,0.8792981505393982,0.0,False
+Yoyo,interviewer,Frank,31,"What other features have you found useful in Canva, and what features like that have you found in comparing… when comparing to other apps have not been so good?",neutral,0.6903683543205261,0.0,False
+Yoyo,interviewee,Yoyo,32,"Um, I feel like what's good about Canva, like, like, there's probably… I remember… I think there's this, like, section called, like, Elements and stuff, and you can just, like, search up, like, shapes and icons, and you can just directly paste it in there.",positive,0.8577368259429932,0.7154736518859863,False
+Yoyo,interviewee,Yoyo,32,"If you have the premium account, because most of them are, like, not free, which is, I feel like it's good.",positive,0.7798904180526733,0.5597808361053467,False
+Yoyo,interviewee,Yoyo,33,"Like, when Canva actually provides me, like, the icons already, so I feel like… That's really good about Canva, and I feel like that's why beginners, like, really like to use it, because it's, like, so easy to, like, just pull and then paste it on your design.",positive,0.9660228490829468,0.9320456981658936,False
+Yoyo,interviewer,Frank,35,"So, what was the reason you started to switch from Canva to, like, other services, and when did that happen?",neutral,0.939513087272644,0.0,False
+Yoyo,interviewer,Frank,37,"Is it because of extracurricular activities or your personal use, or…?",neutral,0.9141190052032472,0.0,False
+Yoyo,interviewee,Yoyo,38,"Um, I feel like extracurricular, definitely, personal use, too.",neutral,0.7767789363861084,0.0,False
+Yoyo,interviewer,Frank,39,"Mmm, okay.",neutral,0.6585166454315186,0.0,False
+Yoyo,interviewee,Yoyo,40,"Yeah, no, that precise, yeah.",neutral,0.5723250508308411,0.0,False
+Yoyo,interviewer,Frank,41,"Why is precision mattered, or why is it valued in this field?",neutral,0.7668341994285583,0.0,False
+Yoyo,interviewee,Yoyo,42,"There's a… I feel like in design, like, especially in design, they really focus on things like, like, symmetry and making it everything, like, organized, and then UI-friendly, um, because, like, there's so many websites out there, and if your website does not look, like, symmetrical, or, like, Um, it's like, everything's, like, not structured in a more, like, in an easy-to-navigate way.",neutral,0.6380593776702881,0.0,False
+Yoyo,interviewee,Yoyo,42,"Like, you basically lose users, so, like, I feel like that's really important, which is, like, really different from arts, because for arts, you could be, like, super abstract and things like that, and people will still, like, look at your thing.",neutral,0.5597748756408691,0.0,False
+Yoyo,interviewee,Yoyo,42,"But for design, because there's so many websites out there, if you don't make it, like, super easy to navigate immediately when you, like, pop up to their homepage, you basically lose users instantly.",negative,0.5168774127960205,-0.033754825592041,False
+Yoyo,interviewee,Yoyo,42,"So I feel like that's why it's so important to make it super precise and, like, super symmetrical in terms of, like, numbers, too, and just, like, not, like, when you look at it.",positive,0.5036771297454834,0.0073542594909667,False
+Yoyo,interviewee,Yoyo,42,"To, like, make sure that every user is comfortable with it, because you don't know if, like, there's users who's, like, super picky about design and just, like, just, like, looking at, like, oh, how, like, symmetrical it is.",neutral,0.6797987818717957,0.0,False
+Yoyo,interviewer,Frank,43,My next question would be… what's normally… what's typically your design purpose?,neutral,0.9033594131469728,0.0,False
+Yoyo,interviewer,Frank,43,Are you normally making websites?,neutral,0.941448450088501,0.0,False
+Yoyo,interviewer,Frank,43,Are you normally making flyers?,neutral,0.9496605396270752,0.0,False
+Yoyo,interviewer,Frank,43,"Or has that been, like, transforming throughout your whole lifecycle as well?",neutral,0.88092440366745,0.0,False
+Yoyo,interviewee,Yoyo,44,"Um, I feel like it really depends on what type of design, because I do graphic design, I do UI design, and I used to do, like, a bit of, like, product and, like, architectural design in high school, but just for, like, project-based and things like that.",neutral,0.8376522064208984,0.0,False
+Yoyo,interviewee,Yoyo,44,"Um, I feel like currently I'm doing a lot of, like, graphic design and media things, and then I'm starting a, like, a more, like, UX and, like, service design project, and I feel like that's, like, kind of, like, my purpose, I guess, like… Just to make, like, it really depends on the project I'm currently being assigned to.",neutral,0.707237720489502,0.0,False
+Yoyo,interviewee,Yoyo,44,"Because of… yeah, because I feel like I'm getting more, like, project assignments and, like, initiating them currently, so, like, I feel like it's… It really depends on, like, what type of design I'm going for.",neutral,0.7943230867385864,0.0,False
+Yoyo,interviewer,Frank,45,What are some of the specific pain points or frustrations when you use Canva?,negative,0.5326457023620605,-0.0652914047241211,False
+Yoyo,interviewee,Yoyo,46,"Um, I feel like… I would definitely, like, dimensions, and then, like, making sure everything's, like, really precise.",neutral,0.6802805662155151,0.0,False
+Yoyo,interviewee,Yoyo,46,"And then there's also the idea of being original with design, um, because there's, like, a bunch of templates.",neutral,0.5670169591903687,0.0,False
+Yoyo,interviewee,Yoyo,46,"And, like, when I first started Canva, Um, I definitely find myself just using these templates and kind of, like, switching things up, but it's, like, not really original.",neutral,0.4946952164173126,0.0,False
+Yoyo,interviewee,Yoyo,46,"And if you think about it, there's so many users who, like, use Canva, and then at one point, you'll probably see, like, almost identical design on, like, on web, if you're, like, actually, like, using templates from, like, Canva, which is, like, a really bad thing.",negative,0.7892274856567383,-0.5784549713134766,False
+Yoyo,interviewee,Yoyo,46,"For designers, because we're basically taking… taking away, like, their originality and then their creativity.",negative,0.7757546305656433,-0.5515092611312866,False
+Yoyo,interviewee,Yoyo,46,"Which is kind of, like, one of my concerns, but it's also, like, one of the best parts about Canva, if you're not a designer and you just want to, like, make a design.",positive,0.8212080597877502,0.6424161195755005,False
+Yoyo,interviewee,Yoyo,46,"Like, really fast, and things like that.",neutral,0.6614710092544556,0.0,False
+Yoyo,interviewee,Yoyo,46,"And then there's also the idea of, like, photo editing and things, and then just, like, making, like, unique, like, vectors and shapes.",neutral,0.7819900512695312,0.0,False
+Yoyo,interviewee,Yoyo,46,"Which is, like, my main… also, like, one of my main concern.",neutral,0.7213409543037415,0.0,False
+Yoyo,interviewee,Yoyo,46,"But I feel like other than that, it's okay.",positive,0.5758297443389893,0.1516594886779785,False
+Yoyo,interviewee,Yoyo,47,"Oh, and I also, like, I think… Canva added, like, this AI editor thing.",neutral,0.7594873309135437,0.0,False
+Yoyo,interviewee,Yoyo,47,"Like, AI bar or something, like, in their thing, where it, like, literally just, like, you can put, like, keywords in there, and they help you generate design.",neutral,0.7492157220840454,0.0,False
+Yoyo,interviewee,Yoyo,47,"And personally, I don't really like that idea, because it's basically not your design anymore, it's like the AI's design, and then your prompt and everything together.",negative,0.8891721963882446,-0.7783443927764893,False
+Yoyo,interviewee,Yoyo,47,"I don't really… like that, but I feel like I know why they would put that in there, because, like, basically, most websites… They're integrating, like, AI helpers and stuff, but I just don't feel like it's the best way with design.",negative,0.838039755821228,-0.676079511642456,False
+Yoyo,interviewee,Yoyo,48,"So, like, if you don't download the plugin, you basically don't use it.",neutral,0.5305719375610352,0.0,False
+Yoyo,interviewee,Yoyo,48,"But then for Canva, it's, like, right there, like, on the left panel, so I feel like it's really easy for people to just, like, directly, like, start using it.",positive,0.5649881362915039,0.1299762725830078,False
+Yoyo,interviewee,Yoyo,48,"Also, like, for designers and stuff.",neutral,0.8342148661613464,0.0,False
+Yoyo,interviewee,Yoyo,48,"I don't feel like that's the best idea, but I do get why they put them there, yeah.",negative,0.7341602444648743,-0.4683204889297485,False
+Yoyo,interviewer,Frank,49,You said something about hard-to-form specific unique vectors or shapes in Canva.,neutral,0.8420513272285461,0.0,False
+Yoyo,interviewer,Frank,49,Why is it important to form unique vectors and shapes from a designer's point of view?,neutral,0.8035023808479309,0.0,False
+Yoyo,interviewee,Yoyo,50,"Um… okay, because, like… Mmm… I feel like a lot of designs, like, out there, they basically use the same shapes.",neutral,0.7748828530311584,0.0,False
+Yoyo,interviewee,Yoyo,50,"It's, like, squares in the circles, and then just, like, basic curvy lines.",neutral,0.8516650795936584,0.0,False
+Yoyo,interviewee,Yoyo,50,"And I feel like if you really want to be unique with it, I feel like it's really important for you to know how to, like, make your own shapes, and especially make it really according to, like, what… I feel like, like, what you actually need, like, for example, for, like, for the club I'm currently in, for Design at Columbia, um, We use, like, specific, like… we don't use specific shapes, like… I mean, we do really focus on consistency and things like that, but, like, We like to add, like, different shapes, just to, like, really catch people's, like, like, kind of, like, eyeballs, in a sense, because there's so many, like, clubs out there that basically, like, okay, like, for example, like, finance clubs, they basically just use, like, squares and, like, squares like rectangles and stuff, and then that's basically their purpose, because they want to look, like, professional.",neutral,0.6453590393066406,0.0,False
+Yoyo,interviewee,Yoyo,51,"But for, like, Designer Colombia, we want to make it, like, more unique.",neutral,0.5210109353065491,0.0,False
+Yoyo,interviewee,Yoyo,51,"So then, like, I feel like making, like, unique backstairs is definitely a way to do so.",positive,0.6267620325088501,0.2535240650177002,False
+Yoyo,interviewee,Yoyo,51,"And also, um… I feel like a lot of people use Canva to make logos, and if you want to make a really unique logo, you definitely need to use, like, bacteria's and unique shapes.",neutral,0.6547808051109314,0.0,False
+Yoyo,interviewee,Yoyo,51,"Because, like, you… because there's only, like, so many ways to combine, like, shapes like squares and circles to make, like, a logo, and if you want to make something that's actually unique, you definitely need to use, like, like, factors in, like, unique shapes, so I feel like that's why, like, I thought it was quite a big concern for me.",neutral,0.6310956478118896,0.0,False
+Yoyo,interviewer,Frank,52,"Regardless, these pain points, so you said it's hard to create unique figures and shapes, it's hard to be precise on Canva, which is bad for retaining users.",negative,0.8318822979927063,-0.6637645959854126,False
+Yoyo,interviewer,Frank,52,"And it's also, um, Canva also has an AI feature that takes, so hey, originality and creativity.",positive,0.5951018333435059,0.1902036666870117,False
+Yoyo,interviewer,Frank,52,You also said before about the filters.,neutral,0.8676301836967468,0.0,False
+Yoyo,interviewer,Frank,52,"Um, I think I also interviewed Quina, and Queena also said something about the filters, and… What are your thoughts on them?",neutral,0.9460948705673218,0.0,False
+Yoyo,interviewer,Frank,52,Why are they bad?,negative,0.8241588473320007,-0.6483176946640015,False
+Yoyo,interviewer,Frank,52,Is it just because there's not enough?,negative,0.6906336545944214,-0.3812673091888428,False
+Yoyo,interviewee,Yoyo,53,"Um, okay, I feel like… Canva filters and Instagram filters are, like, really similar, because when you, like, post stories, and then you, like, swap through the filters, there's basically, like, 5 or 6, and they're, like, either, like, super saturated, or they're, like, black and white.",neutral,0.720914900302887,0.0,False
+Yoyo,interviewee,Yoyo,53,"Um, I feel like that's really difficult to use sometimes.",negative,0.8323624730110168,-0.6647249460220337,False
+Yoyo,interviewee,Yoyo,54,"So I feel like that's quite, like, a big concern, too.",negative,0.62013179063797,-0.2402635812759399,False
+Yoyo,interviewer,Frank,55,"Okay, understood.",neutral,0.5275537967681885,0.0,False
+Yoyo,interviewer,Frank,56,"So, the idea is that the camera filters are way too Instagramy.",negative,0.6416393518447876,-0.2832787036895752,False
+Yoyo,interviewer,Frank,56,They make it look unprofessional.,negative,0.7999659180641174,-0.5999318361282349,False
+Yoyo,interviewee,Yoyo,57,"Yeah, you could tell it's, like, it's more for, like, casual purposes.",neutral,0.7883159518241882,0.0,False
+Yoyo,interviewer,Frank,58,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,58,"Then, when you get an internship or a job as a professional UX designer, do you know what software industries or startups or companies usually look for, or prescribe for designers to use.",neutral,0.8688651323318481,0.0,False
+Yoyo,interviewee,Yoyo,59,"And then, I don't think you use Canva unless you work in Canva.",neutral,0.5835450887680054,0.0,False
+Yoyo,interviewee,Yoyo,59,Yeah.,neutral,0.5797717571258545,0.0,False
+Yoyo,interviewer,Frank,60,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,60,"In your experience, um, have you ever met a professional?",neutral,0.9214727878570556,0.0,False
+Yoyo,interviewer,Frank,60,"UI UX designer, that usually, like, hinges a lot on Canva.",neutral,0.7850937247276306,0.0,False
+Yoyo,interviewee,Yoyo,61,"Um, no, I don't think so.",neutral,0.5999263525009155,0.0,False
+Yoyo,interviewer,Frank,62,"Okay, so I'm assuming, unless it's, like, just a startup, or they don't have enough expertise or money, or it's, like, in a tech or finance startup, if they really care about the professionality of their designs, they wouldn't really go to Canva.",neutral,0.4965007305145263,0.0,False
+Yoyo,interviewer,Frank,64,"Okay, understood.",neutral,0.5275537967681885,0.0,False
+Yoyo,interviewer,Frank,65,"I guess in a future setting like that, in what scenarios do you see yourself?",neutral,0.9276522397994996,0.0,False
+Yoyo,interviewer,Frank,65,"Like, why would you keep on using Canva in the future?",neutral,0.5022549033164978,0.0,False
+Yoyo,interviewee,Yoyo,66,"I feel like for, like, personal reasons, for example, if I'm gonna throw, like, a birthday party or something, and then I basically… I don't… I don't really need it to be, like, that professional, I'll probably just go in, like, something on Canva.",negative,0.5624740123748779,-0.1249480247497558,False
+Yoyo,interviewee,Yoyo,66,"I guess I'm definitely… I don't think I'm gonna use it for, like, club purposes or things like that, unless it's something, like, super casual.",neutral,0.6180237531661987,0.0,False
+Yoyo,interviewee,Yoyo,66,"Like, um, for example, if I'm… because I'm at Designer Columbia, like, there's no way I'm gonna use Canva.",negative,0.6173678040504456,-0.2347356081008911,False
+Yoyo,interviewee,Yoyo,66,"For that, because it's, like, so design-focused.",neutral,0.6405707001686096,0.0,False
+Yoyo,interviewee,Yoyo,66,"But for example, if it's, like, for, like, a cultural club, like, for example, like a Hong Kong club, Like, and they want to host, like, a mixer, or, like, a party or something.",neutral,0.8895254135131836,0.0,False
+Yoyo,interviewee,Yoyo,66,"Okay, they will probably use Canva, because it's so easy to use, and it's so, like… quick to just form a poster.",positive,0.7295829653739929,0.4591659307479858,False
+Yoyo,interviewer,Frank,67,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,67,"I just wanted to ask this again, but except for the frustrations and pain points you said about using Canva before Personally, when I was using Canva, when I had to switch from accounts, like, our school changed from LMS to a student.isf.edu, and then at my university, and I had my personal account.",neutral,0.6310936212539673,0.0,False
+Yoyo,interviewer,Frank,67,"I actually have, like, 3 or, like, four separate Canva accounts, one for my professional personal account, one for my… Like, the one I created back in grade 2.",neutral,0.8375999331474304,0.0,False
+Yoyo,interviewer,Frank,67,"I have also my LMS and Zoom one, so when I was trying to transfer designs, and I was trying to, like, switch email accounts, I was really difficult for me.",neutral,0.5221055150032043,0.0,False
+Yoyo,interviewer,Frank,67,"I don't know if you've ever had that experience with, like, transferring batches of design templates or switching email accounts.",neutral,0.6802938580513,0.0,False
+Yoyo,interviewee,Yoyo,68,"Okay, I… yeah, definitely, I hate it a lot.",negative,0.9425054788589478,-0.8850109577178955,False
+Yoyo,interviewee,Yoyo,68,"Um, okay, okay, um, something I noted, because we switched from, like, LMS to, like, just, like, student account in general, right?",neutral,0.8831836581230164,0.0,False
+Yoyo,interviewee,Yoyo,68,"Um…my, like, a lot of my designs, like, I feel like it was really weird, because when I, like… there's this option called, like, sign in using Google, right?",negative,0.6868419051170349,-0.3736838102340698,False
+Yoyo,interviewee,Yoyo,68,"And then, like, my email popped up, it was, like, student… it was, like, the student account email, which was supposed to be the right one, but whenever I use, like, um, sign in through Google, it transfers me to my LMS account, which is, like, super annoying, because that one's, like, not… that one's, like… I don't have, like, the premium function in that one.",neutral,0.5214005708694458,0.0,False
+Yoyo,interviewee,Yoyo,68,"And I had to, like, switch back and then sign in manually, like, I have to type my email up manually, or, like, student account, and then I need… I remember so clearly that I need to…Um, like, get a verification code every time I sign in if I do it manually, but that's the only way.",neutral,0.7803627848625183,0.0,False
+Yoyo,interviewee,Yoyo,68,"So it gets, like, really annoying at one point.",negative,0.8795090913772583,-0.7590181827545166,False
+Yoyo,interviewee,Yoyo,68,"But right now, I feel like it's fine, because, like, I switched completely to, like, a university account.",positive,0.6402139663696289,0.2804279327392578,False
+Yoyo,interviewee,Yoyo,68,"So that's okay, but it was just really annoying for me doing high school.",negative,0.807255208492279,-0.6145104169845581,False
+Yoyo,interviewer,Frank,69,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,69,"Then, have you ever had to, for example, share a batch or transfer a batch of designs or templates from one account to another?",neutral,0.92178076505661,0.0,False
+Yoyo,interviewer,Frank,69,And what was your experience with that?,neutral,0.8849069476127625,0.0,False
+Yoyo,interviewee,Yoyo,70,"Honestly, I haven't… I did it with my LMS and, like, my student account.",neutral,0.8129311203956604,0.0,False
+Yoyo,interviewee,Yoyo,70,"It was really annoying, because, like, there's… you send, like, invitations and stuff, and then especially when you're sharing it with, like, other collaborators, Um, and it's like, I feel like it's just harder to navigate because, like, especially when you want to make someone a viewer or an editor, it's just super hard to, like… really, like, um, really, like, do that, and then just differentiate between that, because I feel like for, like, for example, for Google, it's just really easy to just click, like, comment or editor and stuff.",negative,0.7449830770492554,-0.4899661540985107,False
+Yoyo,interviewee,Yoyo,70,"But I remember with, like, Canva, I did have issues with that at first, but afterwards it was okay.",neutral,0.5701964497566223,0.0,False
+Yoyo,interviewee,Yoyo,70,"And then currently, um, currently I don't really need to, like, transfer, like, projects and stuff across my high school account to my uni account, because it's a completely different thing like that.",neutral,0.8093212842941284,0.0,False
+Yoyo,interviewee,Yoyo,70,"So I feel like that's not my major concern, but I will definitely see it as something that's, like, a problem.",negative,0.6470949053764343,-0.2941898107528686,False
+Yoyo,interviewee,Yoyo,70,"If you're, like, in high school and you're switching between accounts.",neutral,0.9224931001663208,0.0,False
+Yoyo,interviewer,Frank,71,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,71,"What do you think, then, as a designer?",neutral,0.9171337485313416,0.0,False
+Yoyo,interviewer,Frank,71,"If Canva wanted to, let's say, keep users from transferring high school to University, or from university to a more professional setting, what improvements do you think Canva could make?",neutral,0.8404175639152527,0.0,False
+Yoyo,interviewee,Yoyo,72,"Honestly, I feel like they could make things, like, they could add a better grid system that makes everything more precise.",positive,0.5675210356712341,0.1350420713424682,False
+Yoyo,interviewee,Yoyo,72,"Um, and I feel like… maybe make AI a plugin?",neutral,0.9016506671905518,0.0,False
+Yoyo,interviewee,Yoyo,72,I'm not sure.,neutral,0.7429108619689941,0.0,False
+Yoyo,interviewee,Yoyo,72,"I feel like people will still use it, and it's already there, so it's, like, really hard to, like, modify it.",neutral,0.4846566021442413,0.0,False
+Yoyo,interviewee,Yoyo,72,And I feel like what makes Canva special is just how easy and simple it is for people who are not professional to use it.,positive,0.888933539390564,0.7778670787811279,False
+Yoyo,interviewee,Yoyo,72,"And I feel like, um, other platforms don't… are not as good as Canva in doing so, just to make things, like, really simple.",negative,0.807435154914856,-0.6148703098297119,False
+Yoyo,interviewee,Yoyo,72,"People still won't use it, so I I feel like they could improve a few functions, like image filter and stuff like that, but I feel like they could also keep, like, the idea of, like, templates.",neutral,0.635733425617218,0.0,False
+Yoyo,interviewee,Yoyo,72,"And things like that, just because, like, that's what makes this, like, so special and so easy to use.",positive,0.920985221862793,0.8419704437255859,False
+Yoyo,interviewee,Yoyo,72,"So I feel like, um, something for Canva is just to, like, make sure that they still keep it, like, simple, and then, um, easy to use for, like, beginners, but also just to, like, Improve a few functions, but I don't think they need to, like, really, like, drastically change it and to make it all, like, we want this to be, like, something, like, more professional-based, like, I feel like that's not something they should do.",neutral,0.6754599213600159,0.0,False
+Yoyo,interviewer,Frank,73,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,73,"Specifically, I wanted to ask, you talked about the features that create and privileged included the grid and the photo image filter function.",neutral,0.8735558390617371,0.0,False
+Yoyo,interviewer,Frank,73,What specifically could they do to the image filter function?,neutral,0.9109953045845032,0.0,False
+Yoyo,interviewee,Yoyo,74,"Um, for example, um, there's, like, photo editing, like, softwares, for example, like Snapseed, which is, like, sponsored by Google, and then they do a lot… they can change, like, Not just they can change, like, brightness, like, contrast, and things like that, they could also, like, modify, like, specific colors and, like, curves and things like that.",neutral,0.7978946566581726,0.0,False
+Yoyo,interviewee,Yoyo,74,"And I… I remember Canva too, they do have it, but it's, like, just, like, they simplified it a lot.",neutral,0.7693336606025696,0.0,False
+Yoyo,interviewee,Yoyo,74,"Um… And it's mainly, like, things like just, like, brightness, contrast, and, like, the most basic things you could adjust.",neutral,0.8088371753692627,0.0,False
+Yoyo,interviewee,Yoyo,74,"And then, like, basic filters.",neutral,0.7073549628257751,0.0,False
+Yoyo,interviewee,Yoyo,74,"Um, which I felt like was not that good, I guess.",negative,0.8989349007606506,-0.7978698015213013,False
+Yoyo,interviewee,Yoyo,74,"So I feel like they could, like, incorporate a bit more, like, kind of, like, professional kind of, like, photo editing, like, functions.",neutral,0.7023608088493347,0.0,False
+Yoyo,interviewee,Yoyo,74,"Maybe they could check out… maybe check out, like, Snapseed or something, because I feel like that's quite useful, and people do use it, like, do use it a lot.",positive,0.7332406044006348,0.4664812088012695,False
+Yoyo,interviewee,Yoyo,74,"And then there's also this other, like, app called… polar, and then they're super good at making filters, and it's saving filters too.",positive,0.8364518880844116,0.6729037761688232,False
+Yoyo,interviewee,Yoyo,74,"So, for example, if you, like, edit it, like, specifically to how you want, you can save it as a new filter and still use it next time.",neutral,0.8681926727294922,0.0,False
+Yoyo,interviewee,Yoyo,74,"For example, for a series of photos, so you ensure consistency and stuff.",neutral,0.8080400228500366,0.0,False
+Yoyo,interviewee,Yoyo,74,I don't… I don't remember Canva having similar function.,neutral,0.6946818828582764,0.0,False
+Yoyo,interviewee,Yoyo,74,"I mean, a lot of design softwares don't have that function, so I feel like it would be cool if they could, like, incorporate it.",positive,0.6267728805541992,0.2535457611083984,False
+Yoyo,interviewer,Frank,75,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,75,"So, Polar, Snapseed and photo editing, more professional photo editing functions, So, like, because Canva only gives you the basic sliders and filters, right?",neutral,0.8031314611434937,0.0,False
+Yoyo,interviewer,Frank,75,"Um, they could give you, like, more professional filters or more customizable ones.",neutral,0.8697044253349304,0.0,False
+Yoyo,interviewer,Frank,75,Great!,positive,0.9382083415985109,0.8764166831970215,False
+Yoyo,interviewer,Frank,75,Yeah.,neutral,0.5797717571258545,0.0,False
+Yoyo,interviewer,Frank,76,"Other than those features or functions, what other designing features or functions do you think Canva could improve?",neutral,0.7722191214561462,0.0,False
+Yoyo,interviewee,Yoyo,77,"I feel like it's… they really, like, push people to pay for good functions.",negative,0.6872891783714294,-0.3745783567428589,False
+Yoyo,interviewee,Yoyo,77,"Especially for icons, because honestly, I use Canva a lot, just because they provide icons so easily, and they provide so many different types of icons.",positive,0.8794043064117432,0.7588086128234863,False
+Yoyo,interviewee,Yoyo,77,"Um, but then, like, of course, like, the good ones, you need to pay for them, and that was really annoying.",negative,0.8913776278495789,-0.7827552556991577,False
+Yoyo,interviewee,Yoyo,77,"Um, that I feel like that would make people switch out from Canva.",negative,0.5627238154411316,-0.1254476308822631,False
+Yoyo,interviewee,Yoyo,77,"Especially, so I feel like… Maybe Canva should, like, still offer a few kind of, like, free icons that are, like, good-looking enough.",positive,0.5573038458824158,0.1146076917648315,False
+Yoyo,interviewee,Yoyo,77,"But I just feel like it's not that… it's not… it's not a great idea to make everything, like, premium-based.",negative,0.8382017016410828,-0.6764034032821655,False
+Yoyo,interviewee,Yoyo,77,"I feel other than that, it's okay.",neutral,0.5291101932525635,0.0,False
+Yoyo,interviewer,Frank,78,"Okay, do you know any other features?",neutral,0.932388424873352,0.0,False
+Yoyo,interviewer,Frank,78,"Like, maybe just not… free or paid ones, but maybe just not, like, oh, the paid ones are better, but some existing… premium features or some existing free features that they can make better than they already are.",neutral,0.582476794719696,0.0,False
+Yoyo,interviewee,Yoyo,79,"Okay, um, I was just looking at Canva, like, right now, and I realized, um, mock-ups, Like, because as a designer, like, Especially, like, for, like, just, like, 2D design in general, sometimes I do a lot of, like, mock-ups, like, especially, um… For example, like, in high school, if I wanted to print, like, a graphic 2D design on, like, a cup, And I want to see how it looks.",neutral,0.6660134196281433,0.0,False
+Yoyo,interviewee,Yoyo,79,"Um, so you can, like, really simulate how it looks, and especially for, like, UI, you want to put it, like, in, like, a foam.",neutral,0.8145512342453003,0.0,False
+Yoyo,interviewee,Yoyo,79,"Like a phone frame, like, for example, like, iPhone 17, and you want to see how it looks, like, on a phone.",neutral,0.8321509957313538,0.0,False
+Yoyo,interviewee,Yoyo,79,"Um, I figured that's really useful if you're making, like, a mock-up.",positive,0.824942946434021,0.649885892868042,False
+Yoyo,interviewee,Yoyo,79,"I know Canva does provide mock-up, But then they're, like, the mock-up pamphlets are, like, really… they're… I don't think they're, like, they look quite bad when you put your design on there, and, like, Sometimes the proportions and sometimes the shapes, they just don't look natural.",negative,0.7353041172027588,-0.4706082344055176,False
+Yoyo,interviewee,Yoyo,79,"It's like you put something 2D that is flat, Um, directly on something 3D, but the 2D designs still fly, and it doesn't, like, circulate around the 3D, like, form, and that's quite annoying.",negative,0.6922258734703064,-0.3844517469406128,False
+Yoyo,interviewee,Yoyo,79,So I feel like that could definitely be improved on.,positive,0.4894970059394836,-0.0210059881210327,False
+Yoyo,interviewer,Frank,80,Okay.,neutral,0.5692517757415771,0.0,False
+Yoyo,interviewer,Frank,80,"Well, when you say that kind of mocks up and wireframes don't look natural, what do you mean specifically by that?",negative,0.6169911026954651,-0.2339822053909301,False
+Yoyo,interviewee,Yoyo,81,"Okay, like, for example, I generate a 2D design using, like, Canva, which is good, because they're so good at doing 2D designs.",positive,0.9391846060752868,0.8783692121505737,False
+Yoyo,interviewee,Yoyo,81,And then I want to see how it looks on something that's 3D.,neutral,0.7214973568916321,0.0,False
+Yoyo,interviewee,Yoyo,81,"Um, so I… they do have this function where I can import something to the end, they can, like, directly, like, oh, try and make it realistic on, like, a 3D thing.",neutral,0.7693539261817932,0.0,False
+Yoyo,interviewee,Yoyo,81,"Okay, for the last time I did it, It was on, like, a mug, And then, you know how mug, it's, like, circular.",neutral,0.8332668542861938,0.0,False
+Yoyo,interviewee,Yoyo,81,"It's like a cylinder, right?",neutral,0.9160956144332886,0.0,False
+Yoyo,interviewee,Yoyo,81,"And then I have to pay, like, it pays, like, a 2D design on there, And it basically… it was just the 2D design, like, flat with, like, no perspective on there, so it was just, like, a design and a mug.",neutral,0.7690736651420593,0.0,False
+Yoyo,interviewee,Yoyo,81,"But not, like, a design on, like, the mug in, like, a cylinder and, like, a circular way.",neutral,0.8754901885986328,0.0,False
+Yoyo,interviewee,Yoyo,81,"That, that really, like, makes it, like, put everything in perspective.",positive,0.6661152839660645,0.3322305679321289,False
+Yoyo,interviewee,Yoyo,81,"Like, they don't really do that successfully.",negative,0.7897107005119324,-0.5794214010238647,False
+Yoyo,interviewee,Yoyo,81,"So I feel like that's also, like, another concern.",neutral,0.5345924496650696,0.0,False
+Yoyo,interviewer,Frank,82,"Okay, great, thanks.",positive,0.9620028138160706,0.9240056276321412,False
+Yoyo,interviewee,Yoyo,83,"Um, you really need to find a good plugin for that.",negative,0.628889262676239,-0.257778525352478,False
+Yoyo,interviewee,Yoyo,83,"Uh, you have to search on the internet and stuff and see if they have, like, good plugins and things.",neutral,0.7447641491889954,0.0,False
+Yoyo,interviewee,Yoyo,83,"So I'm just saying, it's like… Something that they should, like, work on if they already provided that platform, but if they did not, then probably they don't really need to, like… really focus on it.",neutral,0.503980278968811,0.0,False
+Yoyo,interviewer,Frank,84,Got it.,neutral,0.6065152287483215,0.0,False
+Yoyo,interviewer,Frank,84,"I didn't know Canva had a mock-up feature where you… It allowed you to wrap it around, or do they don't have that, and you just slapped… you just slap the 3D mug, and you slap a design on it, and they don't have a wraparound feature.",neutral,0.6502542495727539,0.0,False
+Yoyo,interviewee,Yoyo,85,I think they do.,neutral,0.8192768692970276,0.0,False
+Yoyo,interviewee,Yoyo,85,"It's like, because I searched it up, I was, like, searching, like, mock-up editor, because I was also looking for a plugin to do that, and then Canva popped up, and it was, like, 3 AI mock-up generator.",neutral,0.8020938038825989,0.0,False
+Yoyo,interviewee,Yoyo,85,"And then so it's like, oh, create a mock-up, easy drag-and-drop editor, and then you just, like, you can put it on a t-shirt and stuff.",neutral,0.7735452651977539,0.0,False
+Yoyo,interviewee,Yoyo,85,"And it's just, like, it's just not that good, I can't lie, like…",negative,0.9361568689346312,-0.8723137378692627,False
+Yoyo,interviewee,Yoyo,86,"I think the point is just, like, oh, Canva's still really good, it's super easy to use, um… But, like, it's just, like… I guess it's just not something that I would… I would be using a lot, just because I'm going, like, for, like, the more artistic and, like, design-related, like, career path, but I feel like it will still be, like, really useful for, like, other careers and stuff.",positive,0.5654067993164062,0.1308135986328125,False
+Kush,interviewer,D,1,"So, can you tell us a little bit about yourself, your name, your age, your job, and what you do in your free time?",neutral,0.9196800589561462,0.0,False
+Kush,interviewee,Kush,2,"Yeah, my name is Kush Bhatia.",neutral,0.735862672328949,0.0,False
+Kush,interviewee,Kush,2,I am 22 years old.,neutral,0.7713720798492432,0.0,False
+Kush,interviewee,Kush,2,"I just graduated from Emory University and I work at Visa as a client services associate, and in my free time, I like to explore new restaurants and go to the gym.",positive,0.7742547392845154,0.5485094785690308,False
+Kush,interviewer,D,3,Great.,positive,0.8795907497406006,0.7591814994812012,False
+Kush,interviewer,D,3,And can you tell us a little bit about your engagement with Canva as of now?,neutral,0.9208393692970276,0.0,False
+Kush,interviewee,Kush,4,"As of right now, I don't use Canva primarily as it's not the biggest use within my day to day job at work.",neutral,0.6533189415931702,0.0,False
+Kush,interviewer,D,5,Cool.,positive,0.7078977227210999,0.4157954454421997,False
+Kush,interviewer,D,5,Have you used it in the past before?,neutral,0.9396215677261353,0.0,False
+Kush,interviewee,Kush,6,"Yeah, it was a big thing used throughout my college classes for, like, slide decks to work with people on team presentations and just in my clubs for like marketing reasons.",neutral,0.7768049836158752,0.0,False
+Kush,interviewer,D,7,Hmm.,neutral,0.7122845649719238,0.0,False
+Kush,interviewer,D,7,"So, can you tell me about when you first started using Canva and why you started using it?",neutral,0.9124258756637572,0.0,False
+Kush,interviewer,D,7,"I mean, you touched on it in your previous answer, but I'd love to hear more about when you were first exposed to the platform.",positive,0.6873593330383301,0.3747186660766601,False
+Kush,interviewer,D,7,"And yeah, if you could just articulate a little bit more about certain use cases that you used the platform for.",neutral,0.7793130874633789,0.0,False
+Kush,interviewee,Kush,8,"Yeah, I think I first really used it when I came to college my freshman year, so I guess four years ago.",neutral,0.8006343245506287,0.0,False
+Kush,interviewee,Kush,8,Okay.,neutral,0.5692517757415771,0.0,False
+Kush,interviewee,Kush,8,"When I was trying to join some clubs on campus and I think I applied for one of the marketing positions in one of the business clubs, and I needed to showcase like how I would change what they're currently doing in the club and change it for the future.",neutral,0.8526362180709839,0.0,False
+Kush,interviewee,Kush,8,And I used it mostly for this entrepreneurship club I was in as we were trying to gain clients and gain people to kind of get some funding for our program.,neutral,0.6597055792808533,0.0,False
+Kush,interviewee,Kush,8,So that was the first time I used it.,neutral,0.8639156222343445,0.0,False
+Kush,interviewer,D,9,"Cool, I see.",positive,0.7736520171165466,0.5473040342330933,False
+Kush,interviewer,D,9,"So in high school, you didn't have much exposure to it at all.",neutral,0.7298957705497742,0.0,False
+Kush,interviewee,Kush,10,"Yeah, I don't think so.",negative,0.6048943996429443,-0.2097887992858886,False
+Kush,interviewee,Kush,10,"No, I don't have any.",neutral,0.6157893538475037,0.0,False
+Kush,interviewee,Kush,10,Yeah.,neutral,0.5797717571258545,0.0,False
+Kush,interviewer,D,11,Could I ask what platforms you used instead for like creating digital materials or exploring digital literacy?,neutral,0.8975236415863037,0.0,False
+Kush,interviewee,Kush,12,"Mm, good question.",positive,0.6021692752838135,0.2043385505676269,False
+Kush,interviewer,D,13,Interesting.,positive,0.6659996509552002,0.3319993019104004,False
+Kush,interviewer,D,13,Okay.,neutral,0.5692517757415771,0.0,False
+Kush,interviewee,Kush,14,"Okay, I know what it was called.",neutral,0.7358168363571167,0.0,False
+Kush,interviewee,Kush,14,I can't really remember what the name was.,neutral,0.6013582348823547,0.0,False
+Kush,interviewee,Kush,14,"Okay, but like Microsoft, like... what names... whatever they would have in their…",neutral,0.8199288249015808,0.0,False
+Kush,interviewer,D,15,Cool.,positive,0.7078977227210999,0.4157954454421997,False
+Kush,interviewer,D,15,Cool laptops.,positive,0.9074422121047974,0.8148844242095947,False
+Kush,interviewer,D,15,I see.,neutral,0.7033473253250122,0.0,False
+Kush,interviewer,D,16,Okay.,neutral,0.5692517757415771,0.0,False
+Kush,interviewer,D,16,So it was basically what your school already had and what was like already integrated into your school's educational platforms.,neutral,0.9229331612586976,0.0,False
+Kush,interviewee,Kush,17,"Yeah, exactly.",neutral,0.4948466122150421,0.0,False
+Kush,interviewer,D,18,I see.,neutral,0.7033473253250122,0.0,False
+Kush,interviewer,D,18,Okay.,neutral,0.5692517757415771,0.0,False
+Kush,interviewer,D,18,Cool.,positive,0.7078977227210999,0.4157954454421997,False
+Kush,interviewer,D,18,"My next question for you is: when did you stop using Canva and what changed, what exactly changed that led you to stop using it?",neutral,0.8108057975769043,0.0,False
+Kush,interviewee,Kush,19,I think it was when I graduated in May of this year.,neutral,0.8999484181404114,0.0,False
+Kush,interviewee,Kush,19,Mm hmm.,neutral,0.8191004991531372,0.0,False
+Kush,interviewee,Kush,19,"Because I kind of like I was no longer in college clubs, and I wasn't really in an audience area where I needed to create new digital art anymore.",neutral,0.6560273766517639,0.0,False
+Kush,interviewee,Kush,19,"And in my current role, I'm not in that kind of role where I need any marketing tools to talk to clients or, like, showcasing digital arts.",neutral,0.6742978096008301,0.0,False
+Kush,interviewee,Kush,19,So that's kind of been a reason why I haven't used it since then.,neutral,0.580113410949707,0.0,False
+Kush,interviewer,D,20,So have you started using any other tools instead of Canva for any type of digital materials?,neutral,0.93278831243515,0.0,False
+Kush,interviewee,Kush,21,"I guess in a similar way, but kind of different, and I guess incorporated now it's more so like how to illustrate data, which is through like PowerBI and Tableau.",neutral,0.8852577805519104,0.0,False
+Kush,interviewee,Kush,21,"So it's not the same as Canva where you're making a flyer, but to illustrate like media in some way, I guess those are the main ways that I would use it now.",neutral,0.8356989622116089,0.0,False
+Kush,interviewer,D,22,"Got it, I see.",neutral,0.6246640086174011,0.0,False
+Kush,interviewer,D,22,"Um, and then I guess when you were using Canva in college, were there any particular challenges or frustrations that made Canva kind of hard to use or less valuable to you?",neutral,0.5715859532356262,0.0,False
+Kush,interviewee,Kush,23,"Yeah, I think early on, when I was using on my own, I wouldn't pay for the service, so there were a lot of barriers to like what you could do and what I wanted to convey through like the digital art.",negative,0.527873694896698,-0.0557473897933959,False
+Kush,interviewee,Kush,23,"But once I was able to join some clubs, we would pay for the premium package, and then you were able to like get a lot more out of it and do whatever you really wanted to do.",neutral,0.688015341758728,0.0,False
+Kush,interviewee,Kush,24,"But also, like, I was very basic on what I would create.",negative,0.5679421424865723,-0.1358842849731445,False
+Kush,interviewee,Kush,24,I didn't know like how to use a lot of the tools within Canva.,negative,0.8269321918487549,-0.6538643836975098,False
+Kush,interviewee,Kush,24,I never like really taught myself.,negative,0.7757004499435425,-0.551400899887085,False
+Kush,interviewee,Kush,24,So I guess that's another barrier too.,neutral,0.6339647769927979,0.0,False
+Kush,interviewer,D,25,I see.,neutral,0.7033473253250122,0.0,False
+Kush,interviewer,D,25,Were you ever considering buying Canva Pro for yourself for personal usage at all?,neutral,0.9192814826965332,0.0,False
+Kush,interviewee,Kush,26,"I did consider it and funny enough, now I remember, within school I did take a Canva class.",positive,0.5847277045249939,0.1694554090499878,False
+Kush,interviewee,Kush,27,"We had a Canva class that I did take, and I had to do it for one semester.",neutral,0.8731411099433899,0.0,False
+Kush,interviewee,Kush,27,So I do remember that now actually.,neutral,0.7907034158706665,0.0,False
+Kush,interviewer,D,28,Interesting.,positive,0.6659996509552002,0.3319993019104004,False
+Kush,interviewer,D,28,"Wait, like there was a class?",neutral,0.918121576309204,0.0,False
+Kush,interviewee,Kush,29,"Jess—yeah, yeah.",neutral,0.4925912320613861,0.0,False
+Kush,interviewee,Kush,29,"So we had like one class that was like you take an Excel class asynchronously for a month or for a semester, and then we had a Canva one, we had an AI one.",neutral,0.913052499294281,0.0,False
+Kush,interviewee,Kush,29,So I’d take a Canva one one semester.,neutral,0.7361471056938171,0.0,False
+Kush,interviewer,D,30,Interesting.,positive,0.6659996509552002,0.3319993019104004,False
+Kush,interviewer,D,30,Can you explain a little bit more about this class and what it entailed?,neutral,0.9311679601669312,0.0,False
+Kush,interviewee,Kush,31,"Yeah, it was mostly how to sell yourself within a corporate setting and within like using a slide deck within Canva, less digital media of like flyers and stuff like that.",neutral,0.8454532027244568,0.0,False
+Kush,interviewee,Kush,31,"But throughout the course, it was… and so we just didn't really have a teacher telling us anything, but we had to create a lot of presentations on certain topics that we were passionate about and also record ourselves on a five-minute presentation and upload it for our, like, teacher I guess who would grade us for it.",neutral,0.7987786531448364,0.0,False
+Kush,interviewer,D,32,"Hmm, I see.",neutral,0.7878797650337219,0.0,False
+Kush,interviewer,D,32,That's super interesting.,positive,0.9717269539833068,0.9434539079666138,False
+Kush,interviewer,D,32,So the class is for like a corporate context.,neutral,0.8778354525566101,0.0,False
+Kush,interviewer,D,32,What is your opinion on Canva within a more professional environment?,neutral,0.9055715203285216,0.0,False
+Kush,interviewee,Kush,33,"Yeah, so I think it's interesting, because I think it is very useful.",positive,0.969824194908142,0.9396483898162842,False
+Kush,interviewee,Kush,33,"Because I know the program that I'm in, we have like—my role is called client services—and next month is called client services month for our entire company.",neutral,0.5510472655296326,0.0,False
+Kush,interviewee,Kush,33,And I know the people that are on the marketing team primarily use Canva and they're the ones talking to a lot of senior leadership and executive VPs.,neutral,0.8824428915977478,0.0,False
+Kush,interviewee,Kush,33,"And I know it is a strong tool, especially with how AI is being developed into it, so now it's starting a lot easier for a lot of people because they can just put their prompt and now it's connected to like ChatGPT and Copilot.",positive,0.9234488010406494,0.8468976020812988,False
+Kush,interviewee,Kush,34,So I think it is a really great tool.,positive,0.9846410155296326,0.9692820310592652,False
+Kush,interviewee,Kush,34,It just depends on what your role is within corporate America and if you are able to use it or not use it.,neutral,0.8135906457901001,0.0,False
+Kush,interviewer,D,35,"Okay, cool.",positive,0.6889756321907043,0.3779512643814087,False
+Kush,interviewer,D,35,That class is—that's so interesting.,positive,0.9794312119483948,0.9588624238967896,False
+Kush,interviewer,D,35,"I've never heard of like a class that was primarily through Canva, so that's cool.",positive,0.8644734025001526,0.7289468050003052,False
+Kush,interviewer,D,35,Have you heard in college ever of Canva for Campus or Canva for Education along the same vein?,neutral,0.9519847631454468,0.0,False
+Kush,interviewee,Kush,36,"I don't think so, no.",neutral,0.7279993295669556,0.0,False
+Kush,interviewee,Kush,36,I haven't heard that.,neutral,0.807831883430481,0.0,False
+Kush,interviewer,D,37,"Okay, that's totally fine.",positive,0.7965707182884216,0.5931414365768433,False
+Kush,interviewer,D,37,"And then I guess my final question for you is: would you ever consider coming back to Canva and if so, what would that look like?",neutral,0.8937003016471863,0.0,False
+Kush,interviewer,D,37,"And if not, why not?",neutral,0.800401508808136,0.0,False
+Kush,interviewee,Kush,38,"I mean, I think so.",neutral,0.7457614541053772,0.0,False
+Kush,interviewee,Kush,38,"I think one, if it's like a personal reason, I could definitely see myself—if I need a reason to create any digital art, I think it is a good reason.",positive,0.7578781843185425,0.515756368637085,False
+Kush,interviewee,Kush,38,"I was actually thinking about doing it on my own to use it for like decorative purposes for like a lot of the art I want to have in my room, and I know I can connect it in that way.",positive,0.5111292600631714,0.0222585201263427,False
+Kush,interviewee,Kush,39,"So on a personal level, yes, I think I would use it.",positive,0.6140334606170654,0.2280669212341308,False
+Kush,interviewee,Kush,39,"On a professional level, I think if there was ever an opportunity at work where I needed to create something, whether it’s like an employee resource group or if there's an event happening within my— in the Atlanta office or something like that, I would definitely use Canva again.",positive,0.6555961966514587,0.3111923933029175,False
+Kush,interviewee,Kush,40,"So I do see myself using it again, but not right now.",neutral,0.8836862444877625,0.0,False
+Kush,interviewer,D,41,I see.,neutral,0.7033473253250122,0.0,False
+Kush,interviewer,D,41,"Okay, cool.",positive,0.6889756321907043,0.3779512643814087,False
+Kush,interviewer,D,41,Is there anything else that I didn't specifically ask you about that you want to share?,neutral,0.8281152844429016,0.0,False
+Kush,interviewer,D,41,"If not, that's totally fine.",positive,0.5481999516487122,0.0963999032974243,False
+Kush,interviewee,Kush,42,"Um no, I think you got it.",neutral,0.7816435694694519,0.0,False
+Kush,interviewer,D,43,"Okay, cool.",positive,0.6889756321907043,0.3779512643814087,False
+Kush,interviewer,D,43,"Thank you so much, Kush.",positive,0.962536633014679,0.925073266029358,False
+Kush,interviewee,Kush,44,Of course.,neutral,0.6597288250923157,0.0,False
+Kaveri,interviewer,Navaa,1,"So feel free to tell us a little bit about yourself; name, age, job, what do you do with your time?",neutral,0.8657015562057495,0.0,False
+Kaveri,interviewee,Kaveri,2,My name is Kaveri.,neutral,0.8881644010543823,0.0,False
+Kaveri,interviewee,Kaveri,2,"I'm 19, I'm a sophomore in college.",neutral,0.8950541019439697,0.0,False
+Kaveri,interviewee,Kaveri,2,"Um, I go to Dartmouth.",neutral,0.8875670433044434,0.0,False
+Kaveri,interviewee,Kaveri,2,"I guess my job is that I'm a student, um, and I am studying bio, CS, anthropology, etc, and, and pre-med, yeah, I guess that's it,",neutral,0.7835543751716614,0.0,False
+Kaveri,interviewer,Navaa,3,"Ok, the big, sort of, like overarching question that kind of shapes the rest of the interview is, would you describe yourself as like a current, active user of Canva; or, would you describe yourself as someone that maybe used Canva in the past, but doesn't anymore, or just doesn't use Canva at all.",neutral,0.8716854453086853,0.0,False
+Kaveri,interviewee,Kaveri,4,I'm definitely like a current active user of Canva.,neutral,0.6614464521408081,0.0,False
+Kaveri,interviewer,Navaa,5,"So first and foremost, I do know that Dartmouth does have a version of Canva for campus, some kind of like Canva premium partnership.",neutral,0.8653413653373718,0.0,False
+Kaveri,interviewer,Navaa,5,"So do you personally, through Dartmouth, have a Canva pro subscription, or just on the personal side, like, have you bought your own?",neutral,0.9231919050216676,0.0,False
+Kaveri,interviewer,Navaa,5,"And if so, how long have you had it for?",neutral,0.9382160902023317,0.0,False
+Kaveri,interviewee,Kaveri,6,"Yeah, I have the Dartmouth subscription, and I've had it, I guess, for, like, however long I've been in college.",neutral,0.67598557472229,0.0,False
+Kaveri,interviewee,Kaveri,6,"So, like, what, like, a year and a half now,",neutral,0.927745282649994,0.0,False
+Kaveri,interviewer,Navaa,7,What would you say is the biggest value that Canva provides for you currently?,positive,0.5480225086212158,0.0960450172424316,False
+Kaveri,interviewer,Navaa,7,"And why do you, like, use and choose Canada uniquely.",neutral,0.5915567874908447,0.0,False
+Kaveri,interviewee,Kaveri,8,"I do social media stuff for, um, the debate team that I'm on, as well as for the Global Health Coalition that I lead, and so it's really useful for, like promotional information to like just post like different things that different people are doing.",positive,0.5352779030799866,0.0705558061599731,False
+Kaveri,interviewee,Kaveri,8,"Things that, like my clubs have been doing, and it's like a cool way to reach people, especially on like Instagram and also through email, because you can have like cool flyers and things like that.",positive,0.918958306312561,0.8379166126251221,False
+Kaveri,interviewee,Kaveri,8,"I feel like I use Canva because it's like, the only design platform that I really know how to use.",positive,0.7113794088363647,0.4227588176727295,False
+Kaveri,interviewee,Kaveri,8,I'm sure there's a bunch.,neutral,0.5955435037612915,0.0,False
+Kaveri,interviewee,Kaveri,8,"I think Canva is, like, one, the most well known, and two, it's very user friendly.",positive,0.9345247149467468,0.8690494298934937,False
+Kaveri,interviewee,Kaveri,8,"And I used it a bunch of in high school, so I'm just kept using it here.",neutral,0.6826452612876892,0.0,False
+Kaveri,interviewee,Kaveri,8,"And also, like, all of the upperclassmen that I know who had positions that I have now used Canva, so we have the templates and all the things for it.",neutral,0.7909294366836548,0.0,False
+Kaveri,interviewee,Kaveri,8,"So it's just, it makes sense to just be able to use it.",neutral,0.59092116355896,0.0,False
+Kaveri,interviewer,Navaa,9,"Yeah, that makes a lot of sense.",positive,0.7292767763137817,0.4585535526275635,False
+Kaveri,interviewer,Navaa,9,"We're definitely interested in the sort of like timeline of, if the only thing you've been exposed to is Canva, is the reason you're using it is because, like, a unique feature of Canva?",neutral,0.5406444072723389,0.0,False
+Kaveri,interviewee,Kaveri,10,"So I can't, yeah, sorry, I can't say because I, like, have not used any other design platforms.",negative,0.5707409977912903,-0.1414819955825805,False
+Kaveri,interviewer,Navaa,11,"All right, so what are some reasons you would stop using Canva?",neutral,0.7394349575042725,0.0,False
+Kaveri,interviewer,Navaa,11,Have you switched to another design tool before?,neutral,0.8998746275901794,0.0,False
+Kaveri,interviewer,Navaa,11,"And if yes, which one and why?",neutral,0.9129047989845276,0.0,False
+Kaveri,interviewer,Navaa,11,That’s a lot of questions.,negative,0.5723035931587219,-0.1446071863174438,False
+Kaveri,interviewer,Navaa,11,Wow.,positive,0.6795675754547119,0.3591351509094238,False
+Kaveri,interviewee,Kaveri,12,The only other thing I've used is for my research.,neutral,0.8954007029533386,0.0,False
+Kaveri,interviewee,Kaveri,12,"Well, I used to do cognitive psychology research, and for that research, we would run behavioral studies, and so we need to advertise them to people to be able to come to us and do them.",neutral,0.8417413830757141,0.0,False
+Kaveri,interviewee,Kaveri,12,And I used to have to make flyers.,neutral,0.7771850228309631,0.0,False
+Kaveri,interviewee,Kaveri,12,"And instead of, like, going through all of the like, work of making a flyer on Canva, I just asked chatGPT to make it for me.",neutral,0.6762522459030151,0.0,False
+Kaveri,interviewee,Kaveri,12,"And it was a lot easier, because I just, like, plugged in the things that I wanted, and it spit me out something.",positive,0.6866289377212524,0.3732578754425049,False
+Kaveri,interviewee,Kaveri,12,"It just took a while, and I had to, like, make a bunch of tweets.",neutral,0.6417431235313416,0.0,False
+Kaveri,interviewee,Kaveri,12,"But I was very pressed for time, and it was just fast.",neutral,0.5853359699249268,0.0,False
+Kaveri,interviewee,Kaveri,12,"So I think as llms become more efficient and accurate at making flyers and posters, I feel like it will render Canva a little bit less useful, because also, like, I'm not like, a graphic designer.",neutral,0.4960289299488067,0.0,False
+Kaveri,interviewee,Kaveri,12,"I'm not someone that wants to be spending, like, a ton of time making flyers on Canva.",negative,0.7473114132881165,-0.4946228265762329,False
+Kaveri,interviewee,Kaveri,12,"And I'm like, not a super artsy person.",negative,0.6491835117340088,-0.2983670234680176,False
+Kaveri,interviewee,Kaveri,12,"And so like, the quicker I can get something done and post it or put up, the easier it is for me.",positive,0.6513461470603943,0.3026922941207886,False
+Kaveri,interviewee,Kaveri,12,"So that's why I like platforms that just, like, do it for you.",positive,0.6838358640670776,0.3676717281341553,False
+Kaveri,interviewee,Kaveri,12,"Like you feed it the information, and it does it for you.",neutral,0.8532780408859253,0.0,False
+Kaveri,interviewee,Kaveri,12,So I think my problem is that like chat GPT is not great at doing it.,negative,0.8274328708648682,-0.6548657417297363,False
+Kaveri,interviewee,Kaveri,12,"And I know there's other platforms like like Google, deep seek or whatever.",neutral,0.8303912878036499,0.0,False
+Kaveri,interviewee,Kaveri,12,"There's like Gemini, well, there's a bunch of different like llms that I'm sure can do similar things.",neutral,0.6964703798294067,0.0,False
+Kaveri,interviewee,Kaveri,12,"But I feel like once they become advanced enough, then I will probably stop using Canva, or when my subscription ends, because, yeah, then I don't really want to.",negative,0.8173394203186035,-0.634678840637207,False
+Kaveri,interviewee,Kaveri,12,I feel like Canva Pro is really useful.,positive,0.9645203351974488,0.9290406703948976,False
+Kaveri,interviewer,Navaa,13,"Yeah, that actually that feeds into like, two, like, really interesting, like, sort of auxiliary questions, like, so Canva does have AI features right now, right?",positive,0.7646341919898987,0.5292683839797974,False
+Kaveri,interviewer,Navaa,13,Do you find yourself using those?,neutral,0.920805811882019,0.0,False
+Kaveri,interviewer,Navaa,13,And would you appreciate more AI features specifically?,neutral,0.700636088848114,0.0,False
+Kaveri,interviewer,Navaa,13,"What do you see as like, the relationship between your use of Canva and then, like, AI?",neutral,0.9175428748130798,0.0,False
+Kaveri,interviewee,Kaveri,14,I want more AI features.,positive,0.5670095682144165,0.134019136428833,False
+Kaveri,interviewee,Kaveri,14,I just wanted to do it for me.,neutral,0.5521876811981201,0.0,False
+Kaveri,interviewee,Kaveri,14,"Like, I want to give it information, and I just wanted to spit out a flyer for me, because sometimes I also just don't know how I want to design a flyer.",neutral,0.5931941866874695,0.0,False
+Kaveri,interviewee,Kaveri,14,"I'm like, Just do it, I don't want to have to figure out, like, what color I want and what shape I want, or whatever.",neutral,0.6466041803359985,0.0,False
+Kaveri,interviewee,Kaveri,14,"I think this has been around for like, 10 years now.",neutral,0.8529869318008423,0.0,False
+Kaveri,interviewee,Kaveri,14,"Before llms became a huge thing, and I really liked that, I said a lot in like, middle and high school.",positive,0.6853179335594177,0.3706358671188354,False
+Kaveri,interviewee,Kaveri,14,"And I feel like if Canva had something like that where, like, even if you, like, made your flyer and then had, like, suggested options for how to make it better, I don't know.",neutral,0.6637772917747498,0.0,False
+Kaveri,interviewee,Kaveri,14,Maybe it does.,neutral,0.7272114157676697,0.0,False
+Kaveri,interviewee,Kaveri,14,"I'm not, like, very well versed in the Canva features, but I feel like that could be nice, because especially someone who's not, like, super design heavy, I like, would appreciate more aid in trying to design these things.",positive,0.5985299348831177,0.1970598697662353,False
+Kaveri,interviewer,Navaa,15,Got it.,neutral,0.6065152287483215,0.0,False
+Kaveri,interviewer,Navaa,15,"Yeah, it’s really interesting to see, like, just like, what the average student does want in terms of AI features, because I think it's something that you know could just be interesting to explore.",positive,0.8592947721481323,0.7185895442962646,False
+Kaveri,interviewer,Navaa,15,"And then with like, your subscription expiring post grad.",neutral,0.8605014681816101,0.0,False
+Kaveri,interviewer,Navaa,15,Do you see yourself potentially upgrading to Canva pro once that expires?,neutral,0.9251022338867188,0.0,False
+Kaveri,interviewee,Kaveri,16,"No, yeah, I mean, I don't really know why I'd have a reason to use Canva after I graduate.",negative,0.4938313364982605,0.012337327003479,False
+Kaveri,interviewee,Kaveri,16,"I'm not, like, managing social media or, like, making flyers for things that's true in the future.",neutral,0.6256238222122192,0.0,False
+Kaveri,interviewee,Kaveri,16,I guess in med school or doing research for something I would need to put something up.,neutral,0.9175282120704652,0.0,False
+Kaveri,interviewee,Kaveri,16,"But I think the peak functionality for Canva, like, the peak demographic that Canva caters to is students or people who have jobs in social media or graphic design or things like that, and my dad is not, like, designing flyers for his job, right?",neutral,0.8009151816368103,0.0,False
+Kaveri,interviewee,Kaveri,16,And so I don't really need a Canva subscription.,neutral,0.6675570011138916,0.0,False
+Kaveri,interviewee,Kaveri,16,"I didn't have a Canva pro subscription in high school, or I don't.",neutral,0.647995114326477,0.0,False
+Kaveri,interviewee,Kaveri,16,Did Newton South have a subscription?,neutral,0.9453712105751038,0.0,False
+Kaveri,interviewee,Kaveri,16,I don't know.,neutral,0.6740085482597351,0.0,False
+Kaveri,interviewee,Kaveri,16,"I don't think we did, but I'm just like, I don't really like, I don't really think I do, and I think if I needed to use Canva, I'm not gonna---the once a year I might need to use Canva I'm not gonna pay for a subscription.",negative,0.7808428406715393,-0.5616856813430786,False
+Kaveri,interviewer,Navaa,17,I get it.,neutral,0.6945363283157349,0.0,False
+Kaveri,interviewer,Navaa,17,"With your current usage of Canva, do you see that as like, like you mentioned only using it for flyers and things of that nature.",neutral,0.937567949295044,0.0,False
+Kaveri,interviewer,Navaa,17,Do you find yourself using Canva for anything like academic at all?,neutral,0.9102323055267334,0.0,False
+Kaveri,interviewer,Navaa,17,"Like, I know of some people that do projects on Canva pretty often.",neutral,0.840478777885437,0.0,False
+Kaveri,interviewer,Navaa,17,Is it something you find yourself doing?,neutral,0.9265565276145936,0.0,False
+Kaveri,interviewer,Navaa,17,Are you more in the Google ecosystem?,neutral,0.7579558491706848,0.0,False
+Kaveri,interviewee,Kaveri,18,"Sure, yeah.",neutral,0.507950484752655,0.0,False
+Kaveri,interviewee,Kaveri,18,"I mean, I do make some slideshows on Canva.",neutral,0.8282507658004761,0.0,False
+Kaveri,interviewee,Kaveri,18,"But also, to be fair, like, I'm probably not the best person to ask this question to, because the vast majority of my classes aren't project based.",negative,0.698731541633606,-0.3974630832672119,False
+Kaveri,interviewee,Kaveri,18,"Like, I'm not a humanities student.",neutral,0.5153062343597412,0.0,False
+Kaveri,interviewee,Kaveri,18,I think the content is more important.,neutral,0.6876615285873413,0.0,False
+Kaveri,interviewee,Kaveri,18,"But I can also see why some people would care more about it and I definitely cared more about it in like, High School.",neutral,0.5534148216247559,0.0,False
+Kaveri,interviewee,Kaveri,18,"And I just didn't, I wasn't really thinking about the aesthetics that much, but like, I also made a, I did a presentation in like, AP Lit in high school, and I did care a lot about it, and I thought it was really fun.",positive,0.8115388751029968,0.6230777502059937,False
+Kaveri,interviewee,Kaveri,18,And I think Canva is really especially great for multimedia presentations when you're trying to embed a lot of different features into it.,positive,0.9616640210151672,0.9233280420303344,False
+Kaveri,interviewee,Kaveri,18,"But unfortunately, like, that's just not the, I don't take classes that really are that project based right now?",negative,0.88246089220047,-0.7649217844009399,False
+Kaveri,interviewer,Navaa,19,That makes a lot of sense.,positive,0.7701092958450317,0.5402185916900635,False
+Kaveri,interviewer,Navaa,19,"It does make intuitive sense, like a stem student probably wouldn’t need to be using it as much.",neutral,0.7446768879890442,0.0,False
+Kaveri,interviewer,Navaa,19,And then what do you find are your current pain points when using Canva?,neutral,0.6495492458343506,0.0,False
+Kaveri,interviewer,Navaa,19,What do you think can be like improved about your experience?,neutral,0.6225907206535339,0.0,False
+Kaveri,interviewee,Kaveri,20,I think sometimes it's hard to find some of the features.,negative,0.5300155282020569,-0.0600310564041137,False
+Kaveri,interviewee,Kaveri,20,"There's just like, a lot going on.",neutral,0.5146514177322388,0.0,False
+Kaveri,interviewee,Kaveri,20,"I think the user face could be a little bit more minimalistic, I want to say, like, just not have a ton of stuff everywhere.",neutral,0.7068010568618774,0.0,False
+Kaveri,interviewee,Kaveri,20,"And I'm also just not very tech savvy, and so I'm, like, constantly trying to find different things.",negative,0.7224820852279663,-0.4449641704559326,False
+Kaveri,interviewee,Kaveri,20,"Or maybe if there was an easier help manual to look at that you could see what the features are, maybe there is, again, like, I don't know that much, but I just think it may be finding ways to make it easier to search for features.",neutral,0.7068799138069153,0.0,False
+Kaveri,interviewer,Navaa,21,"Yeah, that makes a lot of sense.",positive,0.7292767763137817,0.4585535526275635,False
+Kaveri,interviewer,Navaa,21,"I think as of now, there are some Canva tutorials that are up and, like, freely available, but I really don't think anyone's seeking them out.",negative,0.5910370945930481,-0.1820741891860962,False
+Kaveri,interviewer,Navaa,21,"And going to be like, I should watch a Canva tutorial and, like, how to use this feature.",neutral,0.6742769479751587,0.0,False
+Kaveri,interviewee,Kaveri,22,"Yeah, I don’t want to watch a video to know how to use it.",negative,0.6697888374328613,-0.3395776748657226,False
+Kaveri,interviewee,Kaveri,22,"Like, I just want to be able to be like, maybe in a help search thing.",neutral,0.6689082980155945,0.0,False
+Kaveri,interviewee,Kaveri,22,"Like, how do I make the gradient of this more transparent, or whatever?",neutral,0.8137447834014893,0.0,False
+Kaveri,interviewee,Kaveri,22,"And then it'll be like, Oh, yeah.",positive,0.6093625426292419,0.2187250852584839,False
+Kaveri,interviewee,Kaveri,22,"I'd be like, click this button to do this.",neutral,0.7337427735328674,0.0,False
+Kaveri,interviewee,Kaveri,22,You know?,neutral,0.8300482630729675,0.0,False
+Kaveri,interviewer,Navaa,23,"Yeah, that makes sense, time wise, for sure.",positive,0.7672165036201477,0.5344330072402954,False
+Kaveri,interviewer,Navaa,23,"And then, oh, that's another question.",neutral,0.7483989000320435,0.0,False
+Kaveri,interviewer,Navaa,23,What are specific use cases in which you have used Canva for something?,neutral,0.871283233165741,0.0,False
+Kaveri,interviewee,Kaveri,24,"Okay, um, when we were doing recruitment to get people to try out for our debate team, I was doing a lot of promotional flyers.",neutral,0.8715678453445435,0.0,False
+Kaveri,interviewee,Kaveri,24,"Like, when I was making posts about exec boards for different clubs, like, we were putting out flyers.",neutral,0.9131463766098022,0.0,False
+Kaveri,interviewee,Kaveri,24,We were putting out Instagram posts with all the people on them.,neutral,0.9077900052070618,0.0,False
+Kaveri,interviewee,Kaveri,24,"We, also do like, when we're sending out mass emails about fundraisers that we have, or different things that different clubs are trying to do, and we're trying to raise money, we'll put flyers in an email that gets sent out to schools, like, just different things like that.",neutral,0.8855518102645874,0.0,False
+Kaveri,interviewer,Navaa,25,And then I guess you already touched on this.,neutral,0.8181040287017822,0.0,False
+Kaveri,interviewer,Navaa,25,We did already touch on this.,neutral,0.8960275650024414,0.0,False
+Kaveri,interviewer,Navaa,25,"Like, what are some specific changes or improvements that Canva should make to fit your specific needs better,",neutral,0.6875472068786621,0.0,False
+Kaveri,interviewee,Kaveri,26,"Just making it faster to be able to generate things, especially like posters and Instagram posts and flyers.",neutral,0.7139911651611328,0.0,False
+Kaveri,interviewee,Kaveri,26,Things that would just make things more efficient.,positive,0.6753749251365662,0.3507498502731323,False
+Kaveri,interviewer,Navaa,27,"Yeah, gorgeous, okay, that is everything on my question list, anything, anything miscellaneous that you feel like you just didn't get to share about Canva?",positive,0.5844683051109314,0.1689366102218628,False
+Kaveri,interviewee,Kaveri,28,I don't think so.,neutral,0.7167704701423645,0.0,False
+Kaveri,interviewee,Kaveri,28,"I mean, I think it's pretty cool that it exists.",positive,0.8923293352127075,0.784658670425415,False
+Kaveri,interviewee,Kaveri,28,I'm happy that it does.,positive,0.9768279790878296,0.9536559581756592,False
+Kaveri,interviewee,Kaveri,28,And I think there are people who benefit a lot from it more than I do.,positive,0.6783508062362671,0.3567016124725342,False
+Kaveri,interviewee,Kaveri,28,But I think it's a really cool platform.,positive,0.9780314564704896,0.956062912940979,False
+Sarah,interviewer,Navaa,1,"Excellent, so just tell me a little bit about yourself, so your name, your occupation, what you keep yourself busy with in your free time, stuff like that.",positive,0.4908599555492401,-0.0182800889015197,False
+Sarah,interviewee,Sarah,2,Okay.,neutral,0.5692517757415771,0.0,False
+Sarah,interviewee,Sarah,2,So my name is Sarah.,neutral,0.8030911087989807,0.0,False
+Sarah,interviewee,Sarah,2,I'm an after school science teacher at Crossroads school in Santa Monica.,neutral,0.922312080860138,0.0,False
+Sarah,interviewee,Sarah,2,I'm also the diversity equity and inclusion coordinator for upper school.,neutral,0.7651482820510864,0.0,False
+Sarah,interviewee,Sarah,2,"Um, and yeah, that's my career and my free time.",neutral,0.6284219026565552,0.0,False
+Sarah,interviewee,Sarah,2,I love just putting on workshops for teachers and talking about education.,positive,0.9728540182113647,0.9457080364227296,False
+Sarah,interviewee,Sarah,2,"I also am really passionate about nature, so I love spending time with the beach and just anywhere with trees.",positive,0.9825233817100524,0.965046763420105,False
+Sarah,interviewee,Sarah,2,"Um, and yeah.",neutral,0.7984616756439209,0.0,False
+Sarah,interviewer,Navaa,3,"On a scale from one to three, with one being the least, or, I guess, 0 to 3, with the zero being the least, and 3 being the most, how would you describe your, like, digital literacy, enabled or ability to use technology?",neutral,0.8509615659713745,0.0,False
+Sarah,interviewee,Sarah,4,"Yeah, I would say I'm not an expert.",neutral,0.5488684177398682,0.0,False
+Sarah,interviewee,Sarah,4,"I would give myself, like, a 2.5 .",neutral,0.8032710552215576,0.0,False
+Sarah,interviewee,Sarah,4,"I always, like, try and learn and stay up to date with things.",neutral,0.5978415012359619,0.0,False
+Sarah,interviewee,Sarah,4,"So, yeah, I think 2.5 out of three.",neutral,0.8880419731140137,0.0,False
+Sarah,interviewer,Navaa,5,"Amazing, okay.",positive,0.9663000106811525,0.9326000213623048,False
+Sarah,interviewer,Navaa,5,"Um, and would you describe yourself as a current Canva user, and if so, how?",neutral,0.942259669303894,0.0,False
+Sarah,interviewee,Sarah,6,"Yeah, so I use it literally every day.",positive,0.4970226883888244,-0.005954623222351,False
+Sarah,interviewee,Sarah,6,"I have my student slideshows, my slideshows for my classes.",neutral,0.7363731265068054,0.0,False
+Sarah,interviewee,Sarah,6,"I make them on Canva, they're interactive.",positive,0.5489147901535034,0.0978295803070068,False
+Sarah,interviewee,Sarah,6,I give my students access to them.,neutral,0.6975808143615723,0.0,False
+Sarah,interviewee,Sarah,6,"I also assign my students assignments through Canva, like making a digital poster.",neutral,0.9088441729545592,0.0,False
+Sarah,interviewee,Sarah,6,"Um, yeah, I'm a huge fan.",positive,0.9746344089508056,0.9492688179016112,False
+Sarah,interviewee,Sarah,6,"There's, I'm sure there's so much more functionality to Canada.",positive,0.6407161355018616,0.2814322710037231,False
+Sarah,interviewee,Sarah,6,"I've tried to, um, attend their, you know, when they have those big events that hasn't worked out yet, but I'm hoping to attend one soon.",neutral,0.5086926817893982,0.0,False
+Sarah,interviewer,Navaa,7,"Yeah, that's amazing.",positive,0.9792669415473938,0.9585338830947876,False
+Sarah,interviewer,Navaa,7,"And, like, on that note, would you say that you find yourself using Canva help guides a lot?",neutral,0.8890075087547302,0.0,False
+Sarah,interviewer,Navaa,7,"And for the design school, or those features that you've used before, what do you think of them?",neutral,0.8960832357406616,0.0,False
+Sarah,interviewee,Sarah,8,"So, I think I've used the YouTube tutorials that Canva has.",neutral,0.8575983643531799,0.0,False
+Sarah,interviewee,Sarah,8,"Those are mostly what I use to, like, find out how to use new things or how to do something specific about it, for sure.",neutral,0.8395232558250427,0.0,False
+Sarah,interviewer,Navaa,9,What are some reasons why you would stop using the Canva for education that Crossroads offers?,neutral,0.7793042659759521,0.0,False
+Sarah,interviewer,Navaa,9,And have you switched to another design tool before?,neutral,0.9178413152694702,0.0,False
+Sarah,interviewer,Navaa,9,"If yes, which one?",neutral,0.896525502204895,0.0,False
+Sarah,interviewee,Sarah,10,"I just really appreciate that it's free for teachers and students, and honestly, the accessibility is what makes me use it.",positive,0.9749099612236024,0.9498199224472046,False
+Sarah,interviewee,Sarah,10,And the only reason I wouldn't use it is it was not accessible to teachers and students.,negative,0.8159335851669312,-0.6318671703338623,False
+Sarah,interviewer,Navaa,11,"Yeah, absolutely.",positive,0.4346586763858795,-0.1306826472282409,False
+Sarah,interviewer,Navaa,11,"Um, and what do you find are your current pain points and issues when using Canva?",neutral,0.6023847460746765,0.0,False
+Sarah,interviewee,Sarah,12,"Honestly, nothing that I can really think of yet.",negative,0.5018553733825684,-0.0037107467651367,False
+Sarah,interviewee,Sarah,12,"I've been able to do pretty much everything I've wanted to do on there, embedding videos, assigning stuff, hyperlinking.",positive,0.7731420993804932,0.5462841987609863,False
+Sarah,interviewee,Sarah,12,"Um, I feel like it's very user friendly for education.",positive,0.8663243055343628,0.7326486110687256,False
+Sarah,interviewee,Sarah,12,"Yeah, I can't, honestly, I can't think of anything that I don't like or I haven't or any issues that I've come across.",negative,0.8384969830513,-0.6769939661026001,False
+Sarah,interviewer,Navaa,13,"So when you're doing, like, more administrative functions on Canva, like, adding students to classes, doing whatever you need to give your students access to Canva, how has that process been for you?",neutral,0.905720353126526,0.0,False
+Sarah,interviewee,Sarah,14,It's been very easy.,positive,0.8759003281593323,0.7518006563186646,False
+Sarah,interviewee,Sarah,14,"I think the thing that I don't like on my end, my institution is, most schools don't make it easy to link Canva assignments to our school website.",negative,0.8479304313659668,-0.6958608627319336,False
+Sarah,interviewee,Sarah,14,"When I used to use Google Classroom, I think Canva had a lot of linking with Google Classroom.",neutral,0.8296478986740112,0.0,False
+Sarah,interviewee,Sarah,14,"But now our school wants us to use their own interface called Blackbod, and so that's the only thing, I just wish my school's website allowed for more functionality with Canva.",neutral,0.5554959774017334,0.0,False
+Sarah,interviewer,Navaa,15,"Yeah, absolutely.",positive,0.4346586763858795,-0.1306826472282409,False
+Sarah,interviewer,Navaa,15,"When you're doing offboarding, which I understand, is, like, still a manual process, when, like, students move from one grade to the next, or when students graduate from high school.",neutral,0.9057493209838868,0.0,False
+Sarah,interviewer,Navaa,15,"Is that difficult to do, or do you find that students just, like, move their data elsewhere?",neutral,0.6693628430366516,0.0,False
+Sarah,interviewer,Navaa,15,How does that really work?,neutral,0.5544202327728271,0.0,False
+Sarah,interviewee,Sarah,16,"Ooh, to be honest, I haven't experienced that yet.",neutral,0.6841455698013306,0.0,False
+Sarah,interviewee,Sarah,16,I haven't tried to do that yet.,neutral,0.8124644756317139,0.0,False
+Sarah,interviewee,Sarah,16,It's definitely something that some educators have done.,neutral,0.8086495995521545,0.0,False
+Sarah,interviewer,Navaa,17,What are some changes or improvements that you think Canva can make to fit your needs better?,neutral,0.5292613506317139,0.0,False
+Sarah,interviewee,Sarah,18,"I think maybe having more, like, plug and play lesson plans for teachers, but I know that's not really what it does.",neutral,0.5185038447380066,0.0,False
+Sarah,interviewee,Sarah,18,It's mostly a design tool.,neutral,0.7619431018829346,0.0,False
+Sarah,interviewee,Sarah,18,"I would just say more functionalities for education that are, like, just in Canva.",neutral,0.7628542184829712,0.0,False
+Sarah,interviewee,Sarah,18,"I'm not too familiar with, like, the polls feature.",neutral,0.6491497159004211,0.0,False
+Sarah,interviewee,Sarah,18,I haven't used that yet.,neutral,0.7655520439147949,0.0,False
+Sarah,interviewee,Sarah,18,"I feel like I might have used the quiz future before, but, like, more fun stuff that would make it easier to plug and play lessons, just create my lesson things on Canva.",positive,0.7059901356697083,0.4119802713394165,False
+Sarah,interviewer,Navaa,19,"Yeah, absolutely.",positive,0.4346586763858795,-0.1306826472282409,False
+Sarah,interviewer,Navaa,19,"And then, um, the last question is really more about AI, so have you used Canva Pro’s AI features, and if so, how have they affected your experience?",neutral,0.8964791297912598,0.0,False
+Sarah,interviewee,Sarah,20,"Yeah, I think I've played around with their AI image generator a few months ago, and it was cool.",positive,0.9509825110435486,0.9019650220870972,False
+Sarah,interviewee,Sarah,20,"I mean, I have my own definitely feelings about AI, so I try not to use it too much without knowing, you know, the ethical and environmental implications, but I did try it out of curiosity.",neutral,0.7624236941337585,0.0,False
+Sarah,interviewee,Sarah,20,I don't really find myself needing the AI functionality right now.,neutral,0.5705528855323792,0.0,False
+Sarah,interviewee,Sarah,20,I don't know if that'll change.,negative,0.6885236501693726,-0.3770473003387451,False
+Sarah,interviewee,Sarah,20,"I'm sure most people are like this too, but I love just like the slideshow templates that Canva has.",positive,0.968906819820404,0.937813639640808,False
+Sarah,interviewee,Sarah,20,And I still haven't found an AI slide show maker tool that has the ability to make slides look so aesthetically pleasing and have all the information.,negative,0.3534788191318512,0.2930423617362976,False

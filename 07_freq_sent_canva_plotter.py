@@ -40,40 +40,12 @@ NEG_THRESHOLD = -0.05  # sentiment < this ⇒ negative
 # WORDS TO EXCLUDE (edit this)
 # -------------------------------------------------------------------
 EXCLUDE_WORDS = {
-    # examples – add/remove as needed
-    "use",
-    "think",
-    "would",
-    "used",
-    "make",
-    "also",
-    "thing",
-    "using",
-    "one",
-    "making",
-    "feel",
-    "need",
-    "stuff",
-    "things",
-    "people",
-    "within",
-    "say",
-    "well",
-    "might",
-    "something",
-    "take",
-    "semester",
-    "two",
-    "put",
-    "ever",
-    "want",
-    "sure",
-    "find",
+  
 }
 EXCLUDE_WORDS = {w.lower() for w in EXCLUDE_WORDS}
 
 # -------------------------------------------------------------------
-# GROUP DEFINITIONS (edit this)
+# GROUP DEFINITIONS 
 #
 # Format:
 #   GROUP_DEFS = {
@@ -87,7 +59,6 @@ EXCLUDE_WORDS = {w.lower() for w in EXCLUDE_WORDS}
 # Words not listed in GROUP_DEFS stay as their own group (themselves).
 # -------------------------------------------------------------------
 GROUP_DEFS = {
-    # examples – CHANGE THESE TO WHATEVER YOU WANT
     "template(s)": ["template", "templates"],
     "flyer(s)": ["flyer", "flyers"],
     "poster(s)": ["poster", "posters"],
@@ -97,7 +68,7 @@ GROUP_DEFS = {
     "cute": ["cute", "cutesy"],
     "canva tools": ["icons", "functionality", "workspace", "tools"]
 }
-# Build a word -> group_label mapping (lowercased)
+
 WORD_TO_GROUP = {
     w.lower(): group_label
     for group_label, words in GROUP_DEFS.items()

@@ -1,12 +1,10 @@
-import Sidebar from "./components/Sidebar";
-import { BarChart3, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { BarChart3, ArrowRight } from "lucide-react";
 
 const tools = [
   {
     name: "Sentiment Analyzer",
-    description:
-      "Analyze interview transcripts to extract sentiment insights and patterns.",
+    description: "Analyze interview transcripts to extract sentiment insights and patterns.",
     href: "/sentiment-analyzer",
     icon: BarChart3,
   },
@@ -14,61 +12,46 @@ const tools = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Sidebar />
+    <div className="h-full flex flex-col p-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-semibold text-text-primary">
+          Welcome to YUCG Analytics
+        </h1>
+        <p className="text-text-secondary mt-2 max-w-xl">
+          Internal analytics tools for the Yale Undergraduate Consulting Group.
+          Analyze interviews, track metrics, and gain insights.
+        </p>
+      </div>
 
-      <main className="ml-60">
-        {/* Header bar */}
-        <div className="h-14 px-6 flex items-center border-b border-border">
-          <span className="text-text-primary font-medium">Home</span>
+      {/* Tools */}
+      <div>
+        <h2 className="text-xs font-medium uppercase tracking-wide text-text-tertiary mb-4">
+          Tools
+        </h2>
+        <div className="space-y-2">
+          {tools.map((tool) => (
+            <Link
+              key={tool.href}
+              href={tool.href}
+              className="group flex items-center gap-4 p-4 rounded-lg border border-border hover:border-accent hover:bg-accent-muted/50 transition-colors"
+            >
+              <div className="w-10 h-10 rounded-lg bg-accent-muted flex items-center justify-center text-accent">
+                <tool.icon className="w-5 h-5" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-medium text-text-primary group-hover:text-accent transition-colors">
+                  {tool.name}
+                </h3>
+                <p className="text-sm text-text-secondary">
+                  {tool.description}
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-text-tertiary group-hover:text-accent group-hover:translate-x-1 transition-all" />
+            </Link>
+          ))}
         </div>
-
-        {/* Content area */}
-        <div className="p-10 max-w-4xl">
-          {/* Hero section */}
-          <div className="mb-12">
-            <h1 className="text-3xl font-semibold text-text-primary mb-4">
-              Welcome to YUCG Analytics
-            </h1>
-            <p className="text-lg text-text-secondary max-w-2xl">
-              Internal analytics tools for the Yale Undergraduate Consulting
-              Group. Analyze interviews, track metrics, and gain insights to
-              improve your consulting practice.
-            </p>
-          </div>
-
-          {/* Tools section */}
-          <div>
-            <h2 className="text-sm font-medium uppercase tracking-wide text-text-tertiary mb-4">
-              Available Tools
-            </h2>
-            <div className="grid gap-4">
-              {tools.map((tool) => (
-                <Link
-                  key={tool.href}
-                  href={tool.href}
-                  className="group flex items-center justify-between p-6 bg-surface-elevated border border-border rounded-lg hover:border-accent hover:shadow-sm transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-accent-muted flex items-center justify-center text-accent group-hover:text-accent-hover transition-colors">
-                      <tool.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-text-primary group-hover:text-accent transition-colors">
-                        {tool.name}
-                      </h3>
-                      <p className="text-sm text-text-secondary mt-0.5">
-                        {tool.description}
-                      </p>
-                    </div>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-text-tertiary group-hover:text-accent group-hover:translate-x-1 transition-all" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }

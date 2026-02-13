@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  /* Light mode colors */
+  --background: #ffffff;
+  --sidebar-bg: #f9fafb;
+  --surface: #f3f4f6;
+  --surface-hover: #e5e7eb;
+  --surface-elevated: #ffffff;
+
+  /* Text hierarchy */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+
+  /* Borders */
+  --border: #e5e7eb;
+  --border-subtle: #f3f4f6;
+
+  /* Accent - YUCG blue from logo */
+  --accent: #3d4f7a;
+  --accent-hover: #4a5d8a;
+
+  /* Status */
+  --yellow: #eab308;
+  --green: #22c55e;
+  --orange: #f97316;
+  --purple: #8b5cf6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-yellow: var(--yellow);
+  --color-green: var(--green);
+  --color-orange: var(--orange);
+  --color-purple: var(--purple);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}

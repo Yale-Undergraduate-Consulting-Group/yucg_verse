@@ -16,51 +16,49 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`relative flex h-full shrink-0 flex-col border-r border-border bg-sidebar-bg transition-all duration-200 ${
+      className={`relative flex h-full shrink-0 flex-col border-r border-[var(--sidebar-border)] bg-[var(--sidebar-bg)] transition-[width] duration-200 ease-out ${
         collapsed ? "w-14" : "w-60"
       }`}
     >
-      {/* Header — fixed-size logo area so logo never deforms when collapsed */}
-      <div className="flex h-14 items-center border-b border-border px-3">
+      <div className="flex h-14 items-center border-b border-[var(--sidebar-border)] px-3">
         <Link
           href="/"
-          className={`flex items-center overflow-hidden ${collapsed ? "h-8 w-8 justify-center" : "gap-2"}`}
+          className={`flex items-center overflow-hidden ${collapsed ? "h-8 w-8 justify-center" : "gap-3"}`}
           title={collapsed ? "YUCG Analytics" : undefined}
         >
-          <span
-            className={`relative flex shrink-0 items-center justify-center transition-[width,height] duration-200 ${collapsed ? "h-8 w-8" : "h-12 w-12"}`}
-          >
+          <span className="relative flex h-12 w-12 shrink-0 items-center justify-center">
             <img
               src="/yucg-logo-transparent.png"
               alt="YUCG"
-              className="h-full w-full object-contain object-center"
+              className={`h-full w-full object-contain object-center transition-transform duration-200 ease-out ${
+                collapsed ? "scale-[0.667]" : "scale-100"
+              }`}
             />
           </span>
           {!collapsed && (
-            <span className="text-xl font-semibold lowercase tracking-tight text-accent whitespace-nowrap">
+            <span className="font-semibold tracking-tight text-accent whitespace-nowrap text-[15px]">
               analytics
             </span>
           )}
         </Link>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 py-3 px-2">
-        <ul className="space-y-1">
+      <nav className="flex-1 py-4 px-2">
+        <ul className="space-y-0.5">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-accent-muted text-accent"
-                      : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
+                      ? "bg-accent-muted-strong text-accent shadow-[0_0_0_1px_var(--accent-muted-strong)]"
+                      : "text-text-secondary hover:bg-surface hover:text-text-primary"
                   }`}
                   title={collapsed ? item.label : undefined}
                 >
-                  <item.icon className="w-4 h-4 flex-shrink-0" />
+                  <item.icon className="h-4 w-4 shrink-0" />
                   {!collapsed && <span>{item.label}</span>}
                 </Link>
               </li>
@@ -69,17 +67,16 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      {/* Collapse toggle — small rounded square overlaying sidebar right edge at bottom */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="absolute bottom-4 right-0 z-10 flex h-7 w-7 translate-x-1/2 items-center justify-center rounded-md border border-border bg-sidebar-bg text-text-tertiary shadow-sm transition-colors hover:bg-surface-hover hover:text-text-secondary"
+        className="absolute bottom-5 right-0 z-10 flex h-8 w-8 translate-x-1/2 items-center justify-center rounded-lg border border-[var(--border)] bg-background-alt text-text-tertiary shadow-lg transition-all duration-200 hover:border-accent/40 hover:text-accent hover:shadow-[0_0_20px_var(--accent-glow)]"
         title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {collapsed ? (
-          <ChevronRight className="h-3.5 w-3.5" />
+          <ChevronRight className="h-4 w-4" />
         ) : (
-          <ChevronLeft className="h-3.5 w-3.5" />
+          <ChevronLeft className="h-4 w-4" />
         )}
       </button>
     </aside>

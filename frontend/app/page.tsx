@@ -13,23 +13,24 @@ const tools = [
 export default function HomePage() {
   return (
     <div className="h-full overflow-y-auto">
-      <div className="mx-auto w-full max-w-[var(--content-default)] px-6 py-10 sm:px-8 sm:py-12">
-        {/* Hero / Header — constrained, left-aligned */}
-        <header className="mb-12 sm:mb-16">
-          <p className="text-xs font-medium uppercase tracking-widest text-accent mb-3">
-            Yale Undergraduate Consulting Group
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
+      <div className="mx-auto w-full max-w-[var(--content-default)] px-6 py-12 sm:px-8 sm:py-16">
+        <header className="mb-16 sm:mb-20">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-px w-8 bg-accent" aria-hidden />
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Yale Undergraduate Consulting Group
+            </p>
+          </div>
+          <h1 className="font-bold tracking-tight text-text-primary text-4xl sm:text-5xl sm:tracking-[-0.02em] [font-family:var(--font-plus-jakarta)]">
             Analytics
           </h1>
-          <p className="mt-4 max-w-xl text-base text-text-secondary sm:text-lg">
+          <p className="mt-5 max-w-lg text-lg leading-relaxed text-text-secondary">
             Internal tools for interview analysis, metrics, and insights.
           </p>
         </header>
 
-        {/* Tools — two per row */}
         <section>
-          <h2 className="text-xs font-medium uppercase tracking-wider text-text-tertiary mb-4">
+          <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-text-tertiary [font-family:var(--font-plus-jakarta)]">
             Tools
           </h2>
           <ToolGrid tools={tools} />

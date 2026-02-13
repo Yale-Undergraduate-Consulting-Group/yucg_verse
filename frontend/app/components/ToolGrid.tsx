@@ -7,8 +7,8 @@ export interface ToolGridProps {
 
 export default function ToolGrid({ tools }: ToolGridProps) {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {tools.map((tool) => (
           <ToolGridCell
             key={tool.href}
@@ -20,12 +20,14 @@ export default function ToolGrid({ tools }: ToolGridProps) {
         ))}
       </div>
 
-      <div className="flex items-center gap-3 rounded-xl border border-dashed border-border bg-accent-muted/50 px-4 py-3 text-sm text-text-secondary">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-accent">
-          <Sparkles className="h-4 w-4" />
+      <div className="flex items-center gap-4 rounded-xl border border-dashed border-[var(--border)] bg-accent-muted/30 py-4 pl-4 pr-5">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted text-accent ring-1 ring-accent/20">
+          <Sparkles className="h-5 w-5" />
         </span>
-        <p>
-          <span className="font-medium text-text-primary">New tools in development.</span>{" "}
+        <p className="text-sm text-text-secondary">
+          <span className="font-semibold text-text-primary">
+            New tools in development.
+          </span>{" "}
           More analytics and insights are on the way.
         </p>
       </div>

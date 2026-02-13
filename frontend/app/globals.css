@@ -1,45 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafbfc;
+  /* Light base */
+  --background: #f8fafc;
+  --background-elevated: #ffffff;
   --background-alt: #ffffff;
+  --surface: #f1f5f9;
+  --surface-hover: #e2e8f0;
+
   --sidebar-bg: #ffffff;
-  --surface: #ffffff;
-  --surface-hover: #f1f5f9;
+  --sidebar-border: rgba(0, 0, 0, 0.06);
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-tertiary: #94a3b8;
+  --text-tertiary: #64748b;
 
-  --border: #e2e8f0;
-  --border-subtle: #f1f5f9;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
 
-  --accent: #3b5998;
-  --accent-hover: #2d4780;
-  --accent-light: #6b8cce;
-  --accent-muted: rgba(59, 89, 152, 0.08);
-  --accent-muted-strong: rgba(59, 89, 152, 0.14);
+  /* Accent: bold blue — clear and confident, not bright */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #60a5fa;
+  --accent-muted: rgba(37, 99, 235, 0.12);
+  --accent-muted-strong: rgba(37, 99, 235, 0.18);
+  --accent-glow: rgba(37, 99, 235, 0.2);
+  --accent-subtle: rgba(37, 99, 235, 0.06);
 
   --sidebar-width: 240px;
   --sidebar-collapsed: 56px;
 
-  /* Content width: readable, intentional layout */
-  --content-narrow: 42rem;   /* 672px */
-  --content-default: 52rem;  /* 832px */
-  --content-wide: 64rem;     /* 1024px */
+  --content-narrow: 42rem;
+  --content-default: 52rem;
+  --content-wide: 64rem;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-xl: 20px;
 
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 32px var(--accent-glow);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
   --color-background-alt: var(--background-alt);
   --color-sidebar-bg: var(--sidebar-bg);
   --color-surface: var(--surface);
@@ -55,7 +63,9 @@
   --color-accent-muted: var(--accent-muted);
   --color-accent-muted-strong: var(--accent-muted-strong);
   --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-plus-jakarta);
   --font-mono: var(--font-geist-mono);
+  --font-family-display: var(--font-plus-jakarta), var(--font-geist-sans), system-ui, sans-serif;
 }
 
 * {
@@ -63,7 +73,8 @@
   border-color: var(--border);
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -74,33 +85,34 @@ html, body {
 body {
   background: var(--background);
   color: var(--text-primary);
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-#__next, main {
+#__next,
+main {
   height: 100%;
 }
 
 ::selection {
-  background: var(--accent);
-  color: white;
+  background: var(--accent-muted-strong);
+  color: var(--text-primary);
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--surface);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -50,7 +50,7 @@ export default function HomePage() {
                   className="group flex items-center justify-between p-6 bg-surface-elevated border border-border rounded-lg hover:border-accent hover:shadow-sm transition-all"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-text-secondary group-hover:text-accent transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-accent-muted flex items-center justify-center text-accent group-hover:text-accent-hover transition-colors">
                       <tool.icon className="w-5 h-5" />
                     </div>
                     <div>

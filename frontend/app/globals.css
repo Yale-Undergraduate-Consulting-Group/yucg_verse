@@ -17,9 +17,11 @@
   --border: #e5e7eb;
   --border-subtle: #f3f4f6;
 
-  /* Accent - YUCG blue from logo */
-  --accent: #3d4f7a;
-  --accent-hover: #4a5d8a;
+  /* Accent - from brand palette */
+  --accent: #4A70A9;
+  --accent-hover: #5a80b9;
+  --accent-light: #8FABD4;
+  --accent-muted: rgba(74, 112, 169, 0.1);
 
   /* Status */
   --yellow: #eab308;
@@ -41,6 +43,8 @@
   --color-border-subtle: var(--border-subtle);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
+  --color-accent-muted: var(--accent-muted);
   --color-yellow: var(--yellow);
   --color-green: var(--green);
   --color-orange: var(--orange);

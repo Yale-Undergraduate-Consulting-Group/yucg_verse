@@ -21,7 +21,7 @@ export default function Sidebar() {
             alt="YUCG"
             className="h-14 w-auto"
           />
-          <span className="text-2xl font-semibold lowercase tracking-tight" style={{ color: '#1f376a' }}>analytics</span>
+          <span className="text-2xl font-semibold lowercase tracking-tight text-accent">analytics</span>
         </div>
       </div>
 
@@ -32,7 +32,7 @@ export default function Sidebar() {
           href="/"
           className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors mb-4 ${
             pathname === "/"
-              ? "bg-surface text-text-primary"
+              ? "bg-accent-muted text-accent"
               : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
           }`}
         >
@@ -57,7 +57,7 @@ export default function Sidebar() {
                     href={item.href}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${
                       isActive
-                        ? "bg-surface text-text-primary"
+                        ? "bg-accent-muted text-accent"
                         : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                     }`}
                   >

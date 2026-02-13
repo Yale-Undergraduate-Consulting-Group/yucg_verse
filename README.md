@@ -2,18 +2,6 @@
 
 Internal analytics platform for the Yale Undergraduate Consulting Group.
 
-## Project Structure
-
-```
-├── frontend/          # Next.js web application
-│   ├── app/
-│   │   ├── components/
-│   │   ├── sentiment-analyzer/
-│   │   └── page.tsx
-│   └── public/
-└── backend/           # FastAPI server
-    └── main.py
-```
 
 ## Getting Started
 
@@ -38,14 +26,6 @@ npm run dev
 ```
 
 The app will be available at `http://localhost:3000`
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/health` | Health check |
-| POST | `/api/transcripts/upload` | Upload transcript file |
-| POST | `/api/transcripts/analyze` | Analyze transcript text |
 
 ## Tools
 

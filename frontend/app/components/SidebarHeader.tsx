@@ -32,7 +32,7 @@ export default function SidebarHeader({
           />
         </span>
         {!collapsed && (
-          <span className="whitespace-nowrap text-[15px] font-semibold tracking-tight text-accent">
+          <span className="whitespace-nowrap text-xl font-semibold tracking-tight text-accent">
             {brandLabel}
           </span>
         )}

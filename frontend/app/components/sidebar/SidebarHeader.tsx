@@ -11,9 +11,9 @@ export interface SidebarHeaderProps {
 
 export default function SidebarHeader({
   collapsed,
-  logoSrc = "/yucg-logo-transparent.png",
+  logoSrc = "/y-logo.png",
   logoAlt = "YUCG",
-  brandLabel = "analytics",
+  brandLabel = "YUCG ANALYTICS",
 }: SidebarHeaderProps) {
   return (
     <div className="flex h-14 items-center border-b border-[var(--sidebar-border)] px-3">
@@ -32,7 +32,7 @@ export default function SidebarHeader({
           />
         </span>
         {!collapsed && (
-          <span className="whitespace-nowrap text-base font-semibold tracking-tight text-accent">
+          <span className="whitespace-nowrap text-blue-800 font-semibold tracking-tight text-accent">
             {brandLabel}
           </span>
         )}

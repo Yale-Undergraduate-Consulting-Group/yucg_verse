@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import { Home, BarChart3 } from "lucide-react";
 import BackendHealthPill from "./BackendHealthPill";
 import SidebarCollapseButton from "./SidebarCollapseButton";

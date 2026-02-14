@@ -60,7 +60,10 @@ export default function BackendHealthPill({
   useEffect(() => {
     if (!popupOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setPopupOpen(false);
       }
     };
@@ -68,7 +71,8 @@ export default function BackendHealthPill({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [popupOpen]);
 
-  const label = up === null ? "Checking…" : up ? "Backend" : "Offline";
+  const label =
+    up === null ? "Checking…" : up ? "Backend Online" : "Backend Offline";
 
   return (
     <div ref={containerRef} className="relative">
@@ -82,8 +86,20 @@ export default function BackendHealthPill({
               ? "bg-emerald-500/15 text-emerald-700"
               : "bg-red-500/15 text-red-600"
         }`}
-        title={up === null ? "Checking…" : up ? "Backend connected" : "Click for details"}
-        aria-label={up === null ? "Checking" : up ? "Backend connected" : "Backend offline"}
+        title={
+          up === null
+            ? "Checking…"
+            : up
+              ? "Backend connected"
+              : "Click for details"
+        }
+        aria-label={
+          up === null
+            ? "Checking"
+            : up
+              ? "Backend connected"
+              : "Backend offline"
+        }
         aria-expanded={popupOpen}
       >
         <span
@@ -109,7 +125,9 @@ export default function BackendHealthPill({
           )}
           {up === true && (
             <>
-              <p className="text-xs font-medium text-text-primary">Backend connected</p>
+              <p className="text-xs font-medium text-emerald-700">
+                Backend connected
+              </p>
               <p className="mt-1 text-xs text-text-secondary">{healthUrl}</p>
               <button
                 type="button"
@@ -124,9 +142,13 @@ export default function BackendHealthPill({
           )}
           {up === false && (
             <>
-              <p className="text-xs font-medium text-red-600">Backend unreachable</p>
+              <p className="text-xs font-medium text-red-600">
+                Backend unreachable
+              </p>
               {errorMessage && (
-                <p className="mt-1 text-xs text-text-secondary">{errorMessage}</p>
+                <p className="mt-1 text-xs text-text-secondary">
+                  {errorMessage}
+                </p>
               )}
               <p className="mt-1 text-xs text-text-tertiary">{healthUrl}</p>
               <button

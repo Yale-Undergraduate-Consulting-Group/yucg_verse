@@ -1,14 +1,5 @@
-import { BarChart3 } from "lucide-react";
-import ToolGrid from "./components/ToolGrid";
-
-const tools = [
-  {
-    name: "Sentiment Analyzer",
-    description: "Analyze interview transcripts to extract sentiment insights and patterns.",
-    href: "/sentiment-analyzer",
-    icon: BarChart3,
-  },
-];
+import { ToolGrid } from "./components/tools";
+import { defaultTools } from "./lib/config";
 
 export default function HomePage() {
   return (
@@ -33,7 +24,7 @@ export default function HomePage() {
           <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-text-tertiary [font-family:var(--font-plus-jakarta)]">
             Tools
           </h2>
-          <ToolGrid tools={tools} />
+          <ToolGrid tools={defaultTools} />
         </section>
       </div>
     </div>

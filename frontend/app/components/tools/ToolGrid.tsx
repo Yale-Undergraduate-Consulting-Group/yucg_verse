@@ -1,8 +1,9 @@
 import { Sparkles } from "lucide-react";
-import ToolGridCell, { type ToolGridCellProps } from "./ToolGridCell";
+import type { ToolConfig } from "@/app/lib/types";
+import ToolGridCell from "./ToolGridCell";
 
 export interface ToolGridProps {
-  tools: ToolGridCellProps[];
+  tools: ToolConfig[];
 }
 
 export default function ToolGrid({ tools }: ToolGridProps) {

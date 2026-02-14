@@ -1,18 +1,12 @@
 "use client";
 
 import { useState } from "react";
-
-import { Home, BarChart3 } from "lucide-react";
+import { defaultNavItems } from "@/app/lib/config";
+import type { SidebarNavItem } from "@/app/lib/types";
 import BackendHealthPill from "./BackendHealthPill";
 import SidebarCollapseButton from "./SidebarCollapseButton";
 import SidebarHeader from "./SidebarHeader";
 import SidebarNav from "./SidebarNav";
-import type { SidebarNavItem } from "./SidebarNav";
-
-const defaultNavItems: SidebarNavItem[] = [
-  { icon: Home, label: "Home", href: "/" },
-  { icon: BarChart3, label: "Sentiment Analyzer", href: "/sentiment-analyzer" },
-];
 
 export interface SidebarProps {
   /** Nav items. Defaults to Home + Sentiment Analyzer. */

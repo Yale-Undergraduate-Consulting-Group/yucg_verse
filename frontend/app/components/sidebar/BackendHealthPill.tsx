@@ -2,9 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { RefreshCw } from "lucide-react";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-const DEFAULT_HEALTH_URL = `${API_BASE}/health`;
+import { DEFAULT_HEALTH_URL } from "@/app/lib/constants";
 
 export interface BackendHealthPillProps {
   /** When true, only the status dot is shown (e.g. in a collapsed sidebar). */
@@ -111,13 +109,11 @@ export default function BackendHealthPill({
           )}
           {up === true && (
             <>
-              <p className="text-xs font-medium text-emerald-700">Backend connected</p>
+              <p className="text-xs font-medium text-text-primary">Backend connected</p>
               <p className="mt-1 text-xs text-text-secondary">{healthUrl}</p>
               <button
                 type="button"
-                onClick={() => {
-                  check();
-                }}
+                onClick={() => check()}
                 disabled={checking}
                 className="mt-2 flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-accent hover:bg-accent-muted disabled:opacity-60"
               >

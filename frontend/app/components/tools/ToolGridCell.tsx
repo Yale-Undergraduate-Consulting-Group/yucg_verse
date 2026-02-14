@@ -1,14 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, type LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import type { ToolConfig } from "@/app/lib/types";
 
-export interface ToolGridCellProps {
-  name: string;
-  description: string;
-  href: string;
-  icon: LucideIcon;
-}
+export interface ToolGridCellProps extends ToolConfig {}
 
-export default function ToolGridCell({ name, description, href, icon: Icon }: ToolGridCellProps) {
+export default function ToolGridCell({
+  name,
+  description,
+  href,
+  icon: Icon,
+}: ToolGridCellProps) {
   return (
     <Link
       href={href}

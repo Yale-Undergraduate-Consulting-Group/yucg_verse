@@ -1,7 +1,9 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from typing import List
 import uvicorn
+import PyPDF2
+import io
 
 app = FastAPI(
     title="YUCG Analytics API",
@@ -22,44 +24,62 @@ app.add_middleware(
 async def health_check():
     return {"status": "ok"}
 
+# Sentiment analysis for PDFs
+@app.post("/api/analyze_sentiment")
+async def analyze_sentiment(files: List[UploadFile] = File(...)):
+    results = []
 
-# Transcript upload
-@app.post("/api/transcripts/upload")
-async def upload_transcript(file: UploadFile = File(...)):
-    if not file.filename:
-        raise HTTPException(status_code=400, detail="No file provided")
+    for file in files:
+        if not file.filename or not file.filename.lower().endswith(".pdf"):
+            results.append({
+                "filename": file.filename or "unknown",
+                "error": "Only PDF files are supported"
+            })
+            continue
 
-    allowed_extensions = [".txt", ".csv", ".docx"]
-    file_ext = "." + file.filename.split(".")[-1].lower() if "." in file.filename else ""
+        try:
+            content = await file.read()
+            pdf_reader = PyPDF2.PdfReader(io.BytesIO(content))
 
-    if file_ext not in allowed_extensions:
-        raise HTTPException(
-            status_code=400,
-            detail=f"File type not supported. Allowed: {', '.join(allowed_extensions)}"
-        )
+            text = ""
+            for page in pdf_reader.pages:
+                text += page.extract_text() or ""
 
-    content = await file.read()
+            word_count = len(text.split())
+            char_count = len(text)
+            page_count = len(pdf_reader.pages)
 
-    return {
-        "filename": file.filename,
-        "size": len(content),
-        "status": "uploaded"
-    }
+            # Super basic sentiment: count positive/negative words
+            positive_words = ["good", "great", "excellent", "happy", "positive", "love", "amazing", "wonderful", "fantastic", "best"]
+            negative_words = ["bad", "terrible", "awful", "sad", "negative", "hate", "worst", "horrible", "poor", "disappointing"]
 
+            text_lower = text.lower()
+            positive_count = sum(text_lower.count(word) for word in positive_words)
+            negative_count = sum(text_lower.count(word) for word in negative_words)
 
-# Transcript analysis
-class AnalyzeRequest(BaseModel):
-    transcript_text: str
+            if positive_count > negative_count:
+                sentiment = "positive"
+            elif negative_count > positive_count:
+                sentiment = "negative"
+            else:
+                sentiment = "neutral"
 
+            results.append({
+                "filename": file.filename,
+                "page_count": page_count,
+                "word_count": word_count,
+                "char_count": char_count,
+                "sentiment": sentiment,
+                "positive_word_count": positive_count,
+                "negative_word_count": negative_count
+            })
+        except Exception as e:
+            results.append({
+                "filename": file.filename,
+                "error": str(e)
+            })
 
-@app.post("/api/transcripts/analyze")
-async def analyze_transcript(request: AnalyzeRequest):
-    # TODO: Implement actual sentiment analysis
-    return {
-        "overall_sentiment": 0.0,
-        "sentiment_label": "neutral",
-        "details": {}
-    }
+    return {"results": results}
 
 
 if __name__ == "__main__":

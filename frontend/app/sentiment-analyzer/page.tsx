@@ -2,11 +2,24 @@
 
 import { useState, useCallback } from "react";
 import { Upload, FileText, X, Loader2 } from "lucide-react";
+import { API_BASE_URL } from "../lib/constants";
 
 interface UploadedFile {
   id: string;
   name: string;
   size: number;
+  file: File;
+}
+
+interface AnalysisResult {
+  filename: string;
+  page_count?: number;
+  word_count?: number;
+  char_count?: number;
+  sentiment?: string;
+  positive_word_count?: number;
+  negative_word_count?: number;
+  error?: string;
 }
 
 function formatSize(bytes: number): string {
@@ -19,6 +32,8 @@ export default function SentimentAnalyzerPage() {
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
+  const [results, setResults] = useState<AnalysisResult[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -49,9 +64,12 @@ export default function SentimentAnalyzerPage() {
       id: `${f.name}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: f.name,
       size: f.size,
+      file: f,
     }));
     if (uploaded.length) {
       setFiles(prev => [...prev, ...uploaded]);
+      setResults(null);
+      setError(null);
     }
   };
 
@@ -59,11 +77,33 @@ export default function SentimentAnalyzerPage() {
     setFiles(prev => prev.filter(f => f.id !== id));
   };
 
-  const handleRun = () => {
+  const handleRun = async () => {
     setIsRunning(true);
-    setTimeout(() => {
+    setError(null);
+    setResults(null);
+
+    try {
+      const formData = new FormData();
+      files.forEach((f) => {
+        formData.append("files", f.file);
+      });
+
+      const response = await fetch(`${API_BASE_URL}/api/analyze_sentiment`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setResults(data.results);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Analysis failed");
+    } finally {
       setIsRunning(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -181,6 +221,64 @@ export default function SentimentAnalyzerPage() {
               </button>
             </div>
           </>
+        )}
+
+        {error && (
+          <div className="mt-6 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            {error}
+          </div>
+        )}
+
+        {results && (
+          <section className="mt-8">
+            <h2 className="mb-4 text-lg font-semibold text-text-primary">Results</h2>
+            <div className="space-y-4">
+              {results.map((result, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-xl border border-[var(--border)] bg-background-alt p-4"
+                >
+                  <h3 className="mb-3 font-medium text-text-primary">{result.filename}</h3>
+                  {result.error ? (
+                    <p className="text-sm text-red-400">{result.error}</p>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+                      <div>
+                        <span className="text-text-tertiary">Sentiment: </span>
+                        <span
+                          className={`font-medium ${
+                            result.sentiment === "positive"
+                              ? "text-green-400"
+                              : result.sentiment === "negative"
+                              ? "text-red-400"
+                              : "text-text-secondary"
+                          }`}
+                        >
+                          {result.sentiment}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-text-tertiary">Pages: </span>
+                        <span className="text-text-primary">{result.page_count}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-tertiary">Words: </span>
+                        <span className="text-text-primary">{result.word_count?.toLocaleString()}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-tertiary">Positive words: </span>
+                        <span className="text-text-primary">{result.positive_word_count}</span>
+                      </div>
+                      <div>
+                        <span className="text-text-tertiary">Negative words: </span>
+                        <span className="text-text-primary">{result.negative_word_count}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
         )}
       </div>
     </div>

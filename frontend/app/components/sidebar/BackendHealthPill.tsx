@@ -79,12 +79,12 @@ export default function BackendHealthPill({
       <button
         type="button"
         onClick={() => setPopupOpen((o) => !o)}
-        className={`flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 ${
+        className={`flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 ${
           up === null
-            ? "bg-surface text-text-tertiary"
+            ? "border-[var(--border)] bg-[var(--surface)] text-text-tertiary"
             : up
-              ? "bg-emerald-500/15 text-emerald-700"
-              : "bg-red-500/15 text-red-600"
+              ? "border-emerald-500/25 bg-emerald-500/15 text-emerald-700"
+              : "border-red-500/25 bg-red-500/15 text-red-600"
         }`}
         title={
           up === null
@@ -116,7 +116,7 @@ export default function BackendHealthPill({
 
       {popupOpen && (
         <div
-          className="absolute bottom-full left-0 z-50 mb-2 w-64 rounded-lg border border-[var(--border)] bg-background-alt p-3 text-left shadow-lg"
+          className="absolute bottom-full left-0 z-50 mb-2 w-64 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-3 text-left shadow-lg"
           role="dialog"
           aria-label="Backend status"
         >

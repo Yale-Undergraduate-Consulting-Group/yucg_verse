@@ -14,7 +14,7 @@ export default function SidebarCollapseButton({
   return (
     <button
       onClick={onToggle}
-      className="absolute bottom-5 right-0 z-10 flex h-8 w-8 translate-x-1/2 items-center justify-center rounded-lg border border-[var(--border)] bg-background-alt text-text-tertiary shadow-lg transition-all duration-200 hover:border-accent/40 hover:text-accent hover:shadow-[0_0_20px_var(--accent-glow)]"
+      className="absolute bottom-5 right-0 z-10 flex h-8 w-8 translate-x-1/2 items-center justify-center rounded-full border border-[var(--panel-border)] bg-[var(--panel-bg)] text-text-tertiary shadow-md transition-all duration-200 hover:border-accent/35 hover:text-accent"
       title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
     >

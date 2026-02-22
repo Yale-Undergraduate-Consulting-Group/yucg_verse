@@ -13,28 +13,33 @@ export default function SidebarHeader({
   collapsed,
   logoSrc = "/y-logo.png",
   logoAlt = "YUCG",
-  brandLabel = "YUCG ANALYTICS",
+  brandLabel = "YUCG Analytics",
 }: SidebarHeaderProps) {
   return (
-    <div className="flex h-14 items-center border-b border-[var(--sidebar-border)] px-3">
+    <div className="flex h-[72px] items-center border-b border-[var(--sidebar-border)] px-3 sm:px-4">
       <Link
         href="/"
-        className={`flex items-center overflow-hidden ${collapsed ? "h-8 w-8 justify-center" : "gap-3"}`}
+        className={`flex w-full items-center overflow-hidden ${collapsed ? "h-9 justify-center" : "gap-3"}`}
         title={collapsed ? "YUCG Analytics" : undefined}
       >
-        <span className="relative flex h-12 w-12 shrink-0 items-center justify-center">
+        <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--surface)]">
           <img
             src={logoSrc}
             alt={logoAlt}
-            className={`h-full w-full object-contain object-center transition-transform duration-200 ease-out ${
-              collapsed ? "scale-[0.667]" : "scale-100"
+            className={`h-7 w-7 object-contain object-center transition-transform duration-200 ease-out ${
+              collapsed ? "scale-90" : "scale-100"
             }`}
           />
         </span>
         {!collapsed && (
-          <span className="whitespace-nowrap text-blue-800 font-semibold tracking-tight text-accent">
-            {brandLabel}
-          </span>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold tracking-tight text-text-primary">
+              {brandLabel}
+            </p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-text-tertiary">
+              Workspace
+            </p>
+          </div>
         )}
       </Link>
     </div>

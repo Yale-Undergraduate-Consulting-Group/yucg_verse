@@ -19,13 +19,15 @@ export default function Sidebar({ navItems = defaultNavItems }: SidebarProps) {
   return (
     <aside
       className={`relative flex h-full shrink-0 flex-col border-r border-[var(--sidebar-border)] bg-[var(--sidebar-bg)] transition-[width] duration-200 ease-out ${
-        collapsed ? "w-14" : "w-60"
+        collapsed
+          ? "w-[var(--sidebar-collapsed)]"
+          : "w-[var(--sidebar-width)]"
       }`}
     >
       <SidebarHeader collapsed={collapsed} />
       <SidebarNav collapsed={collapsed} items={navItems} />
 
-      <div className="p-5">
+      <div className="mt-auto p-4">
         <BackendHealthPill collapsed={collapsed} />
       </div>
 

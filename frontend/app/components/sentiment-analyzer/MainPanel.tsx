@@ -1,11 +1,8 @@
 import UploadDropzone from "./UploadDropzone";
-import ResultsPanel from "./ResultsPanel";
-import type { AnalysisResult } from "./types";
 
 interface MainPanelProps {
   isDragging: boolean;
   error: string | null;
-  results: AnalysisResult[] | null;
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -15,7 +12,6 @@ interface MainPanelProps {
 export default function MainPanel({
   isDragging,
   error,
-  results,
   onDragOver,
   onDragLeave,
   onDrop,
@@ -42,8 +38,6 @@ export default function MainPanel({
           {error}
         </div>
       )}
-
-      {results && <ResultsPanel results={results} />}
     </section>
   );
 }

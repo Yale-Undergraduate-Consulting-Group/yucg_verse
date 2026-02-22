@@ -6,7 +6,7 @@ interface ResultsPanelProps {
 
 export default function ResultsPanel({ results }: ResultsPanelProps) {
   return (
-    <section className="mt-6">
+    <section>
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
         Results
       </h2>

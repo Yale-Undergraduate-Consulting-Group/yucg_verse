@@ -5,6 +5,7 @@ import {
   ActionPanel,
   MainPanel,
   QueuePanel,
+  ResultsPanel,
   SentimentHero,
   type AnalysisResult,
   type UploadedFile,
@@ -123,7 +124,6 @@ export default function SentimentAnalyzerPage() {
         <MainPanel
           isDragging={isDragging}
           error={error}
-          results={results}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -143,6 +143,12 @@ export default function SentimentAnalyzerPage() {
           />
         </aside>
       </div>
+
+      {results && (
+        <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 sm:p-6">
+          <ResultsPanel results={results} />
+        </section>
+      )}
     </div>
   );
 }

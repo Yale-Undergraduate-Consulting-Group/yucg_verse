@@ -7,13 +7,19 @@ Internal analytics platform for the Yale Undergraduate Consulting Group.
 
 ### Backend
 
+Python 3.11+ is required.
+
+Using `uv` (recommended):
+
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+uv venv --python 3.11 .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -r requirements.txt
 python main.py
 ```
+
+If `uv` is not installed, install it first (`brew install uv` on macOS).
 
 The API will be available at `http://localhost:8000`
 

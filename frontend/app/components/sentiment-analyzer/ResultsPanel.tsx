@@ -1,12 +1,3 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
 import type { AnalysisResult } from "./types";
 
 interface ResultsPanelProps {
@@ -19,12 +10,6 @@ function sentimentColor(sentiment: string | undefined) {
   return "text-text-secondary";
 }
 
-const BAR_COLORS: Record<string, string> = {
-  Positive: "#10b981",
-  Neutral:  "#9ca3af",
-  Negative: "#ef4444",
-};
-
 export default function ResultsPanel({ results }: ResultsPanelProps) {
   return (
     <section>
@@ -32,143 +17,91 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
         Results
       </h2>
       <div className="space-y-4">
-        {results.map((result, idx) => {
-          const distData = result.sentiment_distribution
-            ? [
-                { label: "Positive", count: result.sentiment_distribution.positive },
-                { label: "Neutral",  count: result.sentiment_distribution.neutral  },
-                { label: "Negative", count: result.sentiment_distribution.negative },
-              ]
-            : [];
+        {results.map((result, idx) => (
+          <div
+            key={`${result.filename}-${idx}`}
+            className="rounded-2xl border border-[var(--border)] bg-white/75 p-4"
+          >
+            <h3 className="mb-3 font-semibold text-text-primary">
+              {result.interviewee ?? result.filename}
+            </h3>
 
-          const canvaOtherData =
-            result.canva_sentence_count != null && result.other_service_count != null
-              ? [
-                  { label: "Canva-only",      count: result.canva_sentence_count },
-                  { label: "Mentions others", count: result.other_service_count  },
-                ]
-              : [];
+            {result.error ? (
+              <p className="text-sm text-red-600">{result.error}</p>
+            ) : (
+              <div className="space-y-4">
+                {/* Core stats */}
+                <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+                  <div>
+                    <p className="text-text-tertiary">Overall sentiment</p>
+                    <p className={`font-medium ${sentimentColor(result.sentiment)}`}>
+                      {result.sentiment ?? "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-text-tertiary">Avg score</p>
+                    <p className="font-medium text-text-primary">
+                      {result.avg_compound != null ? result.avg_compound.toFixed(3) : "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-text-tertiary">Sentences</p>
+                    <p className="font-medium text-text-primary">
+                      {result.sentence_count ?? "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-text-tertiary">Canva / Other</p>
+                    <p className="font-medium text-text-primary">
+                      {result.canva_sentence_count ?? "-"} / {result.other_service_count ?? "-"}
+                    </p>
+                  </div>
+                </div>
 
-          return (
-            <div
-              key={`${result.filename}-${idx}`}
-              className="rounded-2xl border border-[var(--border)] bg-white/75 p-4"
-            >
-              <h3 className="mb-3 font-semibold text-text-primary">
-                {result.interviewee ?? result.filename}
-              </h3>
-
-              {result.error ? (
-                <p className="text-sm text-red-600">{result.error}</p>
-              ) : (
-                <div className="space-y-5">
-                  {/* Core stats */}
-                  <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-                    <div>
-                      <p className="text-text-tertiary">Overall sentiment</p>
-                      <p className={`font-medium ${sentimentColor(result.sentiment)}`}>
-                        {result.sentiment ?? "-"}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-text-tertiary">Avg score</p>
-                      <p className="font-medium text-text-primary">
-                        {result.avg_compound != null ? result.avg_compound.toFixed(3) : "-"}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-text-tertiary">Sentences</p>
-                      <p className="font-medium text-text-primary">
-                        {result.sentence_count ?? "-"}
-                      </p>
+                {/* Sentiment distribution */}
+                {result.sentiment_distribution && (
+                  <div>
+                    <p className="mb-1 text-xs text-text-tertiary">Sentence breakdown</p>
+                    <div className="flex gap-3 text-sm">
+                      <span className="text-emerald-600">
+                        +{result.sentiment_distribution.positive} positive
+                      </span>
+                      <span className="text-text-secondary">
+                        {result.sentiment_distribution.neutral} neutral
+                      </span>
+                      <span className="text-red-600">
+                        {result.sentiment_distribution.negative} negative
+                      </span>
                     </div>
                   </div>
+                )}
 
-                  {/* Sentiment distribution bar chart */}
-                  {distData.length > 0 && (
-                    <div>
-                      <p className="mb-2 text-xs text-text-tertiary">Sentence breakdown</p>
-                      <ResponsiveContainer width="100%" height={120}>
-                        <BarChart data={distData} barCategoryGap="30%">
-                          <XAxis
-                            dataKey="label"
-                            tick={{ fontSize: 11, fill: "#818b9c" }}
-                            axisLine={false}
-                            tickLine={false}
-                          />
-                          <YAxis hide />
-                          <Tooltip
-                            cursor={{ fill: "rgba(0,0,0,0.04)" }}
-                            formatter={(value: number) => [value, "sentences"]}
-                            contentStyle={{ fontSize: 12, borderRadius: 8 }}
-                          />
-                          <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                            {distData.map((entry) => (
-                              <Cell
-                                key={entry.label}
-                                fill={BAR_COLORS[entry.label] ?? "#9ca3af"}
-                              />
-                            ))}
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
+                {/* Top Canva-associated words */}
+                {result.top_words && result.top_words.length > 0 && (
+                  <div>
+                    <p className="mb-1 text-xs text-text-tertiary">Top Canva-associated words</p>
+                    <div className="flex flex-wrap gap-2">
+                      {result.top_words.map((w) => (
+                        <span
+                          key={w.word}
+                          className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+                            w.avg_hf_compound >= 0.05
+                              ? "bg-emerald-50 text-emerald-700"
+                              : w.avg_hf_compound <= -0.05
+                                ? "bg-red-50 text-red-700"
+                                : "bg-gray-100 text-text-secondary"
+                          }`}
+                        >
+                          {w.word} ({w.count})
+                        </span>
+                      ))}
                     </div>
-                  )}
-
-                  {/* Canva vs other services bar chart */}
-                  {canvaOtherData.length > 0 && (
-                    <div>
-                      <p className="mb-2 text-xs text-text-tertiary">Topic focus</p>
-                      <ResponsiveContainer width="100%" height={100}>
-                        <BarChart data={canvaOtherData} barCategoryGap="30%">
-                          <XAxis
-                            dataKey="label"
-                            tick={{ fontSize: 11, fill: "#818b9c" }}
-                            axisLine={false}
-                            tickLine={false}
-                          />
-                          <YAxis hide />
-                          <Tooltip
-                            cursor={{ fill: "rgba(0,0,0,0.04)" }}
-                            formatter={(value: number) => [value, "sentences"]}
-                            contentStyle={{ fontSize: 12, borderRadius: 8 }}
-                          />
-                          <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                            <Cell fill="#3b82f6" />
-                            <Cell fill="#d1d5db" />
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                  )}
-
-                  {/* Top Canva-associated words */}
-                  {result.top_words && result.top_words.length > 0 && (
-                    <div>
-                      <p className="mb-1 text-xs text-text-tertiary">Top Canva-associated words</p>
-                      <div className="flex flex-wrap gap-2">
-                        {result.top_words.map((w) => (
-                          <span
-                            key={w.word}
-                            className={`rounded-md px-2 py-0.5 text-xs font-medium ${
-                              w.avg_hf_compound >= 0.05
-                                ? "bg-emerald-50 text-emerald-700"
-                                : w.avg_hf_compound <= -0.05
-                                  ? "bg-red-50 text-red-700"
-                                  : "bg-gray-100 text-text-secondary"
-                            }`}
-                          >
-                            {w.word} ({w.count})
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          );
-        })}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   );

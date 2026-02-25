@@ -21,7 +21,7 @@ export default function SentimentAnalyzerPage() {
 
   const addFiles = useCallback((newFiles: File[]) => {
     const pdfs = newFiles.filter(
-      (file) => file.type === "application/pdf" || file.name.endsWith(".pdf")
+      (file) => file.name.endsWith(".docx") || file.name.endsWith(".txt")
     );
 
     const uploaded: UploadedFile[] = pdfs.map((file) => ({
@@ -86,7 +86,7 @@ export default function SentimentAnalyzerPage() {
         formData.append("files", file.file);
       });
 
-      const response = await fetch(`${API_BASE_URL}/api/analyze_sentiment`, {
+      const response = await fetch(`${API_BASE_URL}/api/analyze_transcripts`, {
         method: "POST",
         body: formData,
       });

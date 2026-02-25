@@ -31,7 +31,7 @@ export default function ActionPanel({
         )}
       </button>
       <p className="mt-2 text-xs text-text-tertiary">
-        Processing starts once at least one PDF is added.
+        Processing starts once at least one .docx or .txt file is added.
       </p>
     </div>
   );

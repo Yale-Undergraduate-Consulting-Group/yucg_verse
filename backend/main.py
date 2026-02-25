@@ -1,9 +1,24 @@
+import math
+import os
+import sys
+import tempfile
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import uvicorn
-import PyPDF2
-import io
+
+# Make the condensed pipeline importable
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "condensed_transcript_sentiment_analysis_pipeline"))
+from full_sentiment_analyzer_pipeline import (
+    stage_00_parse_transcripts,
+    stage_01_tag_roles,
+    stage_02_sentence_level,
+    stage_03_hf_sentiment,
+    stage_04_separate_services,
+    stage_05_canva_word_stats,
+    POS_THRESHOLD,
+    NEG_THRESHOLD,
+)
 
 app = FastAPI(
     title="YUCG Analytics API",
@@ -24,60 +39,80 @@ app.add_middleware(
 async def health_check():
     return {"status": "ok"}
 
-# Sentiment analysis for PDFs
-@app.post("/api/analyze_sentiment")
-async def analyze_sentiment(files: List[UploadFile] = File(...)):
+
+# Transcript sentiment analysis using the full HuggingFace pipeline
+@app.post("/api/analyze_transcripts")
+async def analyze_transcripts(files: List[UploadFile] = File(...)):
     results = []
 
+    # Validate file types upfront
     for file in files:
-        if not file.filename or not file.filename.lower().endswith(".pdf"):
-            results.append({
-                "filename": file.filename or "unknown",
-                "error": "Only PDF files are supported"
-            })
-            continue
+        fname = file.filename or "unknown"
+        if not (fname.lower().endswith(".docx") or fname.lower().endswith(".txt")):
+            results.append({"filename": fname, "error": "Only .docx and .txt files are supported"})
 
-        try:
-            content = await file.read()
-            pdf_reader = PyPDF2.PdfReader(io.BytesIO(content))
+    valid_files = [f for f in files if (f.filename or "").lower().endswith((".docx", ".txt"))]
+    if not valid_files:
+        return {"results": results}
 
-            text = ""
-            for page in pdf_reader.pages:
-                text += page.extract_text() or ""
+    try:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            # Save uploaded files to temp directory
+            for file in valid_files:
+                dest = os.path.join(tmp_dir, file.filename)
+                content = await file.read()
+                with open(dest, "wb") as f:
+                    f.write(content)
 
-            word_count = len(text.split())
-            char_count = len(text)
-            page_count = len(pdf_reader.pages)
+            # Run pipeline stages 00–05 (no plotting)
+            combined_df  = stage_00_parse_transcripts(tmp_dir)
+            combined_df  = stage_01_tag_roles(combined_df)
+            sentences_df = stage_02_sentence_level(combined_df)
+            sentiment_df = stage_03_hf_sentiment(sentences_df)
+            df_canva, df_other = stage_04_separate_services(sentiment_df)
 
-            # Super basic sentiment: count positive/negative words
-            positive_words = ["good", "great", "excellent", "happy", "positive", "love", "amazing", "wonderful", "fantastic", "best"]
-            negative_words = ["bad", "terrible", "awful", "sad", "negative", "hate", "worst", "horrible", "poor", "disappointing"]
+        # Build one result entry per interviewee
+        for interviewee in sentiment_df["interviewee"].unique():
+            idf = sentiment_df[sentiment_df["interviewee"] == interviewee]
 
-            text_lower = text.lower()
-            positive_count = sum(text_lower.count(word) for word in positive_words)
-            negative_count = sum(text_lower.count(word) for word in negative_words)
-
-            if positive_count > negative_count:
-                sentiment = "positive"
-            elif negative_count > positive_count:
-                sentiment = "negative"
+            avg_compound = float(idf["hf_compound"].mean())
+            if math.isnan(avg_compound):
+                avg_compound = 0.0
+            if avg_compound >= POS_THRESHOLD:
+                overall_sentiment = "positive"
+            elif avg_compound <= NEG_THRESHOLD:
+                overall_sentiment = "negative"
             else:
-                sentiment = "neutral"
+                overall_sentiment = "neutral"
+
+            dist = idf["hf_label"].value_counts().to_dict()
+
+            canva_count = int(len(df_canva[df_canva["interviewee"] == interviewee]))
+            other_count = int(len(df_other[df_other["interviewee"] == interviewee]))
+
+            # Top words associated with this interviewee's Canva sentences
+            idf_canva = df_canva[df_canva["interviewee"] == interviewee]
+            idf_word_stats = stage_05_canva_word_stats(idf_canva)
+            top_words = idf_word_stats.head(10).to_dict(orient="records")
 
             results.append({
-                "filename": file.filename,
-                "page_count": page_count,
-                "word_count": word_count,
-                "char_count": char_count,
-                "sentiment": sentiment,
-                "positive_word_count": positive_count,
-                "negative_word_count": negative_count
+                "filename":       interviewee,
+                "interviewee":    interviewee,
+                "sentence_count": int(len(idf)),
+                "avg_compound":   round(avg_compound, 4),
+                "sentiment":      overall_sentiment,
+                "canva_sentence_count":  canva_count,
+                "other_service_count":   other_count,
+                "sentiment_distribution": {
+                    "positive": int(dist.get("positive", 0)),
+                    "neutral":  int(dist.get("neutral",  0)),
+                    "negative": int(dist.get("negative", 0)),
+                },
+                "top_words": top_words,
             })
-        except Exception as e:
-            results.append({
-                "filename": file.filename,
-                "error": str(e)
-            })
+
+    except Exception as e:
+        results.append({"filename": "pipeline", "error": str(e)})
 
     return {"results": results}
 

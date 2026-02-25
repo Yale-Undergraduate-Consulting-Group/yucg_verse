@@ -5,13 +5,27 @@ export interface UploadedFile {
   file: File;
 }
 
+export interface TopWord {
+  word: string;
+  count: number;
+  avg_hf_compound: number;
+}
+
+export interface SentimentDistribution {
+  positive: number;
+  neutral: number;
+  negative: number;
+}
+
 export interface AnalysisResult {
   filename: string;
-  page_count?: number;
-  word_count?: number;
-  char_count?: number;
+  interviewee?: string;
+  sentence_count?: number;
+  avg_compound?: number;
   sentiment?: string;
-  positive_word_count?: number;
-  negative_word_count?: number;
+  canva_sentence_count?: number;
+  other_service_count?: number;
+  sentiment_distribution?: SentimentDistribution;
+  top_words?: TopWord[];
   error?: string;
 }

@@ -11,6 +11,10 @@ function sentimentColor(sentiment: string | undefined) {
   return "text-text-secondary";
 }
 
+function pct(n: number, total: number) {
+  return total === 0 ? 0 : Math.round((n / total) * 100);
+}
+
 export default function ResultsPanel({ results, overallPlot }: ResultsPanelProps) {
   return (
     <section>
@@ -60,22 +64,36 @@ export default function ResultsPanel({ results, overallPlot }: ResultsPanelProps
                 </div>
 
                 {/* Sentiment distribution */}
-                {result.sentiment_distribution && (
-                  <div>
-                    <p className="mb-1 text-xs text-text-tertiary">Sentence breakdown</p>
-                    <div className="flex gap-3 text-sm">
-                      <span className="text-emerald-600">
-                        +{result.sentiment_distribution.positive} positive
-                      </span>
-                      <span className="text-text-secondary">
-                        {result.sentiment_distribution.neutral} neutral
-                      </span>
-                      <span className="text-red-600">
-                        {result.sentiment_distribution.negative} negative
-                      </span>
+                {result.sentiment_distribution && (() => {
+                  const { positive, neutral, negative } = result.sentiment_distribution;
+                  const total = positive + neutral + negative;
+                  const posP = pct(positive, total);
+                  const neutP = pct(neutral, total);
+                  const negP = pct(negative, total);
+                  return (
+                    <div>
+                      <p className="mb-1 text-xs text-text-tertiary">Sentence breakdown</p>
+                      {/* Counts */}
+                      <div className="mb-2 flex gap-3 text-sm">
+                        <span className="text-emerald-600">+{positive} positive</span>
+                        <span className="text-text-secondary">{neutral} neutral</span>
+                        <span className="text-red-600">{negative} negative</span>
+                      </div>
+                      {/* Stacked percentage bar */}
+                      <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
+                        {posP  > 0 && <div className="bg-emerald-400" style={{ width: `${posP}%` }} />}
+                        {neutP > 0 && <div className="bg-gray-300"    style={{ width: `${neutP}%` }} />}
+                        {negP  > 0 && <div className="bg-red-400"     style={{ width: `${negP}%` }} />}
+                      </div>
+                      {/* Percentage labels */}
+                      <div className="mt-1 flex gap-3 text-xs text-text-tertiary">
+                        {posP  > 0 && <span className="text-emerald-600">{posP}%</span>}
+                        {neutP > 0 && <span>{neutP}%</span>}
+                        {negP  > 0 && <span className="text-red-500">{negP}%</span>}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {/* Top Canva-associated words */}
                 {result.top_words && result.top_words.length > 0 && (
@@ -108,7 +126,7 @@ export default function ResultsPanel({ results, overallPlot }: ResultsPanelProps
       {overallPlot && (
         <div className="mt-6">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
-            Overall Analytics
+            Overall Sentiment Frequency Analysis
           </h2>
           <div className="rounded-2xl border border-[var(--border)] bg-white/75 p-4">
             <p className="mb-3 text-xs text-text-tertiary">

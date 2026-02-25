@@ -3,9 +3,11 @@ import math
 import os
 import sys
 import tempfile
+import pandas as pd
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
+from pydantic import BaseModel
+from typing import List, Optional
 import uvicorn
 
 # Make the condensed pipeline importable
@@ -20,6 +22,9 @@ from full_sentiment_analyzer_pipeline import (
     stage_06_plot_word_sentiment,
     POS_THRESHOLD,
     NEG_THRESHOLD,
+    DEFAULT_PLOT_TITLE,
+    DEFAULT_PLOT_XLABEL,
+    DEFAULT_PLOT_YLABEL,
 )
 
 app = FastAPI(
@@ -34,6 +39,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+class RegeneratePlotRequest(BaseModel):
+    word_stats: list[dict]
+    title: Optional[str] = None
+    xlabel: Optional[str] = None
+    ylabel: Optional[str] = None
 
 
 # Health check
@@ -118,8 +130,10 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
 
     # Generate overall frequency × sentiment scatter plot across all transcripts
     overall_plot: str | None = None
+    word_stats_json: list = []
     try:
         all_word_stats = stage_05_canva_word_stats(df_canva)
+        word_stats_json = all_word_stats.to_dict(orient="records")
         with tempfile.TemporaryDirectory() as plot_tmp:
             stage_06_plot_word_sentiment(all_word_stats, plot_tmp)
             plot_path = os.path.join(plot_tmp, "canva_word_freq_sentiment.png")
@@ -129,7 +143,28 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
     except Exception:
         pass  # plot is optional — don't fail the whole response
 
-    return {"results": results, "overall_plot": overall_plot}
+    return {"results": results, "overall_plot": overall_plot, "word_stats": word_stats_json}
+
+
+@app.post("/api/regenerate_plot")
+async def regenerate_plot(req: RegeneratePlotRequest):
+    overall_plot: str | None = None
+    try:
+        word_df = pd.DataFrame(req.word_stats)
+        with tempfile.TemporaryDirectory() as plot_tmp:
+            stage_06_plot_word_sentiment(
+                word_df, plot_tmp,
+                title=req.title,
+                xlabel=req.xlabel,
+                ylabel=req.ylabel,
+            )
+            plot_path = os.path.join(plot_tmp, "canva_word_freq_sentiment.png")
+            if os.path.exists(plot_path):
+                with open(plot_path, "rb") as f:
+                    overall_plot = base64.b64encode(f.read()).decode("utf-8")
+    except Exception as e:
+        return {"error": str(e)}
+    return {"overall_plot": overall_plot}
 
 
 if __name__ == "__main__":

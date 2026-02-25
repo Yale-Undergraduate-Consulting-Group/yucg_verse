@@ -365,6 +365,10 @@ def stage_05_canva_word_stats(df: pd.DataFrame) -> pd.DataFrame:
 # STAGE 06 — Word frequency × sentiment scatter plot
 # ===========================================================================
 
+DEFAULT_PLOT_TITLE  = "Word / Word Groups Associated with [Company]: Frequency vs Sentiment"
+DEFAULT_PLOT_XLABEL = "Frequency (number of [Company]-related sentences containing word/group)"
+DEFAULT_PLOT_YLABEL = "Average sentiment towards [Company] (HF compound)"
+
 def _sentiment_class(score: float) -> str:
     if score >= POS_THRESHOLD:
         return "positive"
@@ -380,10 +384,17 @@ def _format_label(group_name: str) -> str:
     return label
 
 
-def stage_06_plot_word_sentiment(word_df: pd.DataFrame, output_dir: str) -> None:
+def stage_06_plot_word_sentiment(
+    word_df: pd.DataFrame,
+    output_dir: str,
+    title: str | None = None,
+    xlabel: str | None = None,
+    ylabel: str | None = None,
+) -> None:
     """
     Scatter plot: x = word frequency, y = average sentiment.
     Saves canva_word_freq_sentiment.png to output_dir.
+    title/xlabel/ylabel override the default axis labels.
     """
     if word_df.empty:
         print("  Skipping word-sentiment plot (no data).")
@@ -453,9 +464,9 @@ def stage_06_plot_word_sentiment(word_df: pd.DataFrame, output_dir: str) -> None
             arrowprops=dict(arrowstyle="-", color="gray", lw=0.5, alpha=0.7),
         )
 
-    plt.xlabel("Frequency (number of Canva-related sentences containing word/group)")
-    plt.ylabel("Average sentiment towards Canva (HF compound)")
-    plt.title("Word / Word Groups Associated with Canva: Frequency vs Sentiment")
+    plt.xlabel(xlabel or DEFAULT_PLOT_XLABEL)
+    plt.ylabel(ylabel or DEFAULT_PLOT_YLABEL)
+    plt.title(title  or DEFAULT_PLOT_TITLE)
     x_min, x_max = gdf["count"].min(), gdf["count"].max()
     plt.xlim(left=max(0, x_min - 1), right=x_max + 1)
     plt.ylim(-1.05, 1.05)

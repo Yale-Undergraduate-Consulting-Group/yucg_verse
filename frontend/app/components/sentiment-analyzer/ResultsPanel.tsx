@@ -1,8 +1,16 @@
-import type { AnalysisResult } from "./types";
+import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import type { AnalysisResult, TopWord } from "./types";
+import { API_BASE_URL } from "@/app/lib/constants";
+
+const DEFAULT_TITLE  = "Word / Word Groups Associated with Canva: Frequency vs Sentiment";
+const DEFAULT_XLABEL = "Frequency (number of Canva-related sentences containing word/group)";
+const DEFAULT_YLABEL = "Average sentiment towards Canva (HF compound)";
 
 interface ResultsPanelProps {
   results: AnalysisResult[];
   overallPlot?: string | null;
+  wordStats?: TopWord[] | null;
 }
 
 function sentimentColor(sentiment: string | undefined) {
@@ -15,7 +23,37 @@ function pct(n: number, total: number) {
   return total === 0 ? 0 : Math.round((n / total) * 100);
 }
 
-export default function ResultsPanel({ results, overallPlot }: ResultsPanelProps) {
+export default function ResultsPanel({ results, overallPlot, wordStats }: ResultsPanelProps) {
+  const [displayedPlot, setDisplayedPlot] = useState(overallPlot ?? null);
+  const [title,  setTitle]  = useState(DEFAULT_TITLE);
+  const [xlabel, setXLabel] = useState(DEFAULT_XLABEL);
+  const [ylabel, setYLabel] = useState(DEFAULT_YLABEL);
+  const [isRegenerating, setIsRegenerating] = useState(false);
+
+  // Sync when a new analysis result arrives
+  useEffect(() => {
+    setDisplayedPlot(overallPlot ?? null);
+    setTitle(DEFAULT_TITLE);
+    setXLabel(DEFAULT_XLABEL);
+    setYLabel(DEFAULT_YLABEL);
+  }, [overallPlot]);
+
+  async function handleRegeneratePlot() {
+    if (!wordStats) return;
+    setIsRegenerating(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/regenerate_plot`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ word_stats: wordStats, title, xlabel, ylabel }),
+      });
+      const data = await res.json();
+      if (data.overall_plot) setDisplayedPlot(data.overall_plot);
+    } finally {
+      setIsRegenerating(false);
+    }
+  }
+
   return (
     <section>
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
@@ -123,17 +161,45 @@ export default function ResultsPanel({ results, overallPlot }: ResultsPanelProps
         ))}
       </div>
 
-      {overallPlot && (
+      {displayedPlot && (
         <div className="mt-6">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
             Overall Sentiment Frequency Analysis
           </h2>
-          <div className="rounded-2xl border border-[var(--border)] bg-white/75 p-4">
-            <p className="mb-3 text-xs text-text-tertiary">
-              Word frequency × sentiment — aggregated across all transcripts
-            </p>
+          <div className="rounded-2xl border border-[var(--border)] bg-white/75 p-4 space-y-4">
+            {/* Label editors */}
+            <div className="space-y-2">
+              {(
+                [
+                  { label: "Title",   value: title,  setter: setTitle  },
+                  { label: "X-axis",  value: xlabel, setter: setXLabel },
+                  { label: "Y-axis",  value: ylabel, setter: setYLabel },
+                ] as const
+              ).map(({ label, value, setter }) => (
+                <div key={label} className="flex items-center gap-2 text-sm">
+                  <span className="w-12 shrink-0 text-xs text-text-tertiary">{label}</span>
+                  <input
+                    value={value}
+                    onChange={(e) => setter(e.target.value)}
+                    className="flex-1 rounded-lg border border-[var(--border)] bg-white/80 px-3 py-1.5 text-sm text-text-primary outline-none focus:border-accent focus:ring-1 focus:ring-accent/30"
+                  />
+                </div>
+              ))}
+              <div className="flex justify-end">
+                <button
+                  onClick={handleRegeneratePlot}
+                  disabled={isRegenerating || !wordStats}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-1.5 text-xs font-semibold text-white transition-all hover:bg-accent-hover disabled:pointer-events-none disabled:opacity-60"
+                >
+                  {isRegenerating && <Loader2 className="h-3 w-3 animate-spin" />}
+                  {isRegenerating ? "Updating…" : "Update labels"}
+                </button>
+              </div>
+            </div>
+
+            {/* Plot */}
             <img
-              src={`data:image/png;base64,${overallPlot}`}
+              src={`data:image/png;base64,${displayedPlot}`}
               alt="Word frequency vs sentiment scatter plot"
               className="w-full rounded-xl"
             />

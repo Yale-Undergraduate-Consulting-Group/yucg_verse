@@ -9,6 +9,7 @@ import {
   SentimentHero,
   type AnalysisResult,
   type UploadedFile,
+  type TopWord,
 } from "@/app/components/sentiment-analyzer";
 import { API_BASE_URL } from "../lib/constants";
 
@@ -18,6 +19,7 @@ export default function SentimentAnalyzerPage() {
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<AnalysisResult[] | null>(null);
   const [overallPlot, setOverallPlot] = useState<string | null>(null);
+  const [wordStats, setWordStats] = useState<TopWord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const addFiles = useCallback((newFiles: File[]) => {
@@ -81,6 +83,7 @@ export default function SentimentAnalyzerPage() {
     setError(null);
     setResults(null);
     setOverallPlot(null);
+    setWordStats(null);
 
     try {
       const formData = new FormData();
@@ -100,6 +103,7 @@ export default function SentimentAnalyzerPage() {
       const data = await response.json();
       setResults(data.results);
       setOverallPlot(data.overall_plot ?? null);
+      setWordStats(data.word_stats ?? null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Analysis failed");
     } finally {
@@ -149,7 +153,7 @@ export default function SentimentAnalyzerPage() {
 
       {results && (
         <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 sm:p-6">
-          <ResultsPanel results={results} overallPlot={overallPlot} />
+          <ResultsPanel results={results} overallPlot={overallPlot} wordStats={wordStats} />
         </section>
       )}
     </div>

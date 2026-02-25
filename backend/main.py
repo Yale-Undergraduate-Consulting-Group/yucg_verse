@@ -1,3 +1,4 @@
+import base64
 import math
 import os
 import sys
@@ -16,6 +17,7 @@ from full_sentiment_analyzer_pipeline import (
     stage_03_hf_sentiment,
     stage_04_separate_services,
     stage_05_canva_word_stats,
+    stage_06_plot_word_sentiment,
     POS_THRESHOLD,
     NEG_THRESHOLD,
 )
@@ -114,7 +116,20 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
     except Exception as e:
         results.append({"filename": "pipeline", "error": str(e)})
 
-    return {"results": results}
+    # Generate overall frequency × sentiment scatter plot across all transcripts
+    overall_plot: str | None = None
+    try:
+        all_word_stats = stage_05_canva_word_stats(df_canva)
+        with tempfile.TemporaryDirectory() as plot_tmp:
+            stage_06_plot_word_sentiment(all_word_stats, plot_tmp)
+            plot_path = os.path.join(plot_tmp, "canva_word_freq_sentiment.png")
+            if os.path.exists(plot_path):
+                with open(plot_path, "rb") as f:
+                    overall_plot = base64.b64encode(f.read()).decode("utf-8")
+    except Exception:
+        pass  # plot is optional — don't fail the whole response
+
+    return {"results": results, "overall_plot": overall_plot}
 
 
 if __name__ == "__main__":

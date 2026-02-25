@@ -17,6 +17,7 @@ export default function SentimentAnalyzerPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<AnalysisResult[] | null>(null);
+  const [overallPlot, setOverallPlot] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const addFiles = useCallback((newFiles: File[]) => {
@@ -79,6 +80,7 @@ export default function SentimentAnalyzerPage() {
     setIsRunning(true);
     setError(null);
     setResults(null);
+    setOverallPlot(null);
 
     try {
       const formData = new FormData();
@@ -97,6 +99,7 @@ export default function SentimentAnalyzerPage() {
 
       const data = await response.json();
       setResults(data.results);
+      setOverallPlot(data.overall_plot ?? null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Analysis failed");
     } finally {
@@ -146,7 +149,7 @@ export default function SentimentAnalyzerPage() {
 
       {results && (
         <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 sm:p-6">
-          <ResultsPanel results={results} />
+          <ResultsPanel results={results} overallPlot={overallPlot} />
         </section>
       )}
     </div>

@@ -2,6 +2,7 @@ import type { AnalysisResult } from "./types";
 
 interface ResultsPanelProps {
   results: AnalysisResult[];
+  overallPlot?: string | null;
 }
 
 function sentimentColor(sentiment: string | undefined) {
@@ -10,7 +11,7 @@ function sentimentColor(sentiment: string | undefined) {
   return "text-text-secondary";
 }
 
-export default function ResultsPanel({ results }: ResultsPanelProps) {
+export default function ResultsPanel({ results, overallPlot }: ResultsPanelProps) {
   return (
     <section>
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
@@ -103,6 +104,24 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
           </div>
         ))}
       </div>
+
+      {overallPlot && (
+        <div className="mt-6">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+            Overall Analytics
+          </h2>
+          <div className="rounded-2xl border border-[var(--border)] bg-white/75 p-4">
+            <p className="mb-3 text-xs text-text-tertiary">
+              Word frequency × sentiment — aggregated across all transcripts
+            </p>
+            <img
+              src={`data:image/png;base64,${overallPlot}`}
+              alt="Word frequency vs sentiment scatter plot"
+              className="w-full rounded-xl"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

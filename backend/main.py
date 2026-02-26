@@ -6,9 +6,11 @@ import tempfile
 import pandas as pd
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import List, Optional
 import uvicorn
+import io
 
 # Make the condensed pipeline importable
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "condensed_transcript_sentiment_analysis_pipeline"))
@@ -25,6 +27,13 @@ from full_sentiment_analyzer_pipeline import (
     DEFAULT_PLOT_TITLE,
     DEFAULT_PLOT_XLABEL,
     DEFAULT_PLOT_YLABEL,
+)
+
+# Import Reddit sentiment analyzer
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "reddit-sentiment-analyzer"))
+from reddit_sentiment_analyzer import (
+    analyze_reddit_sentiment,
+    analyze_multiple_subreddits,
 )
 
 app = FastAPI(
@@ -46,6 +55,20 @@ class RegeneratePlotRequest(BaseModel):
     title: Optional[str] = None
     xlabel: Optional[str] = None
     ylabel: Optional[str] = None
+
+
+class RedditAnalysisRequest(BaseModel):
+    subreddit: str
+    query: str
+    time_filter: Optional[str] = "year"
+    limit: Optional[int] = None
+
+
+class RedditMultiSubredditRequest(BaseModel):
+    subreddits: List[str]
+    query: str
+    time_filter: Optional[str] = "year"
+    limit: Optional[int] = None
 
 
 # Health check
@@ -165,6 +188,113 @@ async def regenerate_plot(req: RegeneratePlotRequest):
     except Exception as e:
         return {"error": str(e)}
     return {"overall_plot": overall_plot}
+
+
+# Reddit Sentiment Analysis Endpoints
+@app.post("/api/reddit/analyze")
+async def analyze_reddit(req: RedditAnalysisRequest):
+    """
+    Analyze Reddit sentiment for a single subreddit and query term.
+
+    Returns sentiment analysis including:
+    - Summary statistics (total posts, average sentiment, distribution)
+    - Monthly sentiment trend
+    - Top keywords by keyness
+    - Top 100 posts by score
+    - CSV data for download
+    """
+    try:
+        result = analyze_reddit_sentiment(
+            subreddit=req.subreddit,
+            query=req.query,
+            time_filter=req.time_filter or "year",
+            limit=req.limit
+        )
+        return result
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/reddit/analyze_multi")
+async def analyze_reddit_multi(req: RedditMultiSubredditRequest):
+    """
+    Analyze Reddit sentiment across multiple subreddits for a query term.
+
+    Returns combined sentiment analysis including:
+    - Summary statistics for all subreddits combined
+    - Per-subreddit breakdown
+    - Monthly sentiment trend
+    - Top keywords by keyness
+    - Top 100 posts by score
+    - CSV data for download
+    """
+    try:
+        result = analyze_multiple_subreddits(
+            subreddits=req.subreddits,
+            query=req.query,
+            time_filter=req.time_filter or "year",
+            limit=req.limit
+        )
+        return result
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/reddit/download_csv")
+async def download_reddit_csv(req: RedditAnalysisRequest):
+    """
+    Download Reddit sentiment analysis results as a CSV file.
+    """
+    try:
+        result = analyze_reddit_sentiment(
+            subreddit=req.subreddit,
+            query=req.query,
+            time_filter=req.time_filter or "year",
+            limit=req.limit
+        )
+
+        if not result.get("success") or not result.get("csv_data"):
+            return {"success": False, "error": "No data to download"}
+
+        csv_data = result["csv_data"]
+        filename = f"reddit_{req.subreddit}_{req.query.replace(' ', '_')}_sentiment.csv"
+
+        return StreamingResponse(
+            io.StringIO(csv_data),
+            media_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
+        )
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/reddit/download_csv_multi")
+async def download_reddit_csv_multi(req: RedditMultiSubredditRequest):
+    """
+    Download Reddit sentiment analysis results from multiple subreddits as a CSV file.
+    """
+    try:
+        result = analyze_multiple_subreddits(
+            subreddits=req.subreddits,
+            query=req.query,
+            time_filter=req.time_filter or "year",
+            limit=req.limit
+        )
+
+        if not result.get("success") or not result.get("csv_data"):
+            return {"success": False, "error": "No data to download"}
+
+        csv_data = result["csv_data"]
+        subreddits_str = "_".join(req.subreddits[:3])  # Limit filename length
+        filename = f"reddit_{subreddits_str}_{req.query.replace(' ', '_')}_sentiment.csv"
+
+        return StreamingResponse(
+            io.StringIO(csv_data),
+            media_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
+        )
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 
 if __name__ == "__main__":

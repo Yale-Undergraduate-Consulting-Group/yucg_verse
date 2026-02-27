@@ -38,12 +38,10 @@ REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 REDDIT_USER_AGENT = "Sentiment Analysis Tool"
 
-if not REDDIT_CLIENT_ID or not REDDIT_CLIENT_SECRET:
-    raise ValueError("REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET must be set in .env file")
-
-
 def get_reddit_client() -> praw.Reddit:
     """Create and return a Reddit API client in read-only mode."""
+    if not REDDIT_CLIENT_ID or not REDDIT_CLIENT_SECRET:
+        raise ValueError("REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET must be set in backend/.env")
     return praw.Reddit(
         client_id=REDDIT_CLIENT_ID,
         client_secret=REDDIT_CLIENT_SECRET,

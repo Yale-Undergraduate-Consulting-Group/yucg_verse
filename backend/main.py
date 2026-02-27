@@ -29,12 +29,19 @@ from full_sentiment_analyzer_pipeline import (
     DEFAULT_PLOT_YLABEL,
 )
 
-# Import Reddit sentiment analyzer
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "reddit-sentiment-analyzer"))
-from reddit_sentiment_analyzer import (
-    analyze_reddit_sentiment,
-    analyze_multiple_subreddits,
-)
+# Import Reddit sentiment analyzer (optional — requires .env with Reddit credentials)
+_reddit_available = False
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "reddit-sentiment-analyzer"))
+    from reddit_sentiment_analyzer import (
+        analyze_reddit_sentiment,
+        analyze_multiple_subreddits,
+    )
+    _reddit_available = True
+except Exception as _e:
+    print(f"[warning] Reddit sentiment analyzer unavailable: {_e}")
+
+_REDDIT_UNAVAILABLE = {"success": False, "error": "Reddit analyzer unavailable — set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET in backend/.env"}
 
 app = FastAPI(
     title="YUCG Analytics API",
@@ -193,16 +200,8 @@ async def regenerate_plot(req: RegeneratePlotRequest):
 # Reddit Sentiment Analysis Endpoints
 @app.post("/api/reddit/analyze")
 async def analyze_reddit(req: RedditAnalysisRequest):
-    """
-    Analyze Reddit sentiment for a single subreddit and query term.
-
-    Returns sentiment analysis including:
-    - Summary statistics (total posts, average sentiment, distribution)
-    - Monthly sentiment trend
-    - Top keywords by keyness
-    - Top 100 posts by score
-    - CSV data for download
-    """
+    if not _reddit_available:
+        return _REDDIT_UNAVAILABLE
     try:
         result = analyze_reddit_sentiment(
             subreddit=req.subreddit,
@@ -217,17 +216,8 @@ async def analyze_reddit(req: RedditAnalysisRequest):
 
 @app.post("/api/reddit/analyze_multi")
 async def analyze_reddit_multi(req: RedditMultiSubredditRequest):
-    """
-    Analyze Reddit sentiment across multiple subreddits for a query term.
-
-    Returns combined sentiment analysis including:
-    - Summary statistics for all subreddits combined
-    - Per-subreddit breakdown
-    - Monthly sentiment trend
-    - Top keywords by keyness
-    - Top 100 posts by score
-    - CSV data for download
-    """
+    if not _reddit_available:
+        return _REDDIT_UNAVAILABLE
     try:
         result = analyze_multiple_subreddits(
             subreddits=req.subreddits,
@@ -242,9 +232,8 @@ async def analyze_reddit_multi(req: RedditMultiSubredditRequest):
 
 @app.post("/api/reddit/download_csv")
 async def download_reddit_csv(req: RedditAnalysisRequest):
-    """
-    Download Reddit sentiment analysis results as a CSV file.
-    """
+    if not _reddit_available:
+        return _REDDIT_UNAVAILABLE
     try:
         result = analyze_reddit_sentiment(
             subreddit=req.subreddit,
@@ -270,9 +259,8 @@ async def download_reddit_csv(req: RedditAnalysisRequest):
 
 @app.post("/api/reddit/download_csv_multi")
 async def download_reddit_csv_multi(req: RedditMultiSubredditRequest):
-    """
-    Download Reddit sentiment analysis results from multiple subreddits as a CSV file.
-    """
+    if not _reddit_available:
+        return _REDDIT_UNAVAILABLE
     try:
         result = analyze_multiple_subreddits(
             subreddits=req.subreddits,

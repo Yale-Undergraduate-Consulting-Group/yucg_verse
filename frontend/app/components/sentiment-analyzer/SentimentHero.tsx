@@ -11,7 +11,6 @@ export default function SentimentHero({
 }: SentimentHeroProps) {
   return (
     <section className="relative overflow-hidden rounded-3xl border border-[var(--panel-border)] bg-[linear-gradient(120deg,#1d4ed8_0%,#2563eb_42%,#0ea5e9_100%)] p-7 text-white sm:p-8">
-      <div className="absolute right-12 top-4 h-20 w-20 rounded-full border border-white/20" />
       <div className="absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-white/12 blur-2xl" />
       <div className="relative flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">

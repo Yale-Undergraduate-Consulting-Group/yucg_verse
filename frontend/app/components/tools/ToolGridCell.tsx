@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ToolConfig } from "@/app/lib/types";
 
-type ToolGridCellProps = ToolConfig;
+export type ToolGridCellProps = ToolConfig;
 
 export default function ToolGridCell({
   name,

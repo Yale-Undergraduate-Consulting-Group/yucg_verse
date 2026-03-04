@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { RefreshCw } from "lucide-react";
 import { DEFAULT_HEALTH_URL } from "@/app/lib/constants";
 
@@ -9,8 +9,6 @@ export interface BackendHealthPillProps {
   collapsed?: boolean;
   /** Override the health check URL. */
   healthUrl?: string;
-  /** Polling interval in ms. Set to 0 to disable polling. */
-  intervalMs?: number;
 }
 
 function getErrorMessage(err: unknown): string {
@@ -24,7 +22,6 @@ function getErrorMessage(err: unknown): string {
 export default function BackendHealthPill({
   collapsed = false,
   healthUrl = DEFAULT_HEALTH_URL,
-  intervalMs = 15000,
 }: BackendHealthPillProps) {
   const [up, setUp] = useState<boolean | null>(null);
   const [checking, setChecking] = useState(false);
@@ -32,7 +29,7 @@ export default function BackendHealthPill({
   const [popupOpen, setPopupOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const check = useCallback(async () => {
+  async function check() {
     setChecking(true);
     setErrorMessage(null);
     try {
@@ -47,15 +44,12 @@ export default function BackendHealthPill({
     } finally {
       setChecking(false);
     }
-  }, [healthUrl]);
+  }
 
   useEffect(() => {
     check();
-    if (intervalMs > 0) {
-      const interval = setInterval(check, intervalMs);
-      return () => clearInterval(interval);
-    }
-  }, [check, intervalMs]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!popupOpen) return;

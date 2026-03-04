@@ -24,9 +24,9 @@ Usage:
 import argparse
 import os
 import re
-import glob
-import csv
+import sys
 from collections import defaultdict
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -36,7 +36,9 @@ import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from docx import Document
-from transformers import pipeline as hf_pipeline
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sentiment_model import classify
 
 
 # ===========================================================================
@@ -45,9 +47,6 @@ from transformers import pipeline as hf_pipeline
 
 INPUT_DIR  = "./raw_transcripts"          # folder with .docx / .txt transcripts
 OUTPUT_DIR = "./outputs"                  # all plots and (optional) CSVs go here
-
-# HuggingFace model for sentiment analysis
-HF_MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 
 # Non-Canva design tools to separate out
 OTHER_SERVICES = [
@@ -256,32 +255,14 @@ def stage_03_hf_sentiment(df: pd.DataFrame) -> pd.DataFrame:
     probability, and (1 - score) is assigned to the opposing class.
     Neutral sentences get compound = 0.
     """
-    clf = hf_pipeline(
-        task="sentiment-analysis",
-        model=HF_MODEL,
-        tokenizer=HF_MODEL,
-        truncation=True,
-        max_length=256,
-    )
-
     sentences = df["sentence"].astype(str).tolist()
     hf_labels, hf_scores, hf_compounds = [], [], []
 
     for text in sentences:
-        res   = clf(text)[0]
-        label = res["label"].lower()
-        score = float(res["score"])
-
-        if label == "positive":
-            compound = score - (1.0 - score)      # pos - neg
-        elif label == "negative":
-            compound = (1.0 - score) - score      # pos - neg
-        else:
-            compound = 0.0
-
-        hf_labels.append(label)
-        hf_scores.append(score)
-        hf_compounds.append(compound)
+        result = classify(text)
+        hf_labels.append(result["label"])
+        hf_scores.append(result["score"])
+        hf_compounds.append(result["compound"])
 
     df = df.copy()
     df["hf_label"]    = hf_labels

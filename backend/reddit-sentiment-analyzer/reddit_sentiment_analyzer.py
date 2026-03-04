@@ -7,6 +7,7 @@ analyze their sentiment using VADER, and return results with a downloadable CSV 
 
 import os
 import re
+import sys
 import math
 import io
 from datetime import datetime, timezone, timedelta
@@ -18,7 +19,6 @@ from dotenv import load_dotenv
 import praw
 import pandas as pd
 import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from langdetect import detect, LangDetectException
 
 # Load environment variables from .env file
@@ -26,11 +26,13 @@ env_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(env_path)
 
 # Download required NLTK data
-nltk.download("vader_lexicon", quiet=True)
 nltk.download("stopwords", quiet=True)
 nltk.download("brown", quiet=True)
 
 from nltk.corpus import stopwords, brown
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sentiment_model import classify
 
 
 # Reddit API credentials loaded from environment variables
@@ -135,16 +137,12 @@ def analyze_sentiment(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
 
-    sid = SentimentIntensityAnalyzer()
-
-    def get_sentiment_score(text: str) -> float:
-        if not text:
-            return 0.0
-        return sid.polarity_scores(text)["compound"]
+    def get_compound(text: str) -> float:
+        return classify(text)["compound"]
 
     df = df.copy()
-    df["title_sentiment"] = df["title"].apply(get_sentiment_score)
-    df["text_sentiment"] = df["text"].apply(get_sentiment_score)
+    df["title_sentiment"] = df["title"].apply(get_compound)
+    df["text_sentiment"] = df["text"].apply(get_compound)
 
     # Combined sentiment (weighted average: text is usually more informative)
     df["combined_sentiment"] = df.apply(

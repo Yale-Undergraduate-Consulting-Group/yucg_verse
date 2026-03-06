@@ -1,8 +1,21 @@
 import { Download, ExternalLink, TrendingUp, MessageSquare } from "lucide-react";
-import type { RedditAnalysisResult, Keyword, RedditPost, MonthlyTrend } from "./types";
+import type {
+  RedditAnalysisResult,
+  MultiRedditAnalysisResult,
+  SubredditSummary,
+  Keyword,
+  RedditPost,
+  MonthlyTrend,
+} from "./types";
+
+type AnyResult = RedditAnalysisResult | MultiRedditAnalysisResult;
+
+function isMultiResult(r: AnyResult): r is MultiRedditAnalysisResult {
+  return "subreddits" in r;
+}
 
 interface ResultsPanelProps {
-  results: RedditAnalysisResult;
+  results: AnyResult;
   onDownloadCsv: () => void;
 }
 
@@ -16,6 +29,12 @@ function sentimentBadgeClass(label: string) {
   if (label === "positive") return "bg-emerald-50 text-emerald-700";
   if (label === "negative") return "bg-red-50 text-red-700";
   return "bg-gray-100 text-text-secondary";
+}
+
+function sentimentLabel(score: number): string {
+  if (score >= 0.05) return "positive";
+  if (score <= -0.05) return "negative";
+  return "neutral";
 }
 
 function formatDate(isoString: string): string {
@@ -32,11 +51,76 @@ function truncateText(text: string, maxLength: number): string {
   return text.substring(0, maxLength).trim() + "...";
 }
 
+function SubredditBreakdownTable({ breakdown }: { breakdown: SubredditSummary[] }) {
+  if (!breakdown || breakdown.length === 0) return null;
+
+  return (
+    <div className="mb-5">
+      <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+        Subreddit Breakdown
+      </h3>
+      <div className="overflow-hidden rounded-xl border border-[var(--border)]">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-[var(--border)] bg-white/95">
+              <th className="px-4 py-2.5 text-left font-medium text-text-secondary">Subreddit</th>
+              <th className="px-4 py-2.5 text-right font-medium text-text-secondary">Posts</th>
+              <th className="px-4 py-2.5 text-right font-medium text-text-secondary">Avg Sentiment</th>
+              <th className="px-4 py-2.5 text-left font-medium text-text-secondary">Positive %</th>
+              <th className="px-4 py-2.5 text-right font-medium text-text-secondary">Neutral %</th>
+              <th className="px-4 py-2.5 text-right font-medium text-text-secondary">Negative %</th>
+            </tr>
+          </thead>
+          <tbody>
+            {breakdown.map((row) => {
+              const label = sentimentLabel(row.avg_combined_sentiment);
+              const posP = row.sentiment_percentages.positive;
+              return (
+                <tr
+                  key={row.subreddit}
+                  className="border-b border-[var(--border)] last:border-0 hover:bg-gray-50/50"
+                >
+                  <td className="px-4 py-3 font-medium text-text-primary">
+                    r/{row.subreddit}
+                  </td>
+                  <td className="px-4 py-3 text-right text-text-secondary">
+                    {row.total_posts.toLocaleString()}
+                  </td>
+                  <td className={`px-4 py-3 text-right font-medium ${sentimentColor(label)}`}>
+                    {row.avg_combined_sentiment.toFixed(3)}
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-gray-100">
+                        <div
+                          className="h-full rounded-full bg-emerald-400"
+                          style={{ width: `${posP}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-emerald-600">{posP.toFixed(0)}%</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-right text-xs text-text-tertiary">
+                    {row.sentiment_percentages.neutral.toFixed(0)}%
+                  </td>
+                  <td className="px-4 py-3 text-right text-xs text-red-500">
+                    {row.sentiment_percentages.negative.toFixed(0)}%
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function MonthlyTrendChart({ data }: { data: MonthlyTrend[] }) {
   if (!data || data.length === 0) return null;
 
   const maxSentiment = Math.max(...data.map((d) => Math.abs(d.avg_sentiment)), 0.1);
-  const barMaxHeight = 60; // pixels
+  const barMaxHeight = 60;
 
   return (
     <div className="mt-4">
@@ -48,7 +132,7 @@ function MonthlyTrendChart({ data }: { data: MonthlyTrend[] }) {
           return (
             <div
               key={`${month.year}-${month.month}-${idx}`}
-              className="flex-1 flex flex-col items-center justify-end"
+              className="flex flex-1 flex-col items-center justify-end"
               style={{ height: `${barMaxHeight + 20}px` }}
             >
               <div
@@ -58,7 +142,7 @@ function MonthlyTrendChart({ data }: { data: MonthlyTrend[] }) {
                 style={{ height: `${Math.max(barHeight, 4)}px` }}
                 title={`${month.year}-${String(month.month).padStart(2, "0")}: ${month.avg_sentiment.toFixed(3)} (${month.post_count} posts)`}
               />
-              <span className="mt-1 text-[9px] text-text-tertiary whitespace-nowrap">
+              <span className="mt-1 whitespace-nowrap text-[9px] text-text-tertiary">
                 {month.month}/{String(month.year).slice(2)}
               </span>
             </div>
@@ -152,6 +236,7 @@ function PostsTable({ posts }: { posts: RedditPost[] }) {
 }
 
 export default function ResultsPanel({ results, onDownloadCsv }: ResultsPanelProps) {
+  const isMulti = isMultiResult(results);
   const { summary, monthly_trend, top_keywords, posts } = results;
   const { positive, neutral, negative } = summary.sentiment_distribution;
   const total = positive + neutral + negative;
@@ -174,6 +259,18 @@ export default function ResultsPanel({ results, onDownloadCsv }: ResultsPanelPro
         </button>
       </div>
 
+      {/* Per-subreddit breakdown (multi mode only) */}
+      {isMulti && results.subreddit_breakdown?.length > 0 && (
+        <SubredditBreakdownTable breakdown={results.subreddit_breakdown} />
+      )}
+
+      {/* Combined summary label for multi */}
+      {isMulti && (
+        <p className="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-text-tertiary">
+          Combined Results
+        </p>
+      )}
+
       <div className="rounded-2xl border border-[var(--border)] bg-white/75 p-4">
         {/* Summary Stats */}
         <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
@@ -187,11 +284,7 @@ export default function ResultsPanel({ results, onDownloadCsv }: ResultsPanelPro
           <div>
             <p className="text-text-tertiary">Avg Sentiment</p>
             <p className={`flex items-center gap-1.5 font-medium ${sentimentColor(
-              summary.avg_combined_sentiment >= 0.05
-                ? "positive"
-                : summary.avg_combined_sentiment <= -0.05
-                  ? "negative"
-                  : "neutral"
+              sentimentLabel(summary.avg_combined_sentiment)
             )}`}>
               <TrendingUp className="h-4 w-4" />
               {summary.avg_combined_sentiment.toFixed(3)}

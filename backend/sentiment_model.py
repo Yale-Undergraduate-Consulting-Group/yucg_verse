@@ -1,27 +1,20 @@
 """
-Shared sentiment model — single instance loaded once at startup.
+Sentiment classification via TextBlob.
 
-To swap models, change MODEL_ID. The classify() interface stays the same
-regardless of which model is active, as long as it outputs positive/negative/neutral labels.
+TextBlob's PatternAnalyzer uses a lightweight pattern-based lexicon (~1 MB).
+Small NLTK corpora (punkt, averaged_perceptron_tagger) are downloaded
+automatically on first startup if not already present (~3 MB total, one-time).
 
-Tested models:
-  "distilbert-base-uncased-finetuned-sst-2-english"   ~260MB, fast, POSITIVE/NEGATIVE only
-  "cardiffnlp/twitter-roberta-base-sentiment-latest"  ~500MB, 3-class incl. NEUTRAL
+Future: swap in the HuggingFace Inference API via _hf_classify() below
+once a HUGGINGFACE_API_KEY is configured on the server.
 """
 
-from transformers import pipeline as hf_pipeline
+import nltk
+from textblob import TextBlob
 
-# ── Swap model here ───────────────────────────────────────────────────────────
-MODEL_ID = "distilbert-base-uncased-finetuned-sst-2-english"
-# MODEL_ID = "cardiffnlp/twitter-roberta-base-sentiment-latest"
-# ─────────────────────────────────────────────────────────────────────────────
-
-_clf = hf_pipeline(
-    task="sentiment-analysis",
-    model=MODEL_ID,
-    truncation=True,
-    max_length=256,
-)
+nltk.download("punkt", quiet=True)
+nltk.download("punkt_tab", quiet=True)
+nltk.download("averaged_perceptron_tagger_eng", quiet=True)
 
 
 def classify(text: str) -> dict:
@@ -31,22 +24,52 @@ def classify(text: str) -> dict:
     Returns:
         {
             "label":    "positive" | "negative" | "neutral",
-            "score":    float,   # model confidence (0–1)
-            "compound": float,   # [-1, 1]; positive→(2s-1), negative→(1-2s), neutral→0
+            "score":    float,   # confidence proxy (0–1)
+            "compound": float,   # [-1, 1]; TextBlob polarity mapped directly
         }
     """
     if not text or not text.strip():
         return {"label": "neutral", "score": 0.0, "compound": 0.0}
 
-    res = _clf(text)[0]
-    label = res["label"].lower()
-    score = float(res["score"])
+    polarity = TextBlob(text).sentiment.polarity  # [-1, 1]
 
-    if label == "positive":
-        compound = score - (1.0 - score)
-    elif label == "negative":
-        compound = (1.0 - score) - score
+    if polarity > 0.05:
+        label = "positive"
+        score = (polarity + 1.0) / 2.0
+    elif polarity < -0.05:
+        label = "negative"
+        score = (1.0 - polarity) / 2.0
     else:
-        compound = 0.0
+        label = "neutral"
+        score = 1.0 - abs(polarity) / 0.05 * 0.5
 
-    return {"label": label, "score": score, "compound": compound}
+    return {"label": label, "score": round(score, 4), "compound": round(polarity, 4)}
+
+
+# ── HuggingFace Inference API (future) ────────────────────────────────────────
+# Swap classify() to call this once HUGGINGFACE_API_KEY is set on the server.
+#
+# import os, requests
+# _HF_API_URL = (
+#     "https://api-inference.huggingface.co/models/"
+#     "distilbert-base-uncased-finetuned-sst-2-english"
+# )
+# _HF_HEADERS = {"Authorization": f"Bearer {os.environ.get('HUGGINGFACE_API_KEY', '')}"}
+#
+# def _hf_classify(text: str) -> dict:
+#     payload = {"inputs": text[:1800]}
+#     response = requests.post(_HF_API_URL, headers=_HF_HEADERS, json=payload, timeout=10)
+#     response.raise_for_status()
+#     data = response.json()
+#     candidates = data[0] if isinstance(data[0], list) else data
+#     best = max(candidates, key=lambda x: x["score"])
+#     label = best["label"].lower()
+#     score = float(best["score"])
+#     if label == "positive":
+#         compound = score - (1.0 - score)
+#     elif label == "negative":
+#         compound = (1.0 - score) - score
+#     else:
+#         compound = 0.0
+#     return {"label": label, "score": score, "compound": compound}
+# ─────────────────────────────────────────────────────────────────────────────

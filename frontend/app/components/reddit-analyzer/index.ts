@@ -4,6 +4,8 @@ export { default as ResultsPanel } from "./ResultsPanel";
 export { default as SettingsPanel } from "./SettingsPanel";
 export type {
   RedditAnalysisResult,
+  MultiRedditAnalysisResult,
+  SubredditSummary,
   RedditPost,
   RedditSummary,
   SentimentDistribution,
@@ -11,3 +13,4 @@ export type {
   MonthlyTrend,
   Keyword,
 } from "./types";
+export type { AnalysisMode } from "./InputPanel";

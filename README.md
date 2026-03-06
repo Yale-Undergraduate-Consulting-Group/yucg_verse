@@ -16,7 +16,7 @@ cd backend
 uv venv --python 3.11 .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv pip install -r requirements.txt
-uvicorn main:app --reload
+python main.py
 ```
 
 If `uv` is not installed, install it first (`brew install uv` on macOS).

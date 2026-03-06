@@ -58,3 +58,20 @@ export interface RedditAnalysisResult {
   csv_data: string;
   error?: string;
 }
+
+export interface SubredditSummary extends RedditSummary {
+  subreddit: string;
+}
+
+export interface MultiRedditAnalysisResult {
+  success: boolean;
+  subreddits: string[];
+  query: string;
+  errors: { subreddit: string; error: string }[];
+  summary: RedditSummary;
+  subreddit_breakdown: SubredditSummary[];
+  monthly_trend: MonthlyTrend[];
+  top_keywords: Keyword[];
+  posts: RedditPost[];
+  csv_data: string;
+}

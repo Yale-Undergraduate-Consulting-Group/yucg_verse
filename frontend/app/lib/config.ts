@@ -8,23 +8,25 @@ import type { SidebarNavItem, ToolConfig } from "./types";
 
 export const defaultNavItems: SidebarNavItem[] = [
   { icon: Home, label: "Home", href: "/" },
-  { icon: BarChart3, label: "Sentiment Analyzer", href: "/sentiment-analyzer" },
   { icon: MessageSquare, label: "Reddit Analyzer", href: "/reddit-analyzer" },
+  { icon: BarChart3, label: "Sentiment Analyzer", href: "/sentiment-analyzer" },
+  
 ];
 
 export const defaultTools: ToolConfig[] = [
-  {
-    name: "Sentiment Analyzer",
-    description:
-      "Analyze interview transcripts to extract sentiment insights and patterns.",
-    href: "/sentiment-analyzer",
-    icon: BarChart3,
-  },
   {
     name: "Reddit Analyzer",
     description:
       "Analyze sentiment of Reddit discussions on any topic across subreddits.",
     href: "/reddit-analyzer",
     icon: MessageSquare,
+  },
+  {
+    name: "Sentiment Analyzer",
+    description:
+      "Analyze interview transcripts to extract sentiment insights and patterns.",
+    href: "/sentiment-analyzer",
+    icon: BarChart3,
+    comingSoon: true,
   },
 ];

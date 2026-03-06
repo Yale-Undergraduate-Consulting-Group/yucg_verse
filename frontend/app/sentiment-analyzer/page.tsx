@@ -147,6 +147,7 @@ export default function SentimentAnalyzerPage() {
             isRunning={isRunning}
             disabled={isRunning || files.length === 0}
             onRun={handleRun}
+            comingSoon
           />
         </aside>
       </div>

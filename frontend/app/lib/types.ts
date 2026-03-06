@@ -15,4 +15,5 @@ export interface ToolConfig {
   description: string;
   href: string;
   icon: LucideIcon;
+  comingSoon?: boolean;
 }

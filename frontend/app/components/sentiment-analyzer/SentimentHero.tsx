@@ -14,9 +14,14 @@ export default function SentimentHero({
       <div className="absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-white/12 blur-2xl" />
       <div className="relative flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
-            Transcript Tool
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+              Transcript Tool
+            </p>
+            <span className="inline-flex items-center rounded-full border border-white/30 bg-white/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/90">
+              Coming Soon
+            </span>
+          </div>
           <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl [font-family:var(--font-plus-jakarta)]">
             Sentiment Analyzer
           </h1>

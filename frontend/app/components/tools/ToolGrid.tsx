@@ -17,6 +17,7 @@ export default function ToolGrid({ tools }: ToolGridProps) {
             description={tool.description}
             href={tool.href}
             icon={tool.icon}
+            comingSoon={tool.comingSoon}
           />
         ))}
       </div>

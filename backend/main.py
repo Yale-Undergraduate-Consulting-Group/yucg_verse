@@ -50,7 +50,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://yucg-analytics-frontend.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://yucg-analytics.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

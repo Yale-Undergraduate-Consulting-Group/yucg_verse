@@ -6,11 +6,11 @@ import {
   MainPanel,
   QueuePanel,
   ResultsPanel,
-  SentimentHero,
   type AnalysisResult,
   type UploadedFile,
   type TopWord,
 } from "@/app/components/sentiment-analyzer";
+import ToolHero from "@/app/components/ToolHero";
 import { API_BASE_URL } from "../lib/constants";
 
 export default function SentimentAnalyzerPage() {
@@ -111,20 +111,14 @@ export default function SentimentAnalyzerPage() {
     }
   }, [files]);
 
-  const successful = results?.filter((result) => !result.error) ?? [];
-  const positives = successful.filter(
-    (result) => result.sentiment === "positive"
-  ).length;
-  const negatives = successful.filter(
-    (result) => result.sentiment === "negative"
-  ).length;
 
   return (
     <div className="mx-auto w-full max-w-[1200px] space-y-6">
-      <SentimentHero
-        filesCount={files.length}
-        positives={positives}
-        negatives={negatives}
+      <ToolHero
+        label="Transcript Tool"
+        title="Sentiment Analyzer"
+        description="Upload interview transcripts and generate sentiment metrics in a single run."
+        comingSoon
       />
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.6fr_1fr]">

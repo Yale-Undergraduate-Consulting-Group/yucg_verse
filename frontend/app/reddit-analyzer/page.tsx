@@ -4,11 +4,11 @@ import { useCallback, useState } from "react";
 import {
   ActionPanel,
   InputPanel,
-  RedditHero,
   ResultsPanel,
   SettingsPanel,
   type RedditAnalysisResult,
 } from "@/app/components/reddit-analyzer";
+import ToolHero from "@/app/components/ToolHero";
 import { API_BASE_URL } from "../lib/constants";
 
 export default function RedditAnalyzerPage() {
@@ -78,10 +78,10 @@ export default function RedditAnalyzerPage() {
 
   return (
     <div className="mx-auto w-full max-w-[1200px] space-y-6">
-      <RedditHero
-        summary={results?.summary ?? null}
-        subreddit={subreddit}
-        query={query}
+      <ToolHero
+        label="Reddit Tool"
+        title="Reddit Analyzer"
+        description="Analyze sentiment of Reddit discussions on any topic across subreddits."
       />
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.6fr_1fr]">

@@ -10,14 +10,15 @@ Stages (all in-memory, no intermediate disk I/O by default):
   01  Tag speaker roles (interviewee / interviewer / unknown)
   02  Tokenize each transcript line into individual sentences
   03  Sentiment analysis per sentence (via sentiment_model.classify)
-  04  Split: target-company sentences vs. sentences mentioning other services
+  04  Split: target-company sentences vs. sentences mentioning competitor services
   05  Build word-sentiment association stats (target-company sentences only)
   06  Plot word frequency × sentiment scatter (target-company words)
-  07  Plot sentiment distribution comparison (target company vs other services)
+  07  Plot sentiment distribution comparison (target company vs competitors)
 
 Usage:
-    python condensed.py                    # runs with defaults below
-    python condensed.py --save-intermediate  # also writes intermediate CSVs
+    python condensed.py --company "Figma"
+    python condensed.py --company "Figma" --other-services "adobe,sketch,xd"
+    python condensed.py --company "Figma" --save-intermediate
 """
 
 import argparse
@@ -40,25 +41,33 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from sentiment_model import classify
 
 # ===========================================================================
-# CONFIG — edit these to match your project
+# CONFIG — module-level defaults used only when running from the CLI
+#          without arguments. In normal API usage these are always overridden
+#          by values passed in from the frontend.
 # ===========================================================================
 
 INPUT_DIR  = "./raw_transcripts"   # folder with .docx / .txt transcripts
 OUTPUT_DIR = "./outputs"           # all plots and (optional) CSVs go here
 
-# ── Target company ──────────────────────────────────────────────────────────
-# This is the fallback value used when no company is passed explicitly.
-# In normal API usage, the company is always provided by the user via the
-# frontend — this default is only reached when running the pipeline directly
-# from the command line without specifying --company.
+# ── Target company fallback ──────────────────────────────────────────────────
+# Only used when running the CLI without --company.
+# In API usage the frontend always supplies the company name explicitly.
+# "Company" is intentionally generic — it signals no real company was assumed.
 TARGET_COMPANY = "Company"
 
-# ── Competing / other services to separate out ──────────────────────────────
-# List tools or services that are NOT the target company.
-# Stage 04 splits sentences that mention any of these into a separate DataFrame
-# so you can compare sentiment toward the target company vs. competitors.
-# Update this list to reflect the industry of the company being analyzed.
-OTHER_SERVICES = [
+# ── Competitor services fallback ─────────────────────────────────────────────
+# Only used when running the CLI without --other-services.
+# In API usage the user supplies their own list via the frontend input field.
+#
+# Stage 04 uses this list to separate sentences that mention competitors
+# from sentences that mention only the target company. This separation serves
+# two purposes:
+#   1. Purity filter for the word-stats scatter plot (stages 05/06) — sentences
+#      that compare the target company to a competitor are excluded so the word
+#      associations reflect pure sentiment about the target company only.
+#   2. Comparison chart in stage 07 — shows how sentiment when discussing the
+#      target company differs from sentiment when discussing competitors.
+DEFAULT_OTHER_SERVICES = [
     "figma", "procreate", "photoshop", "illustrator", "indesign",
     "adobe", "xd", "affinity", "sketch", "powerpoint",
     "google slides", "google docs", "google drive",
@@ -70,21 +79,15 @@ POS_THRESHOLD = 0.05
 NEG_THRESHOLD = -0.05
 
 # ── Word-stats config ────────────────────────────────────────────────────────
-# Drop words appearing fewer than this many times
-MIN_WORD_COUNT = 2
+MIN_WORD_COUNT  = 2    # drop words appearing fewer than this many times
+MIN_GROUP_COUNT = 3    # drop grouped words with total count below this
+TOP_N_LABELS    = 18   # how many groups to annotate with labels on the plot
+MIN_Y_GAP       = 0.05 # minimum vertical gap between label y-positions
 
-# Plot: drop grouped words with total count below this
-MIN_GROUP_COUNT = 3
-
-# Plot: how many groups to annotate with labels
-TOP_N_LABELS = 18
-
-# Minimum vertical gap between label y-positions to reduce overlap
-MIN_Y_GAP = 0.05
-
-# Custom stopwords added on top of NLTK English stopwords.
-# The target company name is added automatically at runtime —
-# you do not need to add it here manually.
+# ── Custom stopwords ─────────────────────────────────────────────────────────
+# Added on top of NLTK English stopwords.
+# The target company name is added automatically at runtime in stage_05 —
+# you do not need to list it here manually.
 CUSTOM_STOPWORDS = {
     "like", "um", "uh", "yeah", "you", "know",
     "okay", "ok", "sort", "kind", "really", "just",
@@ -95,10 +98,10 @@ CUSTOM_STOPWORDS = {
 # Update these to reflect vocabulary relevant to the company being analyzed.
 # Format: { "display_name": ["word1", "word2", ...] }
 GROUP_DEFS = {
-    "template(s)":  ["template", "templates"],
-    "flyer(s)":     ["flyer", "flyers"],
-    "poster(s)":    ["poster", "posters"],
-    "tools":        ["icons", "functionality", "workspace", "tools"],
+    "template(s)": ["template", "templates"],
+    "flyer(s)":    ["flyer", "flyers"],
+    "poster(s)":   ["poster", "posters"],
+    "tools":       ["icons", "functionality", "workspace", "tools"],
 }
 
 # Optional: override long group names with shorter display labels on the plot
@@ -106,7 +109,7 @@ LABEL_OVERRIDES = {
     "beginner-friendly": "beginner",
 }
 
-MAX_LABEL_LEN = 12   # truncate labels longer than this with "…"
+MAX_LABEL_LEN = 12    # truncate labels longer than this with "…"
 
 # Words to exclude entirely from the scatter plot
 EXCLUDE_WORDS: set[str] = set()
@@ -183,13 +186,13 @@ def stage_00_parse_transcripts(input_dir: str) -> pd.DataFrame:
     """
     all_rows = []
     for fname in os.listdir(input_dir):
-        if fname.startswith("~$"):   # skip Word lock files
+        if fname.startswith("~$"):
             continue
         ext = os.path.splitext(fname)[1].lower()
         if ext not in (".docx", ".txt"):
             continue
-        filepath   = os.path.join(input_dir, fname)
-        base       = os.path.splitext(fname)[0]
+        filepath    = os.path.join(input_dir, fname)
+        base        = os.path.splitext(fname)[0]
         interviewee = base.replace("_", " ")
         lines = _iter_docx(filepath) if ext == ".docx" else _iter_txt(filepath)
         for i, raw in enumerate(lines, start=1):
@@ -258,12 +261,16 @@ def stage_02_sentence_level(df: pd.DataFrame) -> pd.DataFrame:
 
 def stage_03_hf_sentiment(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Add columns: hf_label, hf_score, hf_compound.
+    Add sentiment columns to each sentence row.
 
-    hf_compound is a [-1, 1] score:
-      positive label → compound = +score
-      negative label → compound = -score
-      neutral        → compound = 0
+    Calls classify() from sentiment_model, which routes to whichever
+    backend is active (OpenAI or Railway) depending on SENTIMENT_BACKEND.
+
+    Columns added:
+        hf_label    — "positive" | "negative" | "neutral"
+        hf_score    — confidence in that label (0.0–1.0)
+        hf_compound — overall intensity: positive → +score,
+                      negative → -score, neutral → 0
     """
     sentences = df["sentence"].astype(str).tolist()
     hf_labels, hf_scores, hf_compounds = [], [], []
@@ -280,47 +287,61 @@ def stage_03_hf_sentiment(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ===========================================================================
-# STAGE 04 — Separate target-company sentences vs. other-service sentences
+# STAGE 04 — Separate target-company sentences vs. competitor sentences
 # ===========================================================================
 
 def stage_04_separate_services(
     df: pd.DataFrame,
-    target_company: str = TARGET_COMPANY,
+    target_company: str            = TARGET_COMPANY,
+    other_services: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Splits the sentence DataFrame into two groups:
 
-    df_target — sentences that mention the target company but NOT
-                any of the competing services in OTHER_SERVICES.
-                These represent pure sentiment toward the target company.
+    df_target — sentences that mention the target company but NOT any
+                competitor from other_services. These represent pure
+                sentiment about the target company, uncontaminated by
+                direct competitor comparisons.
 
-    df_other  — sentences that mention at least one competing service.
-                Used for comparison in stage_07.
+    df_other  — sentences that mention at least one competitor service.
+                Used in stage_07 to compare sentiment distributions.
+                Empty if other_services is None or [] — stage_07 handles
+                this gracefully by skipping the comparison chart.
 
     Args:
         df:             Sentence-level DataFrame with a 'sentence' column.
-        target_company: The company name to filter on (default: TARGET_COMPANY).
+        target_company: Name of the company being analyzed. Supplied by the
+                        user via the frontend Target Company input field.
+        other_services: List of competitor/other service names entered by the
+                        user via the frontend Competitor Services input field.
+                        Falls back to DEFAULT_OTHER_SERVICES when running from
+                        the CLI without --other-services.
 
     Returns:
         (df_target, df_other)
     """
-    # Build pattern for competing services
-    other_pattern = r"\b(" + "|".join(re.escape(w) for w in OTHER_SERVICES) + r")\b"
-    mentions_other = df["sentence"].astype(str).str.contains(
-        other_pattern, flags=re.IGNORECASE, na=False
-    )
+    # Use provided list or fall back to the module-level CLI default
+    services = other_services if other_services else DEFAULT_OTHER_SERVICES
 
-    # Build pattern for the target company
-    target_pattern = r"\b" + re.escape(target_company) + r"\b"
+    # Build regex pattern for the target company
+    target_pattern  = r"\b" + re.escape(target_company) + r"\b"
     mentions_target = df["sentence"].astype(str).str.contains(
         target_pattern, flags=re.IGNORECASE, na=False
     )
 
-    # Target-only: mentions the company but not any competitor
-    df_target = df[mentions_target & ~mentions_other].copy()
+    if services:
+        # Build regex pattern for all competitor services
+        other_pattern  = r"\b(" + "|".join(re.escape(w) for w in services) + r")\b"
+        mentions_other = df["sentence"].astype(str).str.contains(
+            other_pattern, flags=re.IGNORECASE, na=False
+        )
+    else:
+        # No competitors specified — all target mentions are treated as pure,
+        # df_other will be empty and stage_07 will skip the comparison chart
+        mentions_other = pd.Series(False, index=df.index)
 
-    # Other: mentions at least one competitor
-    df_other = df[mentions_other].copy()
+    df_target = df[mentions_target & ~mentions_other].copy()
+    df_other  = df[mentions_other].copy()
 
     return df_target, df_other
 
@@ -346,11 +367,15 @@ def stage_05_word_stats(
     Build word-level sentiment stats from interviewee sentences that
     mention the target company.
 
-    The company name itself is added to stopwords automatically so it
-    doesn't appear as a data point in the scatter plot.
+    The company name is automatically added to stopwords so it does not
+    appear as its own data point in the scatter plot — the goal is to
+    understand which other words co-occur with the company and how they
+    correlate with sentiment.
 
     Args:
-        df:             Sentence-level DataFrame (typically df_target from stage_04).
+        df:             Sentence-level DataFrame. Pass df_target from
+                        stage_04 so only pure target-company sentences
+                        are analyzed.
         target_company: Company name — added to stopwords automatically.
 
     Returns:
@@ -358,18 +383,16 @@ def stage_05_word_stats(
     """
     _nltk_setup()
 
-    # Add the company name to stopwords so it doesn't pollute the word stats
     stopwords_all = (
         set(stopwords.words("english"))
         | CUSTOM_STOPWORDS
         | {target_company.lower()}
     )
 
-    # Filter to interviewee sentences that mention the target company
-    mask_role    = df["role"].astype(str).str.lower().eq("interviewee")
-    target_pattern = r"\b" + re.escape(target_company) + r"\b"
-    mask_target  = df["sentence"].str.contains(
-        target_pattern, flags=re.IGNORECASE, na=False
+    mask_role   = df["role"].astype(str).str.lower().eq("interviewee")
+    target_pat  = r"\b" + re.escape(target_company) + r"\b"
+    mask_target = df["sentence"].str.contains(
+        target_pat, flags=re.IGNORECASE, na=False
     )
     target_df = df[mask_role & mask_target]
 
@@ -377,8 +400,8 @@ def stage_05_word_stats(
         print(f"  Warning: no interviewee sentences mentioning '{target_company}' found.")
         return pd.DataFrame(columns=["word", "count", "avg_hf_compound"])
 
-    count:  dict[str, int]   = defaultdict(int)
-    sum_s:  dict[str, float] = defaultdict(float)
+    count: dict[str, int]   = defaultdict(int)
+    sum_s: dict[str, float] = defaultdict(float)
 
     for _, row in target_df.iterrows():
         words = _tokenize_clean(str(row["sentence"]), stopwords_all)
@@ -398,7 +421,7 @@ def stage_05_word_stats(
     return word_df
 
 
-# Keep the old name as an alias so existing callers (e.g. main.py) don't break
+# Alias so existing callers in main.py continue to work without changes
 stage_05_canva_word_stats = stage_05_word_stats
 
 
@@ -435,18 +458,22 @@ def stage_06_plot_word_sentiment(
     ylabel: str | None = None,
 ) -> None:
     """
-    Scatter plot: x = word frequency, y = average sentiment.
+    Scatter plot: x = word/group frequency, y = average sentiment compound score.
 
-    Output filename is derived from the target company name so running
-    the pipeline for different companies never overwrites previous results.
-    E.g. for "Canva" → canva_word_freq_sentiment.png
-         for "Figma" → figma_word_freq_sentiment.png
+    Each point represents a word or word group that co-occurs with the target
+    company in interviewee sentences. Color encodes sentiment class.
+
+    Output filename is derived from the company name so analyses for different
+    companies never overwrite each other:
+        "Canva" → canva_word_freq_sentiment.png
+        "Figma" → figma_word_freq_sentiment.png
 
     Args:
         word_df:        Output of stage_05_word_stats.
         output_dir:     Folder to write the PNG into.
-        target_company: Used to fill in default title/axis labels and filename.
-        title/xlabel/ylabel: Override the auto-generated axis labels if provided.
+        target_company: Used to auto-generate axis labels and the filename.
+        title/xlabel/ylabel: Override the auto-generated labels if provided
+                             (used by the frontend "Update labels" button).
     """
     if word_df.empty:
         print("  Skipping word-sentiment plot (no data).")
@@ -455,11 +482,9 @@ def stage_06_plot_word_sentiment(
     df = word_df.copy()
     df["word"] = df["word"].astype(str)
 
-    # Remove excluded words
     if EXCLUDE_WORDS:
         df = df[~df["word"].str.lower().isin({w.lower() for w in EXCLUDE_WORDS})]
 
-    # Build word→group mapping
     word_to_group = {
         w.lower(): grp
         for grp, words in GROUP_DEFS.items()
@@ -467,7 +492,6 @@ def stage_06_plot_word_sentiment(
     }
     df["group"] = df["word"].apply(lambda w: word_to_group.get(w.lower(), w.lower()))
 
-    # Aggregate by group
     grouped_rows = []
     for grp, sub in df.groupby("group"):
         grouped_rows.append({
@@ -489,7 +513,6 @@ def stage_06_plot_word_sentiment(
     gdf["impact_score"]    = gdf["count"] * gdf["avg_hf_compound"].abs()
     gdf_label = gdf.sort_values("impact_score", ascending=False).head(TOP_N_LABELS)
 
-    # Resolve axis labels — use provided overrides or auto-generate from company name
     resolved_title  = title  or DEFAULT_PLOT_TITLE.format(company=target_company)
     resolved_xlabel = xlabel or DEFAULT_PLOT_XLABEL.format(company=target_company)
     resolved_ylabel = ylabel or DEFAULT_PLOT_YLABEL.format(company=target_company)
@@ -501,10 +524,8 @@ def stage_06_plot_word_sentiment(
     )
     plt.axhline(0, color="black", linewidth=0.8, linestyle="--", alpha=0.7)
 
-    # Non-overlapping vertical labels
     label_rows = gdf_label.sort_values("avg_hf_compound").reset_index(drop=True)
-    used_y = []
-    label_positions = []
+    used_y, label_positions = [], []
     for _, row in label_rows.iterrows():
         x, y_true = float(row["count"]), float(row["avg_hf_compound"])
         y_text = y_true
@@ -539,7 +560,6 @@ def stage_06_plot_word_sentiment(
     plt.legend(handles=legend_elements, title="Sentiment", loc="best")
     plt.tight_layout()
 
-    # Output filename derived from company name — never overwrites other companies
     slug     = _company_slug(target_company)
     out_path = os.path.join(output_dir, f"{slug}_word_freq_sentiment.png")
     plt.savefig(out_path, dpi=300)
@@ -548,7 +568,7 @@ def stage_06_plot_word_sentiment(
 
 
 # ===========================================================================
-# STAGE 07 — Sentiment distribution comparison (target company vs others)
+# STAGE 07 — Sentiment distribution comparison (target vs competitors)
 # ===========================================================================
 
 def stage_07_sentiment_comparison(
@@ -559,36 +579,43 @@ def stage_07_sentiment_comparison(
 ) -> None:
     """
     Saves two comparison plots to output_dir:
-        {slug}_sentiment_hist.png   — histogram of compound score distributions
-        {slug}_sentiment_box.png    — boxplot comparison
+        {slug}_sentiment_hist.png  — histogram of compound score distributions
+        {slug}_sentiment_box.png   — boxplot comparison
+
+    Skips gracefully if df_other is empty, which happens when the user did
+    not enter any competitor services or none of the transcript sentences
+    matched the competitor list. In that case the comparison chart is simply
+    omitted from the output without raising an error.
 
     Args:
-        df_target:      Sentences mentioning the target company (from stage_04).
-        df_other:       Sentences mentioning competing services (from stage_04).
+        df_target:      Sentences about the target company (from stage_04).
+        df_other:       Sentences mentioning competitors (from stage_04).
         output_dir:     Folder to write PNGs into.
         target_company: Used for axis labels and output filenames.
     """
     target_sent = df_target["hf_compound"].astype(float).dropna()
     other_sent  = df_other["hf_compound"].astype(float).dropna()
 
-    # Print summary stats
-    print(f"\n=== Sentiment summary — {target_company} vs other services ===")
+    if other_sent.empty:
+        print("  Skipping comparison chart — no competitor sentences found.")
+        return
+
+    print(f"\n=== Sentiment summary — {target_company} vs competitors ===")
     print(pd.DataFrame({
         f"{target_company}-only": target_sent.describe(),
-        "Other services":          other_sent.describe(),
+        "Competitors":            other_sent.describe(),
     }))
 
     slug = _company_slug(target_company)
     bins = np.linspace(-1.0, 1.0, 21)
 
-    # — Histogram —
     plt.figure(figsize=(8, 5))
     plt.hist(target_sent, bins=bins, alpha=0.6, label=f"{target_company}-only sentences")
-    plt.hist(other_sent,  bins=bins, alpha=0.6, label="Sentences mentioning other services")
+    plt.hist(other_sent,  bins=bins, alpha=0.6, label="Competitor-related sentences")
     plt.axvline(0, color="black", linestyle="--", linewidth=0.8)
     plt.xlabel("Sentiment score (compound)")
     plt.ylabel("Number of sentences")
-    plt.title(f"Sentiment Distribution: {target_company} vs Other Services")
+    plt.title(f"Sentiment Distribution: {target_company} vs Competitors")
     plt.legend()
     plt.grid(alpha=0.2)
     plt.tight_layout()
@@ -597,16 +624,15 @@ def stage_07_sentiment_comparison(
     plt.close()
     print(f"  Saved: {hist_path}")
 
-    # — Boxplot —
     plt.figure(figsize=(6, 5))
     plt.boxplot(
         [target_sent, other_sent],
-        labels=[f"{target_company}-only", "Other services"],
+        labels=[f"{target_company}-only", "Competitors"],
         showmeans=True, meanline=True,
     )
     plt.axhline(0, color="black", linestyle="--", linewidth=0.8)
     plt.ylabel("Sentiment score (compound)")
-    plt.title(f"Sentiment Comparison: {target_company} vs Other Services")
+    plt.title(f"Sentiment Comparison: {target_company} vs Competitors")
     plt.grid(axis="y", alpha=0.2)
     plt.tight_layout()
     box_path = os.path.join(output_dir, f"{slug}_sentiment_box.png")
@@ -620,10 +646,11 @@ def stage_07_sentiment_comparison(
 # ===========================================================================
 
 def run_pipeline(
-    input_dir:        str  = INPUT_DIR,
-    output_dir:       str  = OUTPUT_DIR,
-    target_company:   str  = TARGET_COMPANY,
-    save_intermediate: bool = False,
+    input_dir:         str              = INPUT_DIR,
+    output_dir:        str              = OUTPUT_DIR,
+    target_company:    str              = TARGET_COMPANY,
+    other_services:    list[str] | None = None,
+    save_intermediate: bool             = False,
 ) -> dict:
     """
     Run the full pipeline end-to-end.
@@ -631,9 +658,16 @@ def run_pipeline(
     Args:
         input_dir:        Folder containing raw .docx / .txt transcripts.
         output_dir:       Folder where plots (and optional CSVs) are written.
-        target_company:   The company being analyzed. Overrides the module-level
-                          TARGET_COMPANY constant when called programmatically.
-        save_intermediate: If True, also write each stage's DataFrame to CSV.
+        target_company:   The company being analyzed. Always provided explicitly
+                          in API usage; falls back to TARGET_COMPANY in CLI usage.
+        other_services:   List of competitor service names used in stage_04 to
+                          separate competitor sentences from target-company
+                          sentences. Provided by the user via the frontend
+                          Competitor Services input field. Falls back to
+                          DEFAULT_OTHER_SERVICES when running the CLI without
+                          --other-services. Pass an empty list [] to skip
+                          competitor separation entirely.
+        save_intermediate: If True, write each stage's DataFrame to CSV.
 
     Returns:
         dict with keys:
@@ -651,46 +685,40 @@ def run_pipeline(
             df.to_csv(path, index=False, encoding="utf-8")
             print(f"  Saved intermediate: {path}")
 
-    # -- Stage 00: parse transcripts --
     print("\n[Stage 00] Parsing transcripts...")
     combined_df = stage_00_parse_transcripts(input_dir)
     print(f"  Rows parsed: {len(combined_df)}")
     _maybe_save(combined_df, "00_combined.csv")
 
-    # -- Stage 01: tag roles --
     print("\n[Stage 01] Tagging speaker roles...")
     combined_df = stage_01_tag_roles(combined_df)
     _maybe_save(combined_df, "01_with_roles.csv")
 
-    # -- Stage 02: sentence tokenization --
     print("\n[Stage 02] Tokenizing into sentences...")
     sentences_df = stage_02_sentence_level(combined_df)
     print(f"  Sentences: {len(sentences_df)}")
     _maybe_save(sentences_df, "02_sentences.csv")
 
-    # -- Stage 03: sentiment analysis --
     print("\n[Stage 03] Running sentiment analysis...")
     sentiment_df = stage_03_hf_sentiment(sentences_df)
     _maybe_save(sentiment_df, "03_sentiment.csv")
 
-    # -- Stage 04: separate target company vs other services --
-    print(f"\n[Stage 04] Separating '{target_company}' sentences vs other-service sentences...")
-    df_target, df_other = stage_04_separate_services(sentiment_df, target_company)
-    print(f"  {target_company}-only: {len(df_target)} | Other services: {len(df_other)}")
+    print(f"\n[Stage 04] Separating '{target_company}' sentences vs competitor sentences...")
+    df_target, df_other = stage_04_separate_services(
+        sentiment_df, target_company, other_services
+    )
+    print(f"  {target_company}-only: {len(df_target)} | Competitors: {len(df_other)}")
     _maybe_save(df_target, "04_target_only.csv")
     _maybe_save(df_other,  "04_other_services.csv")
 
-    # -- Stage 05: word-sentiment stats --
     print(f"\n[Stage 05] Building '{target_company}' word-sentiment stats...")
     word_stats_df = stage_05_word_stats(df_target, target_company)
     print(f"  Unique words: {len(word_stats_df)}")
     _maybe_save(word_stats_df, "05_word_stats.csv")
 
-    # -- Stage 06: word-sentiment plot --
     print("\n[Stage 06] Plotting word frequency × sentiment...")
     stage_06_plot_word_sentiment(word_stats_df, output_dir, target_company)
 
-    # -- Stage 07: sentiment comparison plots --
     print("\n[Stage 07] Plotting sentiment comparison...")
     stage_07_sentiment_comparison(df_target, df_other, output_dir, target_company)
 
@@ -711,15 +739,31 @@ def run_pipeline(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Transcript sentiment analysis pipeline")
-    parser.add_argument("--input-dir",       default=INPUT_DIR,       help="Folder with raw transcripts")
-    parser.add_argument("--output-dir",      default=OUTPUT_DIR,      help="Folder for outputs")
-    parser.add_argument("--company",         default=TARGET_COMPANY,  help="Target company name (e.g. 'Figma')")
-    parser.add_argument("--save-intermediate", action="store_true",   help="Also save each stage's DataFrame to CSV")
+    parser.add_argument("--input-dir",    default=INPUT_DIR,      help="Folder with raw transcripts")
+    parser.add_argument("--output-dir",   default=OUTPUT_DIR,     help="Folder for outputs")
+    parser.add_argument("--company",      default=TARGET_COMPANY, help="Target company name, e.g. 'Figma'")
+    parser.add_argument(
+        "--other-services",
+        default=None,
+        help=(
+            "Comma-separated list of competitor services to separate out, "
+            "e.g. 'adobe,sketch,xd'. Omit to use the built-in default list."
+        ),
+    )
+    parser.add_argument("--save-intermediate", action="store_true",
+                        help="Also save each stage's DataFrame to CSV")
     args = parser.parse_args()
+
+    parsed_other = (
+        [s.strip() for s in args.other_services.split(",") if s.strip()]
+        if args.other_services
+        else None
+    )
 
     run_pipeline(
         input_dir         = args.input_dir,
         output_dir        = args.output_dir,
         target_company    = args.company,
+        other_services    = parsed_other,
         save_intermediate = args.save_intermediate,
     )

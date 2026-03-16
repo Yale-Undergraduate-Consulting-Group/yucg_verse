@@ -22,14 +22,19 @@ export default function SentimentAnalyzerPage() {
   const [wordStats, setWordStats] = useState<TopWord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // ── New: company name state ──────────────────────────────────────────────
-  const [company, setCompany] = useState<string>("Canva");
+  // Target company entered by the user — used to filter and label the analysis
+  const [company, setCompany] = useState<string>("");
+
+  // Comma-separated list of competitor/other services entered by the user.
+  // Stage 04 uses this to separate competitor sentences from target-company
+  // sentences. Leave blank to skip competitor separation.
+  const [otherServices, setOtherServices] = useState<string>("");
 
   const addFiles = useCallback((newFiles: File[]) => {
-    const pdfs = newFiles.filter(
+    const valid = newFiles.filter(
       (file) => file.name.endsWith(".docx") || file.name.endsWith(".txt")
     );
-    const uploaded: UploadedFile[] = pdfs.map((file) => ({
+    const uploaded: UploadedFile[] = valid.map((file) => ({
       id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: file.name,
       size: file.size,
@@ -88,12 +93,18 @@ export default function SentimentAnalyzerPage() {
 
     try {
       const formData = new FormData();
+
       files.forEach((file) => {
         formData.append("files", file.file);
       });
 
-      // ── Pass the company name to the backend as a form field ────────────
-      formData.append("company", company.trim() || "Canva");
+      // Send the target company name — required by the backend
+      formData.append("company", company.trim());
+
+      // Send the competitor list as a comma-separated string.
+      // The backend parses this into a list. Empty string is valid —
+      // it means no competitor separation will be performed.
+      formData.append("other_services", otherServices.trim());
 
       const response = await fetch(`${API_BASE_URL}/api/analyze_transcripts`, {
         method: "POST",
@@ -113,7 +124,7 @@ export default function SentimentAnalyzerPage() {
     } finally {
       setIsRunning(false);
     }
-  }, [files, company]);
+  }, [files, company, otherServices]);
 
   return (
     <div className="mx-auto w-full max-w-[1200px] space-y-6">
@@ -133,6 +144,7 @@ export default function SentimentAnalyzerPage() {
           onDrop={handleDrop}
           onFileSelect={handleFileSelect}
         />
+
         <aside className="space-y-4">
           <QueuePanel
             files={files}
@@ -140,7 +152,7 @@ export default function SentimentAnalyzerPage() {
             onRemoveFile={removeFile}
           />
 
-          {/* ── Company name input ────────────────────────────────────── */}
+          {/* ── Target Company input ──────────────────────────────────── */}
           <div className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
               Target Company
@@ -153,14 +165,33 @@ export default function SentimentAnalyzerPage() {
               className="w-full rounded-xl border border-[var(--panel-border)] bg-white/80 px-4 py-2.5 text-sm text-text-primary outline-none focus:border-accent focus:ring-1 focus:ring-accent/30"
             />
             <p className="mt-2 text-xs text-text-tertiary">
-              Sentences mentioning this company will be analysed separately from
-              competitor mentions.
+              Sentences mentioning this company are analyzed for word-sentiment
+              associations.
+            </p>
+          </div>
+
+          {/* ── Competitor Services input ─────────────────────────────── */}
+          <div className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+              Competitor Services
+            </h2>
+            <input
+              type="text"
+              value={otherServices}
+              onChange={(e) => setOtherServices(e.target.value)}
+              placeholder="e.g. figma, adobe, sketch…"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-white/80 px-4 py-2.5 text-sm text-text-primary outline-none focus:border-accent focus:ring-1 focus:ring-accent/30"
+            />
+            <p className="mt-2 text-xs text-text-tertiary">
+              Comma-separated. Sentences mentioning these are separated out so
+              competitor comparisons don&apos;t skew the target company analysis.
+              Leave blank to skip this separation.
             </p>
           </div>
 
           <ActionPanel
             isRunning={isRunning}
-            disabled={isRunning || files.length === 0}
+            disabled={isRunning || files.length === 0 || !company.trim()}
             onRun={handleRun}
             comingSoon
           />
@@ -173,7 +204,7 @@ export default function SentimentAnalyzerPage() {
             results={results}
             overallPlot={overallPlot}
             wordStats={wordStats}
-            company={company.trim() || "Canva"}
+            company={company.trim()}
           />
         </section>
       )}

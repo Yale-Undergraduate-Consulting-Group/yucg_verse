@@ -58,12 +58,16 @@ app.add_middleware(
 )
 
 
+# ── Updated Pydantic model ──────────────────────────────────────────────────
+# Add other_services to the regenerate_plot request body so the frontend
+# can pass it through when regenerating the scatter plot with new labels.
 class RegeneratePlotRequest(BaseModel):
-    word_stats: list[dict]
-    company:    str              # required — no default, must be provided
-    title:      Optional[str] = None
-    xlabel:     Optional[str] = None
-    ylabel:     Optional[str] = None
+    word_stats:     list[dict]
+    company:        str              # required — the target company name
+    other_services: list[str] = []   # competitor service names (may be empty)
+    title:          Optional[str] = None
+    xlabel:         Optional[str] = None
+    ylabel:         Optional[str] = None
 
 
 class RedditAnalysisRequest(BaseModel):
@@ -89,41 +93,71 @@ async def health_check():
 # Transcript sentiment analysis — generalized for any target company
 @app.post("/api/analyze_transcripts")
 async def analyze_transcripts(
-    files:   List[UploadFile] = File(...),
-    company: str              = Form(...),   # required — user must specify a company
+    files:          List[UploadFile] = File(...),
+    company:        str              = Form(...),   # required — target company name
+    other_services: str              = Form(""),    # comma-separated competitor list
+                                                    # empty string means no competitors
 ):
+    """
+    Analyze interview transcripts for sentiment toward a specified company.
+ 
+    Accepts:
+        files:          One or more .docx or .txt transcript files.
+        company:        The company to focus on (e.g. "Canva", "Figma").
+                        Sentences mentioning this company are analyzed for
+                        word-sentiment associations in stages 05 and 06.
+        other_services: Comma-separated list of competitor/other service names
+                        entered by the user (e.g. "adobe, sketch, xd").
+                        Stage 04 uses this to separate pure target-company
+                        sentences from competitor-mention sentences.
+                        Leave empty to skip competitor separation.
+ 
+    Returns per-interviewee sentiment summary plus an overall word-sentiment
+    scatter plot encoded as a base64 PNG string.
+    """
+    # Parse the comma-separated other_services string into a list
+    # Strip whitespace and filter out empty strings
+    parsed_other_services = (
+        [s.strip() for s in other_services.split(",") if s.strip()]
+        if other_services.strip()
+        else []
+    )
+ 
     results = []
-
+ 
     # Validate file types upfront
     for file in files:
         fname = file.filename or "unknown"
         if not (fname.lower().endswith(".docx") or fname.lower().endswith(".txt")):
             results.append({"filename": fname, "error": "Only .docx and .txt files are supported"})
-
+ 
     valid_files = [f for f in files if (f.filename or "").lower().endswith((".docx", ".txt"))]
     if not valid_files:
         return {"results": results}
-
+ 
     try:
         with tempfile.TemporaryDirectory() as tmp_dir:
-            # Save uploaded files to temp directory
             for file in valid_files:
-                dest = os.path.join(tmp_dir, file.filename)
+                dest    = os.path.join(tmp_dir, file.filename)
                 content = await file.read()
                 with open(dest, "wb") as f:
                     f.write(content)
-
+ 
             # Run pipeline stages 00–04
             combined_df  = stage_00_parse_transcripts(tmp_dir)
             combined_df  = stage_01_tag_roles(combined_df)
             sentences_df = stage_02_sentence_level(combined_df)
             sentiment_df = stage_03_hf_sentiment(sentences_df)
-            df_target, df_other = stage_04_separate_services(sentiment_df, company)
-
+ 
+            # Stage 04: pass both the target company and the user's competitor list
+            df_target, df_other = stage_04_separate_services(
+                sentiment_df, company, parsed_other_services or None
+            )
+ 
         # Build one result entry per interviewee
         for interviewee in sentiment_df["interviewee"].unique():
             idf = sentiment_df[sentiment_df["interviewee"] == interviewee]
-
+ 
             avg_compound = float(idf["hf_compound"].mean())
             if math.isnan(avg_compound):
                 avg_compound = 0.0
@@ -133,17 +167,16 @@ async def analyze_transcripts(
                 overall_sentiment = "negative"
             else:
                 overall_sentiment = "neutral"
-
+ 
             dist = idf["hf_label"].value_counts().to_dict()
-
+ 
             target_count = int(len(df_target[df_target["interviewee"] == interviewee]))
             other_count  = int(len(df_other[df_other["interviewee"] == interviewee]))
-
-            # Top words for this interviewee's target-company sentences
+ 
             idf_target     = df_target[df_target["interviewee"] == interviewee]
             idf_word_stats = stage_05_canva_word_stats(idf_target, company)
             top_words      = idf_word_stats.head(10).to_dict(orient="records")
-
+ 
             results.append({
                 "filename":              interviewee,
                 "interviewee":           interviewee,
@@ -160,13 +193,13 @@ async def analyze_transcripts(
                 },
                 "top_words": top_words,
             })
-
+ 
     except Exception as e:
         results.append({"filename": "pipeline", "error": str(e)})
-
-    # Generate overall frequency × sentiment scatter plot across all transcripts
+ 
+    # Generate overall word-sentiment scatter plot across all transcripts
     overall_plot: str | None = None
-    word_stats_json: list = []
+    word_stats_json: list    = []
     try:
         all_word_stats  = stage_05_canva_word_stats(df_target, company)
         word_stats_json = all_word_stats.to_dict(orient="records")
@@ -178,12 +211,19 @@ async def analyze_transcripts(
                 with open(plot_path, "rb") as f:
                     overall_plot = base64.b64encode(f.read()).decode("utf-8")
     except Exception:
-        pass  # plot is optional — don't fail the whole response
-
+        pass   # plot is optional — don't fail the whole response
+ 
     return {"results": results, "overall_plot": overall_plot, "word_stats": word_stats_json}
 
 @app.post("/api/regenerate_plot")
 async def regenerate_plot(req: RegeneratePlotRequest):
+    """
+    Regenerate the word-sentiment scatter plot with updated axis labels.
+    Called by the frontend "Update labels" button.
+ 
+    The word_stats data is passed back from the frontend (originally returned
+    by /api/analyze_transcripts) so we do not need to re-run the pipeline.
+    """
     overall_plot: str | None = None
     try:
         word_df = pd.DataFrame(req.word_stats)

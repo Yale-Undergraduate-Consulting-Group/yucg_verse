@@ -22,18 +22,19 @@ export default function SentimentAnalyzerPage() {
   const [wordStats, setWordStats] = useState<TopWord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // ── New: company name state ──────────────────────────────────────────────
+  const [company, setCompany] = useState<string>("Canva");
+
   const addFiles = useCallback((newFiles: File[]) => {
     const pdfs = newFiles.filter(
       (file) => file.name.endsWith(".docx") || file.name.endsWith(".txt")
     );
-
     const uploaded: UploadedFile[] = pdfs.map((file) => ({
       id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: file.name,
       size: file.size,
       file,
     }));
-
     if (uploaded.length) {
       setFiles((prev) => [...prev, ...uploaded]);
       setResults(null);
@@ -91,6 +92,9 @@ export default function SentimentAnalyzerPage() {
         formData.append("files", file.file);
       });
 
+      // ── Pass the company name to the backend as a form field ────────────
+      formData.append("company", company.trim() || "Canva");
+
       const response = await fetch(`${API_BASE_URL}/api/analyze_transcripts`, {
         method: "POST",
         body: formData,
@@ -109,8 +113,7 @@ export default function SentimentAnalyzerPage() {
     } finally {
       setIsRunning(false);
     }
-  }, [files]);
-
+  }, [files, company]);
 
   return (
     <div className="mx-auto w-full max-w-[1200px] space-y-6">
@@ -130,13 +133,31 @@ export default function SentimentAnalyzerPage() {
           onDrop={handleDrop}
           onFileSelect={handleFileSelect}
         />
-
         <aside className="space-y-4">
           <QueuePanel
             files={files}
             onClearAll={clearFiles}
             onRemoveFile={removeFile}
           />
+
+          {/* ── Company name input ────────────────────────────────────── */}
+          <div className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+              Target Company
+            </h2>
+            <input
+              type="text"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder="e.g. Canva, Figma, Adobe…"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-white/80 px-4 py-2.5 text-sm text-text-primary outline-none focus:border-accent focus:ring-1 focus:ring-accent/30"
+            />
+            <p className="mt-2 text-xs text-text-tertiary">
+              Sentences mentioning this company will be analysed separately from
+              competitor mentions.
+            </p>
+          </div>
+
           <ActionPanel
             isRunning={isRunning}
             disabled={isRunning || files.length === 0}
@@ -148,7 +169,12 @@ export default function SentimentAnalyzerPage() {
 
       {results && (
         <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 sm:p-6">
-          <ResultsPanel results={results} overallPlot={overallPlot} wordStats={wordStats} />
+          <ResultsPanel
+            results={results}
+            overallPlot={overallPlot}
+            wordStats={wordStats}
+            company={company.trim() || "Canva"}
+          />
         </section>
       )}
     </div>

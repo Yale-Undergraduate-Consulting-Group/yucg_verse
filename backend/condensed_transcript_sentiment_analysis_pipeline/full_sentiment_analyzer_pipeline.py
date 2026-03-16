@@ -47,10 +47,11 @@ INPUT_DIR  = "./raw_transcripts"   # folder with .docx / .txt transcripts
 OUTPUT_DIR = "./outputs"           # all plots and (optional) CSVs go here
 
 # ── Target company ──────────────────────────────────────────────────────────
-# Set this to the company name being analyzed.
-# It is used to filter sentences, build word stats, and label all plots.
-# Case-insensitive — "Canva", "canva", and "CANVA" all match the same way.
-TARGET_COMPANY = "Canva"
+# This is the fallback value used when no company is passed explicitly.
+# In normal API usage, the company is always provided by the user via the
+# frontend — this default is only reached when running the pipeline directly
+# from the command line without specifying --company.
+TARGET_COMPANY = "Company"
 
 # ── Competing / other services to separate out ──────────────────────────────
 # List tools or services that are NOT the target company.

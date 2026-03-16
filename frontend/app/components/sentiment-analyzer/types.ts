@@ -20,10 +20,11 @@ export interface SentimentDistribution {
 export interface AnalysisResult {
   filename: string;
   interviewee?: string;
+  target_company?: string;
   sentence_count?: number;
   avg_compound?: number;
   sentiment?: string;
-  canva_sentence_count?: number;
+  target_sentence_count?: number;  // renamed from canva_sentence_count
   other_service_count?: number;
   sentiment_distribution?: SentimentDistribution;
   top_words?: TopWord[];

@@ -4,13 +4,14 @@ import os
 import sys
 import tempfile
 import pandas as pd
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import List, Optional
 import uvicorn
 import io
+import re
 
 # Make the condensed pipeline importable
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "condensed_transcript_sentiment_analysis_pipeline"))
@@ -59,9 +60,10 @@ app.add_middleware(
 
 class RegeneratePlotRequest(BaseModel):
     word_stats: list[dict]
-    title: Optional[str] = None
-    xlabel: Optional[str] = None
-    ylabel: Optional[str] = None
+    company:    str              # required — no default, must be provided
+    title:      Optional[str] = None
+    xlabel:     Optional[str] = None
+    ylabel:     Optional[str] = None
 
 
 class RedditAnalysisRequest(BaseModel):
@@ -84,9 +86,12 @@ async def health_check():
     return {"status": "ok"}
 
 
-# Transcript sentiment analysis using the full HuggingFace pipeline
+# Transcript sentiment analysis — generalized for any target company
 @app.post("/api/analyze_transcripts")
-async def analyze_transcripts(files: List[UploadFile] = File(...)):
+async def analyze_transcripts(
+    files:   List[UploadFile] = File(...),
+    company: str              = Form(...),   # required — user must specify a company
+):
     results = []
 
     # Validate file types upfront
@@ -108,12 +113,12 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
                 with open(dest, "wb") as f:
                     f.write(content)
 
-            # Run pipeline stages 00–05 (no plotting)
+            # Run pipeline stages 00–04
             combined_df  = stage_00_parse_transcripts(tmp_dir)
             combined_df  = stage_01_tag_roles(combined_df)
             sentences_df = stage_02_sentence_level(combined_df)
             sentiment_df = stage_03_hf_sentiment(sentences_df)
-            df_canva, df_other = stage_04_separate_services(sentiment_df)
+            df_target, df_other = stage_04_separate_services(sentiment_df, company)
 
         # Build one result entry per interviewee
         for interviewee in sentiment_df["interviewee"].unique():
@@ -131,21 +136,22 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
 
             dist = idf["hf_label"].value_counts().to_dict()
 
-            canva_count = int(len(df_canva[df_canva["interviewee"] == interviewee]))
-            other_count = int(len(df_other[df_other["interviewee"] == interviewee]))
+            target_count = int(len(df_target[df_target["interviewee"] == interviewee]))
+            other_count  = int(len(df_other[df_other["interviewee"] == interviewee]))
 
-            # Top words associated with this interviewee's Canva sentences
-            idf_canva = df_canva[df_canva["interviewee"] == interviewee]
-            idf_word_stats = stage_05_canva_word_stats(idf_canva)
-            top_words = idf_word_stats.head(10).to_dict(orient="records")
+            # Top words for this interviewee's target-company sentences
+            idf_target     = df_target[df_target["interviewee"] == interviewee]
+            idf_word_stats = stage_05_canva_word_stats(idf_target, company)
+            top_words      = idf_word_stats.head(10).to_dict(orient="records")
 
             results.append({
-                "filename":       interviewee,
-                "interviewee":    interviewee,
-                "sentence_count": int(len(idf)),
-                "avg_compound":   round(avg_compound, 4),
-                "sentiment":      overall_sentiment,
-                "canva_sentence_count":  canva_count,
+                "filename":              interviewee,
+                "interviewee":           interviewee,
+                "target_company":        company,
+                "sentence_count":        int(len(idf)),
+                "avg_compound":          round(avg_compound, 4),
+                "sentiment":             overall_sentiment,
+                "target_sentence_count": target_count,
                 "other_service_count":   other_count,
                 "sentiment_distribution": {
                     "positive": int(dist.get("positive", 0)),
@@ -162,11 +168,12 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
     overall_plot: str | None = None
     word_stats_json: list = []
     try:
-        all_word_stats = stage_05_canva_word_stats(df_canva)
+        all_word_stats  = stage_05_canva_word_stats(df_target, company)
         word_stats_json = all_word_stats.to_dict(orient="records")
         with tempfile.TemporaryDirectory() as plot_tmp:
-            stage_06_plot_word_sentiment(all_word_stats, plot_tmp)
-            plot_path = os.path.join(plot_tmp, "canva_word_freq_sentiment.png")
+            stage_06_plot_word_sentiment(all_word_stats, plot_tmp, company)
+            slug      = re.sub(r"[^a-z0-9]+", "_", company.lower()).strip("_")
+            plot_path = os.path.join(plot_tmp, f"{slug}_word_freq_sentiment.png")
             if os.path.exists(plot_path):
                 with open(plot_path, "rb") as f:
                     overall_plot = base64.b64encode(f.read()).decode("utf-8")
@@ -175,20 +182,23 @@ async def analyze_transcripts(files: List[UploadFile] = File(...)):
 
     return {"results": results, "overall_plot": overall_plot, "word_stats": word_stats_json}
 
-
 @app.post("/api/regenerate_plot")
 async def regenerate_plot(req: RegeneratePlotRequest):
     overall_plot: str | None = None
     try:
         word_df = pd.DataFrame(req.word_stats)
+        company = req.company
         with tempfile.TemporaryDirectory() as plot_tmp:
             stage_06_plot_word_sentiment(
-                word_df, plot_tmp,
+                word_df,
+                plot_tmp,
+                company,
                 title=req.title,
                 xlabel=req.xlabel,
                 ylabel=req.ylabel,
             )
-            plot_path = os.path.join(plot_tmp, "canva_word_freq_sentiment.png")
+            slug      = re.sub(r"[^a-z0-9]+", "_", company.lower()).strip("_")
+            plot_path = os.path.join(plot_tmp, f"{slug}_word_freq_sentiment.png")
             if os.path.exists(plot_path):
                 with open(plot_path, "rb") as f:
                     overall_plot = base64.b64encode(f.read()).decode("utf-8")

@@ -27,6 +27,5 @@ export const defaultTools: ToolConfig[] = [
       "Analyze interview transcripts to extract sentiment insights and patterns.",
     href: "/sentiment-analyzer",
     icon: BarChart3,
-    comingSoon: true,
   },
 ];

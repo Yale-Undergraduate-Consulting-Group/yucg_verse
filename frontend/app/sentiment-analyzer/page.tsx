@@ -132,7 +132,6 @@ export default function SentimentAnalyzerPage() {
         label="Transcript Tool"
         title="Sentiment Analyzer"
         description="Upload interview transcripts and generate sentiment metrics in a single run."
-        comingSoon
       />
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.6fr_1fr]">
@@ -193,7 +192,6 @@ export default function SentimentAnalyzerPage() {
             isRunning={isRunning}
             disabled={isRunning || files.length === 0 || !company.trim()}
             onRun={handleRun}
-            comingSoon
           />
         </aside>
       </div>

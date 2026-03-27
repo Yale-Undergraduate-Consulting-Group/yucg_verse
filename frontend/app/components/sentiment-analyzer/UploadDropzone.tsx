@@ -28,7 +28,7 @@ export default function UploadDropzone({
     >
       <input
         type="file"
-        accept=".docx,.txt"
+        accept=".docx,.txt,.pdf"
         multiple
         onChange={onFileSelect}
         className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
@@ -46,7 +46,7 @@ export default function UploadDropzone({
         <p className="text-center font-medium text-text-primary">
           {isDragging ? "Drop files here" : "Drop transcript files here or click to browse"}
         </p>
-        <p className="mt-1 text-center text-xs text-text-tertiary">.docx and .txt only</p>
+        <p className="mt-1 text-center text-xs text-text-tertiary">.docx, .txt, and .pdf</p>
       </div>
     </div>
   );

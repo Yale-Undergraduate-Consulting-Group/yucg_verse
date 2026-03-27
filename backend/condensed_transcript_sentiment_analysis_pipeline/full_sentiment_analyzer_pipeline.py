@@ -138,31 +138,50 @@ def _company_slug(company: str) -> str:
 # STAGE 00 — Parse raw transcripts → combined DataFrame
 # ===========================================================================
 
-_LINE_PATTERN = re.compile(
-    r"""
-    ^\s*
-    (?:\[(?P<speaker_bracket>[^\]]+)\]\s*)?   # [Speaker]
-    (?:(?P<speaker_plain>[A-Za-z .]+)\s*)?    # or Speaker
-    (?P<timestamp>\d{1,2}:\d{2}:\d{2})?       # optional 00:00:00
-    \s*[:\-]?\s*
-    (?P<text>.*\S)?                            # rest of line as text
-    \s*$
-    """,
-    re.VERBOSE,
-)
+# Skip lines that are pure metadata, never actual speech.
+# WEBVTT timestamp:  "00:01:42.000 --> 00:01:45.000"
+_WEBVTT_TS_RE     = re.compile(r"^\s*\d{2}:\d{2}:\d{2}\.\d+\s*-->\s*\d{2}:\d{2}:\d{2}\.\d+\s*$")
+# Range timestamp:  "(0:00 - 0:06)"
+_RANGE_TS_RE      = re.compile(r"^\s*\(\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}\)\s*$")
+# Speaker label — colon is REQUIRED so plain prose is never mistaken for a name.
+# Matches:  "Liu Frank: text"   "[Speaker] text"
+_SPEAKER_COLON_RE = re.compile(r"^([A-Za-z][A-Za-z .]{0,50}?):\s*(.+)$")
+_SPEAKER_BRACKET_RE = re.compile(r"^\[([^\]]+)\]\s*[:\-]?\s*(.*)$")
 
 
 def _parse_line(raw: str):
-    """Return (speaker, timestamp, text) from a single raw line."""
-    m = _LINE_PATTERN.match(raw.rstrip("\n"))
-    if not m:
-        return "", "", raw
-    speaker   = (m.group("speaker_bracket") or m.group("speaker_plain") or "").strip()
-    timestamp = (m.group("timestamp") or "").strip()
-    text      = (m.group("text") or "").strip()
-    if not speaker and not timestamp and not text:
-        return "", "", raw
-    return speaker, timestamp, text
+    """
+    Return (speaker, timestamp, text) from a single raw transcript line.
+
+    Handles three common export formats:
+      - Plain "Speaker Name: sentence" (PDF transcripts, Google Docs exports)
+      - WEBVTT  ("WEBVTT" header + "HH:MM:SS.mmm --> HH:MM:SS.mmm" + "Speaker: text")
+      - No-label ("(H:MM - H:MM)" range timestamps + plain text paragraphs)
+
+    The key fix over the old regex: speaker_plain now requires a colon after
+    the name, so a sentence like "My name is David." is never split into
+    speaker="My name is David" / text="" by accident.
+    """
+    stripped = raw.rstrip("\n").strip()
+
+    # Blank lines, WEBVTT header, and timestamp-only lines carry no speech.
+    if not stripped or stripped.upper() == "WEBVTT":
+        return "", "", ""
+    if _WEBVTT_TS_RE.match(stripped) or _RANGE_TS_RE.match(stripped):
+        return "", "", ""
+
+    # "[Speaker] text" format
+    m = _SPEAKER_BRACKET_RE.match(stripped)
+    if m:
+        return m.group(1).strip(), "", m.group(2).strip()
+
+    # "Speaker Name: text" format  (colon required)
+    m = _SPEAKER_COLON_RE.match(stripped)
+    if m:
+        return m.group(1).strip(), "", m.group(2).strip()
+
+    # No speaker label — treat the whole line as text (David_Ortiz style)
+    return "", "", stripped
 
 
 def _iter_docx(filepath: str):
@@ -178,6 +197,17 @@ def _iter_txt(filepath: str):
                 yield line.rstrip("\n")
 
 
+def _iter_pdf(filepath: str):
+    """Extract lines from a PDF transcript using pdfplumber."""
+    import pdfplumber
+    with pdfplumber.open(filepath) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text() or ""
+            for line in text.splitlines():
+                if line.strip():
+                    yield line.strip()
+
+
 def stage_00_parse_transcripts(input_dir: str) -> pd.DataFrame:
     """
     Read all .docx/.txt files from input_dir.
@@ -189,12 +219,17 @@ def stage_00_parse_transcripts(input_dir: str) -> pd.DataFrame:
         if fname.startswith("~$"):
             continue
         ext = os.path.splitext(fname)[1].lower()
-        if ext not in (".docx", ".txt"):
+        if ext not in (".docx", ".txt", ".pdf"):
             continue
         filepath    = os.path.join(input_dir, fname)
         base        = os.path.splitext(fname)[0]
         interviewee = base.replace("_", " ")
-        lines = _iter_docx(filepath) if ext == ".docx" else _iter_txt(filepath)
+        if ext == ".docx":
+            lines = _iter_docx(filepath)
+        elif ext == ".pdf":
+            lines = _iter_pdf(filepath)
+        else:
+            lines = _iter_txt(filepath)
         for i, raw in enumerate(lines, start=1):
             speaker, timestamp, text = _parse_line(raw)
             all_rows.append({
@@ -215,16 +250,43 @@ def stage_00_parse_transcripts(input_dir: str) -> pd.DataFrame:
 # ===========================================================================
 
 def stage_01_tag_roles(df: pd.DataFrame) -> pd.DataFrame:
-    """Add a 'role' column: interviewee / interviewer / unknown."""
+    """
+    Add a 'role' column: interviewee / interviewer / unknown.
+
+    Strategy (per file):
+      1. Exact match — if any speaker label equals the filename-derived name,
+         use that as the interviewee. Works for Jane.pdf ("Jane" == "Jane").
+      2. Most-lines heuristic — if no exact match (e.g. filename "Ezra_Skrylix"
+         vs transcript label "Ezra Skerlecz"), the speaker with the most lines
+         in that file is tagged as the interviewee.
+      3. No labels — if no speaker labels exist at all (David_Ortiz style),
+         everyone stays "unknown" and stage_05 falls back to all sentences.
+    """
     df = df.copy()
     df["speaker"]     = df["speaker"].fillna("").astype(str).str.strip()
     df["interviewee"] = df["interviewee"].astype(str).str.strip()
     df["text"]        = df["text"].astype(str)
-    is_interviewee = df["speaker"].eq(df["interviewee"])
-    is_interviewer = (~is_interviewee) & df["speaker"].ne("")
-    df["role"] = "unknown"
-    df.loc[is_interviewee, "role"] = "interviewee"
-    df.loc[is_interviewer, "role"] = "interviewer"
+    df["role"]        = "unknown"
+
+    for interviewee_name, file_df in df.groupby("interviewee"):
+        labeled = file_df[file_df["speaker"].ne("")]
+
+        if labeled.empty:
+            # No speaker labels at all — leave everyone as "unknown"
+            continue
+
+        # Strategy 1: exact filename match
+        exact = labeled[labeled["speaker"].eq(interviewee_name)]
+        if not exact.empty:
+            top_speaker = interviewee_name
+        else:
+            # Strategy 2: speaker with the most labeled lines
+            top_speaker = labeled["speaker"].value_counts().idxmax()
+
+        is_top = file_df["speaker"].eq(top_speaker)
+        df.loc[file_df[is_top].index, "role"] = "interviewee"
+        df.loc[file_df[~is_top & file_df["speaker"].ne("")].index, "role"] = "interviewer"
+
     return df
 
 
@@ -397,7 +459,14 @@ def stage_05_word_stats(
     target_df = df[mask_role & mask_target]
 
     if target_df.empty:
-        print(f"  Warning: no interviewee sentences mentioning '{target_company}' found.")
+        # No interviewee-tagged sentences — either role tagging couldn't identify
+        # the interviewee (no speaker labels) or the name filter found nothing.
+        # Fall back to ALL sentences mentioning the target company.
+        print(f"  Warning: no interviewee sentences mentioning '{target_company}' found. Falling back to all speakers.")
+        target_df = df[mask_target]
+
+    if target_df.empty:
+        print(f"  Warning: no sentences mentioning '{target_company}' found at all.")
         return pd.DataFrame(columns=["word", "count", "avg_hf_compound"])
 
     count: dict[str, int]   = defaultdict(int)

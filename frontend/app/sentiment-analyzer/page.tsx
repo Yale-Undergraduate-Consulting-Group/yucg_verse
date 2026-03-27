@@ -32,7 +32,7 @@ export default function SentimentAnalyzerPage() {
 
   const addFiles = useCallback((newFiles: File[]) => {
     const valid = newFiles.filter(
-      (file) => file.name.endsWith(".docx") || file.name.endsWith(".txt")
+      (file) => file.name.endsWith(".docx") || file.name.endsWith(".txt") || file.name.endsWith(".pdf")
     );
     const uploaded: UploadedFile[] = valid.map((file) => ({
       id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,

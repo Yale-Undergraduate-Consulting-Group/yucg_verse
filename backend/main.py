@@ -128,10 +128,10 @@ async def analyze_transcripts(
     # Validate file types upfront
     for file in files:
         fname = file.filename or "unknown"
-        if not (fname.lower().endswith(".docx") or fname.lower().endswith(".txt")):
-            results.append({"filename": fname, "error": "Only .docx and .txt files are supported"})
- 
-    valid_files = [f for f in files if (f.filename or "").lower().endswith((".docx", ".txt"))]
+        if not fname.lower().endswith((".docx", ".txt", ".pdf")):
+            results.append({"filename": fname, "error": "Only .docx, .txt, and .pdf files are supported"})
+
+    valid_files = [f for f in files if (f.filename or "").lower().endswith((".docx", ".txt", ".pdf"))]
     if not valid_files:
         return {"results": results}
  

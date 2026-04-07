@@ -36,6 +36,9 @@ npm-debug.log*
 .eggs/
 *.egg
 
+# Database (never commit — would overwrite production data on deploy)
+*.db
+
 # Testing
 .coverage
 htmlcov/

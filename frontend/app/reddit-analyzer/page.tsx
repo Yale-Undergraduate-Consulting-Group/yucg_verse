@@ -144,9 +144,7 @@ export default function RedditAnalyzerPage() {
         title="Reddit Analyzer"
         description="Analyze sentiment of Reddit discussions on any topic across subreddits."
       />
-      <ToolDisclaimer message="Our current sentiment model may produce inaccurate results. We are actively working on developing a more accurate solution." />
-
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.6fr_1fr]">
+<div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.6fr_1fr]">
         <InputPanel
           mode={mode}
           onModeChange={handleModeChange}

@@ -13,14 +13,14 @@ import {
 import ToolHero from "@/app/components/ToolHero";
 import ToolDisclaimer from "@/app/components/ToolDisclaimer";
 import { API_BASE_URL } from "../lib/constants";
+import { trackEvent } from "@/app/lib/analytics";
+import PageViewTracker from "@/app/components/PageViewTracker";
 
 type AnyResult = RedditAnalysisResult | MultiRedditAnalysisResult;
 
 export default function RedditAnalyzerPage() {
   const [mode, setMode] = useState<AnalysisMode>("single");
-  // single mode
   const [subreddit, setSubreddit] = useState("");
-  // multi mode
   const [subreddits, setSubreddits] = useState<string[]>([]);
 
   const [query, setQuery] = useState("");
@@ -80,6 +80,11 @@ export default function RedditAnalyzerPage() {
         const data: RedditAnalysisResult = await response.json();
         if (!data.success) throw new Error(data.error || "Analysis failed");
         setResults(data);
+        trackEvent("reddit_analysis", {
+          success: true,
+          mode: "single",
+          subreddit_count: 1,
+        });
       } else {
         const response = await fetch(`${API_BASE_URL}/api/reddit/analyze_multi`, {
           method: "POST",
@@ -96,6 +101,11 @@ export default function RedditAnalyzerPage() {
         if (!data.success) throw new Error("Analysis failed");
         if (data.errors?.length > 0) setPartialErrors(data.errors);
         setResults(data);
+        trackEvent("reddit_analysis", {
+          success: true,
+          mode: "multi",
+          subreddit_count: subreddits.length,
+        });
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Analysis failed");
@@ -106,6 +116,7 @@ export default function RedditAnalyzerPage() {
 
   const handleDownloadCsv = useCallback(() => {
     if (!results?.csv_data) return;
+    trackEvent("csv_downloaded", { mode });
     const blob = new Blob([results.csv_data], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -127,6 +138,7 @@ export default function RedditAnalyzerPage() {
 
   return (
     <div className="mx-auto w-full max-w-[1200px] space-y-6">
+      <PageViewTracker page="reddit-analyzer" />
       <ToolHero
         label="Reddit Tool"
         title="Reddit Analyzer"

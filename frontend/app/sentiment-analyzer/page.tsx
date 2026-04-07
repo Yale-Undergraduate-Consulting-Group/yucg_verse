@@ -12,6 +12,8 @@ import {
 } from "@/app/components/sentiment-analyzer";
 import ToolHero from "@/app/components/ToolHero";
 import { API_BASE_URL } from "../lib/constants";
+import { trackEvent } from "@/app/lib/analytics";
+import PageViewTracker from "@/app/components/PageViewTracker";
 
 export default function SentimentAnalyzerPage() {
   const [files, setFiles] = useState<UploadedFile[]>([]);
@@ -22,12 +24,7 @@ export default function SentimentAnalyzerPage() {
   const [wordStats, setWordStats] = useState<TopWord[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Target company entered by the user — used to filter and label the analysis
   const [company, setCompany] = useState<string>("");
-
-  // Comma-separated list of competitor/other services entered by the user.
-  // Stage 04 uses this to separate competitor sentences from target-company
-  // sentences. Leave blank to skip competitor separation.
   const [otherServices, setOtherServices] = useState<string>("");
 
   const addFiles = useCallback((newFiles: File[]) => {
@@ -98,12 +95,7 @@ export default function SentimentAnalyzerPage() {
         formData.append("files", file.file);
       });
 
-      // Send the target company name — required by the backend
       formData.append("company", company.trim());
-
-      // Send the competitor list as a comma-separated string.
-      // The backend parses this into a list. Empty string is valid —
-      // it means no competitor separation will be performed.
       formData.append("other_services", otherServices.trim());
 
       const response = await fetch(`${API_BASE_URL}/api/analyze_transcripts`, {
@@ -119,6 +111,16 @@ export default function SentimentAnalyzerPage() {
       setResults(data.results);
       setOverallPlot(data.overall_plot ?? null);
       setWordStats(data.word_stats ?? null);
+
+      // Track analytics
+      trackEvent("transcript_analysis", {
+        success: true,
+        file_count: files.length,
+        company: company.trim(),
+      });
+      if (data.overall_plot) {
+        trackEvent("graph_generated", { company: company.trim() });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Analysis failed");
     } finally {
@@ -128,6 +130,7 @@ export default function SentimentAnalyzerPage() {
 
   return (
     <div className="mx-auto w-full max-w-[1200px] space-y-6">
+      <PageViewTracker page="sentiment-analyzer" />
       <ToolHero
         label="Transcript Tool"
         title="Sentiment Analyzer"

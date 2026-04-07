@@ -10,6 +10,7 @@ import re
 import sys
 import math
 import io
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone, timedelta
 from typing import Optional
 from collections import Counter
@@ -141,8 +142,14 @@ def analyze_sentiment(df: pd.DataFrame) -> pd.DataFrame:
         return classify(text)["compound"]
 
     df = df.copy()
-    df["title_sentiment"] = df["title"].apply(get_compound)
-    df["text_sentiment"] = df["text"].apply(get_compound)
+    titles = df["title"].tolist()
+    texts = df["text"].tolist()
+
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        title_futures = [executor.submit(get_compound, t) for t in titles]
+        text_futures = [executor.submit(get_compound, t) for t in texts]
+        df["title_sentiment"] = [f.result() for f in title_futures]
+        df["text_sentiment"] = [f.result() for f in text_futures]
 
     # Combined sentiment (weighted average: text is usually more informative)
     df["combined_sentiment"] = df.apply(

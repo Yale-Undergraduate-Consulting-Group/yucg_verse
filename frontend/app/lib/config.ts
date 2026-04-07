@@ -3,14 +3,14 @@
  * so routes and labels stay in sync with the UI.
  */
 
-import { Home, BarChart3, MessageSquare } from "lucide-react";
+import { Home, BarChart3, MessageSquare, Activity } from "lucide-react";
 import type { SidebarNavItem, ToolConfig } from "./types";
 
 export const defaultNavItems: SidebarNavItem[] = [
-  { icon: Home, label: "Home", href: "/" },
-  { icon: MessageSquare, label: "Reddit Analyzer", href: "/reddit-analyzer" },
-  { icon: BarChart3, label: "Sentiment Analyzer", href: "/sentiment-analyzer" },
-  
+  { icon: Home,         label: "Home",              href: "/" },
+  { icon: MessageSquare, label: "Reddit Analyzer",  href: "/reddit-analyzer" },
+  { icon: BarChart3,    label: "Sentiment Analyzer", href: "/sentiment-analyzer" },
+  { icon: Activity,     label: "Analytics",          href: "/analytics" },
 ];
 
 export const defaultTools: ToolConfig[] = [

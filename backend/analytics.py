@@ -49,30 +49,44 @@ def summary() -> dict:
     with _lock:
         c = _conn()
 
-        # ── page views ──────────────────────────────────────────────────────
+        # ── page views (analytics page excluded from totals) ─────────────────
         total_views: int = c.execute(
-            "SELECT COUNT(*) FROM events WHERE event_type = 'page_view'"
+            "SELECT COUNT(*) FROM events WHERE event_type = 'page_view' "
+            "AND json_extract(metadata, '$.page') != 'analytics'"
         ).fetchone()[0]
 
         page_breakdown: dict[str, int] = {}
         for row in c.execute(
-            "SELECT metadata FROM events WHERE event_type = 'page_view'"
+            "SELECT metadata FROM events WHERE event_type = 'page_view' "
+            "AND json_extract(metadata, '$.page') != 'analytics'"
         ).fetchall():
             page = json.loads(row[0] or "{}").get("page", "unknown")
             page_breakdown[page] = page_breakdown.get(page, 0) + 1
 
-        # ── transcript analyses ─────────────────────────────────────────────
+        # ── unique clients & sessions ─────────────────────────────────────────
+        # client_id persists in localStorage → approximates unique users
+        # session_id lives in sessionStorage → approximates unique sessions
+        client_ids: set[str] = set()
+        session_ids: set[str] = set()
+        for row in c.execute("SELECT metadata FROM events").fetchall():
+            m = json.loads(row[0] or "{}")
+            if cid := m.get("client_id"):
+                client_ids.add(cid)
+            if sid := m.get("session_id"):
+                session_ids.add(sid)
+
+        # ── transcript analyses ───────────────────────────────────────────────
         transcript_rows = c.execute(
             "SELECT metadata FROM events WHERE event_type = 'transcript_analysis'"
         ).fetchall()
-        successful_transcripts = [
-            json.loads(r[0] or "{}") for r in transcript_rows
-            if json.loads(r[0] or "{}").get("success")
-        ]
+        transcript_meta = [json.loads(r[0] or "{}") for r in transcript_rows]
+        successful_transcripts = [m for m in transcript_meta if m.get("success")]
+        failed_transcripts     = [m for m in transcript_meta if not m.get("success")]
         total_transcript_analyses = len(successful_transcripts)
+        total_transcript_failures = len(failed_transcripts)
         total_transcripts_uploaded = sum(m.get("file_count", 0) for m in successful_transcripts)
 
-        # ── graphs & plots ──────────────────────────────────────────────────
+        # ── graphs & plots ────────────────────────────────────────────────────
         total_graphs: int = c.execute(
             "SELECT COUNT(*) FROM events WHERE event_type = 'graph_generated'"
         ).fetchone()[0]
@@ -81,23 +95,27 @@ def summary() -> dict:
             "SELECT COUNT(*) FROM events WHERE event_type = 'plot_regenerated'"
         ).fetchone()[0]
 
-        # ── reddit analyses ─────────────────────────────────────────────────
+        # ── reddit analyses ───────────────────────────────────────────────────
         reddit_rows = c.execute(
             "SELECT metadata FROM events WHERE event_type = 'reddit_analysis'"
         ).fetchall()
-        successful_reddit = [
-            json.loads(r[0] or "{}") for r in reddit_rows
-            if json.loads(r[0] or "{}").get("success")
-        ]
+        reddit_meta      = [json.loads(r[0] or "{}") for r in reddit_rows]
+        successful_reddit = [m for m in reddit_meta if m.get("success")]
+        failed_reddit     = [m for m in reddit_meta if not m.get("success")]
         total_reddit_analyses = len(successful_reddit)
-        total_subreddits = sum(m.get("subreddit_count", 0) for m in successful_reddit)
+        total_reddit_failures = len(failed_reddit)
+        total_subreddits      = sum(m.get("subreddit_count", 0) for m in successful_reddit)
+        reddit_mode_breakdown = {
+            "single": sum(1 for m in successful_reddit if m.get("mode") == "single"),
+            "multi":  sum(1 for m in successful_reddit if m.get("mode") == "multi"),
+        }
 
-        # ── CSV downloads ───────────────────────────────────────────────────
+        # ── CSV downloads ─────────────────────────────────────────────────────
         total_csv: int = c.execute(
             "SELECT COUNT(*) FROM events WHERE event_type = 'csv_downloaded'"
         ).fetchone()[0]
 
-        # ── recent events (last 25) ─────────────────────────────────────────
+        # ── recent events (last 25) ───────────────────────────────────────────
         recent_events = [
             {
                 "event_type": r["event_type"],
@@ -112,14 +130,19 @@ def summary() -> dict:
         c.close()
 
         return {
-            "total_page_views":          total_views,
-            "page_views_breakdown":      page_breakdown,
-            "total_transcript_analyses": total_transcript_analyses,
-            "total_transcripts_uploaded": total_transcripts_uploaded,
-            "total_graphs_generated":    total_graphs,
-            "total_plots_regenerated":   total_plot_regen,
-            "total_reddit_analyses":     total_reddit_analyses,
-            "total_subreddits_analyzed": total_subreddits,
-            "total_csv_downloads":       total_csv,
-            "recent_events":             recent_events,
+            "total_page_views":            total_views,
+            "page_views_breakdown":         page_breakdown,
+            "unique_clients":               len(client_ids),
+            "unique_sessions":              len(session_ids),
+            "total_transcript_analyses":    total_transcript_analyses,
+            "total_transcript_failures":    total_transcript_failures,
+            "total_transcripts_uploaded":   total_transcripts_uploaded,
+            "total_graphs_generated":       total_graphs,
+            "total_plots_regenerated":      total_plot_regen,
+            "total_reddit_analyses":        total_reddit_analyses,
+            "total_reddit_failures":        total_reddit_failures,
+            "total_subreddits_analyzed":    total_subreddits,
+            "reddit_mode_breakdown":        reddit_mode_breakdown,
+            "total_csv_downloads":          total_csv,
+            "recent_events":                recent_events,
         }

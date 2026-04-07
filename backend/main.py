@@ -93,6 +93,10 @@ class AnalyticsEventRequest(BaseModel):
     metadata: dict = {}
 
 
+class AnalyticsVerifyRequest(BaseModel):
+    password: str
+
+
 # Health check
 @app.get("/health")
 async def health_check():
@@ -363,6 +367,16 @@ async def download_reddit_csv_multi(req: RedditMultiSubredditRequest):
 
 
 # Analytics endpoints
+@app.post("/api/analytics/verify")
+async def verify_analytics(req: AnalyticsVerifyRequest):
+    expected = os.getenv("ANALYTICS_PASSWORD", "")
+    if not expected:
+        return {"ok": False, "error": "ANALYTICS_PASSWORD not set in backend/.env"}
+    if req.password == expected:
+        return {"ok": True}
+    return {"ok": False, "error": "Incorrect password"}
+
+
 @app.post("/api/analytics/event")
 async def track_event(req: AnalyticsEventRequest):
     analytics_record(req.event_type, req.metadata)

@@ -26,6 +26,7 @@ import os
 import re
 import sys
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import numpy as np
@@ -38,7 +39,10 @@ from nltk.corpus import stopwords
 from docx import Document
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sentiment_model import classify
+from sentiment_model import classify, classify_batch
+
+_BATCH_SIZE = 20   # sentences per OpenAI call
+_MAX_WORKERS = 10  # parallel batch requests
 
 # ===========================================================================
 # CONFIG — module-level defaults used only when running from the CLI
@@ -335,16 +339,23 @@ def stage_03_hf_sentiment(df: pd.DataFrame) -> pd.DataFrame:
                       negative → -score, neutral → 0
     """
     sentences = df["sentence"].astype(str).tolist()
-    hf_labels, hf_scores, hf_compounds = [], [], []
-    for text in sentences:
-        result = classify(text)
-        hf_labels.append(result["label"])
-        hf_scores.append(result["score"])
-        hf_compounds.append(result["compound"])
+
+    # Split into batches, then run batches in parallel
+    batches = [sentences[i:i + _BATCH_SIZE] for i in range(0, len(sentences), _BATCH_SIZE)]
+    results: list[dict] = [None] * len(batches)
+
+    with ThreadPoolExecutor(max_workers=_MAX_WORKERS) as executor:
+        futures = {executor.submit(classify_batch, batch): idx for idx, batch in enumerate(batches)}
+        for future, idx in futures.items():
+            results[idx] = future.result()
+
+    # Flatten results back into per-sentence lists
+    flat = [item for batch_result in results for item in batch_result]
+
     df = df.copy()
-    df["hf_label"]    = hf_labels
-    df["hf_score"]    = hf_scores
-    df["hf_compound"] = hf_compounds
+    df["hf_label"]    = [r["label"]    for r in flat]
+    df["hf_score"]    = [r["score"]    for r in flat]
+    df["hf_compound"] = [r["compound"] for r in flat]
     return df
 
 

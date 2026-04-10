@@ -42,6 +42,16 @@ try:
 except Exception as _e:
     print(f"[warning] Reddit sentiment analyzer unavailable: {_e}")
 
+# Import Google Reviews analyzer (optional — requires GOOGLE_PLACES_API_KEY in .env)
+_google_available = False
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "google-reviews-analyzer"))
+    from google_reviews_analyzer import search_places, analyze_places
+    _google_available = True
+except Exception as _e:
+    print(f"[warning] Google Reviews analyzer unavailable: {_e}")
+
+
 # Analytics
 from analytics import init_db, record as analytics_record
 
@@ -86,6 +96,15 @@ class RedditMultiSubredditRequest(BaseModel):
     query: str
     time_filter: Optional[str] = "year"
     limit: Optional[int] = None
+
+
+class GooglePlacesSearchRequest(BaseModel):
+    query: str
+
+
+class GoogleReviewsAnalysisRequest(BaseModel):
+    places: List[dict]   # [{place_id, data_id, name, address, lat, lng, ...}, ...]
+    n: int = 3
 
 
 class AnalyticsEventRequest(BaseModel):
@@ -363,6 +382,39 @@ async def download_reddit_csv_multi(req: RedditMultiSubredditRequest):
             headers={"Content-Disposition": f"attachment; filename={filename}"}
         )
     except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+# Google Reviews Endpoints
+_GOOGLE_UNAVAILABLE = {"success": False, "error": "Google Reviews analyzer unavailable — set GOOGLE_PLACES_API_KEY in backend/.env"}
+
+
+@app.post("/api/google/search_places")
+async def google_search_places(req: GooglePlacesSearchRequest):
+    if not _google_available:
+        return _GOOGLE_UNAVAILABLE
+    try:
+        results = search_places(req.query)
+        return {"success": True, "results": results}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/google/analyze_reviews")
+async def google_analyze_reviews(req: GoogleReviewsAnalysisRequest):
+    if not _google_available:
+        return _GOOGLE_UNAVAILABLE
+    n = max(1, min(30, req.n))
+    try:
+        results = analyze_places(req.places, n)
+        analytics_record("google_reviews_analysis", {
+            "success": True,
+            "place_count": len(req.places),
+            "n": n,
+        })
+        return {"success": True, "results": results}
+    except Exception as e:
+        analytics_record("google_reviews_analysis", {"success": False})
         return {"success": False, "error": str(e)}
 
 

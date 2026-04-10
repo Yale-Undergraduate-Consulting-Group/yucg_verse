@@ -3,14 +3,15 @@
  * so routes and labels stay in sync with the UI.
  */
 
-import { Home, BarChart3, MessageSquare, Activity } from "lucide-react";
+import { Home, BarChart3, MessageSquare, Activity, MapPin } from "lucide-react";
 import type { SidebarNavItem, ToolConfig } from "./types";
 
 export const defaultNavItems: SidebarNavItem[] = [
-  { icon: Home,         label: "Home",              href: "/" },
-  { icon: MessageSquare, label: "Reddit Analyzer",  href: "/reddit-analyzer" },
-  { icon: BarChart3,    label: "Sentiment Analyzer", href: "/sentiment-analyzer" },
-  { icon: Activity,     label: "Analytics",          href: "/analytics" },
+  { icon: Home,          label: "Home",                    href: "/" },
+  { icon: MessageSquare, label: "Reddit Analyzer",         href: "/reddit-analyzer" },
+  { icon: BarChart3,     label: "Sentiment Analyzer",      href: "/sentiment-analyzer" },
+  { icon: MapPin,        label: "Google Reviews Analyzer", href: "/google-reviews" },
+  { icon: Activity,      label: "Analytics",               href: "/analytics" },
 ];
 
 export const defaultTools: ToolConfig[] = [
@@ -27,5 +28,12 @@ export const defaultTools: ToolConfig[] = [
       "Analyze interview transcripts to extract sentiment insights and patterns.",
     href: "/sentiment-analyzer",
     icon: BarChart3,
+  },
+  {
+    name: "Google Reviews Analyzer",
+    description:
+      "Search for businesses on a live map and analyze their Google reviews with AI-powered sentiment scoring.",
+    href: "/google-reviews",
+    icon: MapPin,
   },
 ];

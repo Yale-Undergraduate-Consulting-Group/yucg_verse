@@ -10,6 +10,7 @@ import re
 import sys
 import math
 import io
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone, timedelta
 from typing import Optional
 from collections import Counter
@@ -32,7 +33,7 @@ nltk.download("brown", quiet=True)
 from nltk.corpus import stopwords, brown
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sentiment_model import classify_batch
+from sentiment_model import classify
 
 
 # Reddit API credentials loaded from environment variables
@@ -75,6 +76,9 @@ def scrape_subreddit_posts(
     """
     reddit = get_reddit_client()
     subreddit = reddit.subreddit(subreddit_name)
+
+    if limit is None:
+        limit = 100
 
     cutoff = datetime.now(timezone.utc) - timedelta(days=days_back)
     seen = set()
@@ -137,15 +141,18 @@ def analyze_sentiment(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
 
+    def get_compound(text: str) -> float:
+        return classify(text)["compound"]
+
     df = df.copy()
     titles = df["title"].tolist()
     texts = df["text"].tolist()
 
-    title_results = classify_batch(titles)
-    text_results = classify_batch(texts)
-
-    df["title_sentiment"] = [r["compound"] for r in title_results]
-    df["text_sentiment"] = [r["compound"] for r in text_results]
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        title_futures = [executor.submit(get_compound, t) for t in titles]
+        text_futures = [executor.submit(get_compound, t) for t in texts]
+        df["title_sentiment"] = [f.result() for f in title_futures]
+        df["text_sentiment"] = [f.result() for f in text_futures]
 
     # Combined sentiment (weighted average: text is usually more informative)
     df["combined_sentiment"] = df.apply(

@@ -287,7 +287,7 @@ async def regenerate_plot(req: RegeneratePlotRequest):
 
 # Reddit Sentiment Analysis Endpoints
 @app.post("/api/reddit/analyze")
-async def analyze_reddit(req: RedditAnalysisRequest):
+def analyze_reddit(req: RedditAnalysisRequest):
     if not _reddit_available:
         return _REDDIT_UNAVAILABLE
     try:
@@ -310,7 +310,7 @@ async def analyze_reddit(req: RedditAnalysisRequest):
 
 
 @app.post("/api/reddit/analyze_multi")
-async def analyze_reddit_multi(req: RedditMultiSubredditRequest):
+def analyze_reddit_multi(req: RedditMultiSubredditRequest):
     if not _reddit_available:
         return _REDDIT_UNAVAILABLE
     try:
@@ -332,7 +332,7 @@ async def analyze_reddit_multi(req: RedditMultiSubredditRequest):
 
 
 @app.post("/api/reddit/download_csv")
-async def download_reddit_csv(req: RedditAnalysisRequest):
+def download_reddit_csv(req: RedditAnalysisRequest):
     if not _reddit_available:
         return _REDDIT_UNAVAILABLE
     try:
@@ -361,7 +361,7 @@ async def download_reddit_csv(req: RedditAnalysisRequest):
 
 
 @app.post("/api/reddit/download_csv_multi")
-async def download_reddit_csv_multi(req: RedditMultiSubredditRequest):
+def download_reddit_csv_multi(req: RedditMultiSubredditRequest):
     if not _reddit_available:
         return _REDDIT_UNAVAILABLE
     try:

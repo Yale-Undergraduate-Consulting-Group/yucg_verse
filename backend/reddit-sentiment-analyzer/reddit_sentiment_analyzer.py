@@ -10,7 +10,6 @@ import re
 import sys
 import math
 import io
-from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone, timedelta
 from typing import Optional
 from collections import Counter
@@ -33,7 +32,7 @@ nltk.download("brown", quiet=True)
 from nltk.corpus import stopwords, brown
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from sentiment_model import classify
+from sentiment_model import classify_batch
 
 
 # Reddit API credentials loaded from environment variables
@@ -126,8 +125,8 @@ def analyze_sentiment(df: pd.DataFrame) -> pd.DataFrame:
     """
     Add sentiment analysis scores to a DataFrame with 'title' and 'text' columns.
 
-    Uses VADER sentiment analyzer to compute compound scores for both
-    the title and body text of each post.
+    Uses batch sentiment classification to minimize API calls — all titles in one
+    batched request, all body texts in another.
 
     Args:
         df: DataFrame with 'title' and 'text' columns
@@ -138,18 +137,15 @@ def analyze_sentiment(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
 
-    def get_compound(text: str) -> float:
-        return classify(text)["compound"]
-
     df = df.copy()
     titles = df["title"].tolist()
     texts = df["text"].tolist()
 
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        title_futures = [executor.submit(get_compound, t) for t in titles]
-        text_futures = [executor.submit(get_compound, t) for t in texts]
-        df["title_sentiment"] = [f.result() for f in title_futures]
-        df["text_sentiment"] = [f.result() for f in text_futures]
+    title_results = classify_batch(titles)
+    text_results = classify_batch(texts)
+
+    df["title_sentiment"] = [r["compound"] for r in title_results]
+    df["text_sentiment"] = [r["compound"] for r in text_results]
 
     # Combined sentiment (weighted average: text is usually more informative)
     df["combined_sentiment"] = df.apply(

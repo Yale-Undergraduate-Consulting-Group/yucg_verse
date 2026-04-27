@@ -15,11 +15,21 @@ load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 _BACKEND = os.getenv("SENTIMENT_BACKEND", "openai").lower()
 _OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
+_OPENAI_BATCH_SIZE = 50  # texts per batch call — keeps prompt well under token limits
+
+_openai_client = None
+
+
+def _get_openai_client():
+    global _openai_client
+    if _openai_client is None:
+        from openai import OpenAI
+        _openai_client = OpenAI(api_key=_OPENAI_API_KEY)
+    return _openai_client
+
 
 def _openai_classify(text: str) -> dict:
-    from openai import OpenAI
-
-    client = OpenAI(api_key=_OPENAI_API_KEY)
+    client = _get_openai_client()
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -56,11 +66,9 @@ def _openai_classify(text: str) -> dict:
     return {"label": label, "score": round(score, 4), "compound": round(compound, 4)}
 
 
-def _openai_classify_batch(texts: list[str]) -> list[dict]:
-    """Classify a list of texts in a single OpenAI API call."""
-    from openai import OpenAI
-
-    client = OpenAI(api_key=_OPENAI_API_KEY)
+def _openai_classify_batch_chunk(texts: list[str]) -> list[dict]:
+    """Classify a single chunk of texts in one OpenAI API call."""
+    client = _get_openai_client()
 
     numbered = "\n".join(f"{i+1}. {t[:500]}" for i, t in enumerate(texts))
 
@@ -84,7 +92,6 @@ def _openai_classify_batch(texts: list[str]) -> list[dict]:
     )
 
     raw = response.choices[0].message.content or "[]"
-    # Strip markdown code fences if present
     raw = raw.strip()
     if raw.startswith("```"):
         raw = raw.split("```")[1]
@@ -95,7 +102,6 @@ def _openai_classify_batch(texts: list[str]) -> list[dict]:
     try:
         items = json.loads(raw)
     except json.JSONDecodeError:
-        # Fall back to neutral for the whole batch if parsing fails
         return [{"label": "neutral", "score": 0.0, "compound": 0.0}] * len(texts)
 
     results = []
@@ -111,10 +117,18 @@ def _openai_classify_batch(texts: list[str]) -> list[dict]:
             score = 1.0 - abs(compound) * 0.5
         results.append({"label": label, "score": round(score, 4), "compound": round(compound, 4)})
 
-    # Pad with neutral if the model returned fewer items than expected
     while len(results) < len(texts):
         results.append({"label": "neutral", "score": 0.0, "compound": 0.0})
 
+    return results[:len(texts)]
+
+
+def _openai_classify_batch(texts: list[str]) -> list[dict]:
+    """Classify texts in batched OpenAI API calls to stay within token limits."""
+    results = []
+    for i in range(0, len(texts), _OPENAI_BATCH_SIZE):
+        chunk = texts[i : i + _OPENAI_BATCH_SIZE]
+        results.extend(_openai_classify_batch_chunk(chunk))
     return results
 
 

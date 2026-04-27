@@ -18,6 +18,13 @@ interface AnalyticsSummary {
   total_reddit_failures: number;
   total_subreddits_analyzed: number;
   reddit_mode_breakdown: { single: number; multi: number };
+  total_text_units_analyzed: number;
+  total_sentences_analyzed: number;
+  total_posts_analyzed: number;
+  total_reviews_analyzed: number;
+  total_google_analyses: number;
+  total_google_failures: number;
+  total_places_analyzed: number;
   total_csv_downloads: number;
   recent_events: {
     event_type: string;
@@ -60,8 +67,9 @@ function EventTypeBadge({ type }: { type: string }) {
     transcript_analysis: "bg-purple-100 text-purple-700",
     graph_generated:     "bg-green-100 text-green-700",
     plot_regenerated:    "bg-teal-100 text-teal-700",
-    reddit_analysis:     "bg-orange-100 text-orange-700",
-    csv_downloaded:      "bg-yellow-100 text-yellow-700",
+    reddit_analysis:          "bg-orange-100 text-orange-700",
+    google_reviews_analysis:  "bg-blue-100 text-blue-700",
+    csv_downloaded:           "bg-yellow-100 text-yellow-700",
   };
   const cls = colors[type] ?? "bg-gray-100 text-gray-700";
   return (
@@ -158,6 +166,32 @@ function Dashboard() {
 
   return (
     <>
+      {/* ── Cumulative impact ───────────────────────────────────────────── */}
+      <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5">
+        <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-text-tertiary">
+          Cumulative Text Analyzed
+        </h2>
+        <div className="flex flex-wrap gap-8">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">Total</p>
+            <p className="mt-1 text-3xl font-bold text-text-primary">{data.total_text_units_analyzed.toLocaleString()}</p>
+            <p className="mt-0.5 text-xs text-text-tertiary">sentences · posts · reviews</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">Transcript Sentences</p>
+            <p className="mt-1 text-2xl font-bold text-text-primary">{data.total_sentences_analyzed.toLocaleString()}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">Reddit Posts</p>
+            <p className="mt-1 text-2xl font-bold text-text-primary">{data.total_posts_analyzed.toLocaleString()}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-text-tertiary">Google Reviews</p>
+            <p className="mt-1 text-2xl font-bold text-text-primary">{data.total_reviews_analyzed.toLocaleString()}</p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Audience ────────────────────────────────────────────────────── */}
       <section>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-text-tertiary">
@@ -180,9 +214,11 @@ function Dashboard() {
           <StatCard label="Transcripts Uploaded" value={data.total_transcripts_uploaded} />
           <StatCard label="Graphs Generated"     value={data.total_graphs_generated} />
           <StatCard label="Plots Regenerated"    value={data.total_plots_regenerated} />
-          <FailStat label="Reddit Analyses"      success={data.total_reddit_analyses}    failed={data.total_reddit_failures} />
-          <StatCard label="Subreddits Analyzed"  value={data.total_subreddits_analyzed} />
-          <StatCard label="CSV Downloads"        value={data.total_csv_downloads} />
+          <FailStat label="Reddit Analyses"         success={data.total_reddit_analyses}  failed={data.total_reddit_failures} />
+          <StatCard label="Subreddits Analyzed"    value={data.total_subreddits_analyzed} />
+          <FailStat label="Google Reviews Analyses" success={data.total_google_analyses}  failed={data.total_google_failures} />
+          <StatCard label="Locations Analyzed"     value={data.total_places_analyzed} />
+          <StatCard label="CSV Downloads"          value={data.total_csv_downloads} />
         </div>
       </section>
 

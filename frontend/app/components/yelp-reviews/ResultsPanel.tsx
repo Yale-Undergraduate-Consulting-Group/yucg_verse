@@ -1,5 +1,6 @@
 import { Star, TrendingUp, TrendingDown, ExternalLink, Download } from "lucide-react";
 import type { GLocationResult, GReview } from "./types";
+import { trackEvent } from "@/app/lib/analytics";
 
 function downloadCSV(results: GLocationResult[]) {
   const rows: string[][] = [];
@@ -56,6 +57,8 @@ function downloadCSV(results: GLocationResult[]) {
   a.download = "google_reviews_sentiment.csv";
   a.click();
   URL.revokeObjectURL(url);
+
+  trackEvent("csv_downloaded", { tool: "google_reviews", location_count: results.length });
 }
 
 function sentimentBadge(label: string) {

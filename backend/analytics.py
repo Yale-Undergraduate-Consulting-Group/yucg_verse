@@ -110,6 +110,23 @@ def summary() -> dict:
             "multi":  sum(1 for m in successful_reddit if m.get("mode") == "multi"),
         }
 
+        # ── google reviews analyses ───────────────────────────────────────────
+        google_rows = c.execute(
+            "SELECT metadata FROM events WHERE event_type = 'google_reviews_analysis'"
+        ).fetchall()
+        google_meta       = [json.loads(r[0] or "{}") for r in google_rows]
+        successful_google = [m for m in google_meta if m.get("success")]
+        failed_google     = [m for m in google_meta if not m.get("success")]
+        total_google_analyses = len(successful_google)
+        total_google_failures = len(failed_google)
+        total_places_analyzed = sum(m.get("place_count", 0) for m in successful_google)
+
+        # ── cumulative text analyzed ──────────────────────────────────────────
+        total_sentences = sum(m.get("sentence_count", 0) for m in transcript_meta)
+        total_posts     = sum(m.get("post_count", 0) for m in reddit_meta)
+        total_reviews   = sum(m.get("review_count", 0) for m in google_meta)
+        total_text_units = total_sentences + total_posts + total_reviews
+
         # ── CSV downloads ─────────────────────────────────────────────────────
         total_csv: int = c.execute(
             "SELECT COUNT(*) FROM events WHERE event_type = 'csv_downloaded'"
@@ -143,6 +160,13 @@ def summary() -> dict:
             "total_reddit_failures":        total_reddit_failures,
             "total_subreddits_analyzed":    total_subreddits,
             "reddit_mode_breakdown":        reddit_mode_breakdown,
-            "total_csv_downloads":          total_csv,
-            "recent_events":                recent_events,
+            "total_text_units_analyzed":      total_text_units,
+            "total_sentences_analyzed":       total_sentences,
+            "total_posts_analyzed":           total_posts,
+            "total_reviews_analyzed":         total_reviews,
+            "total_google_analyses":          total_google_analyses,
+            "total_google_failures":         total_google_failures,
+            "total_places_analyzed":         total_places_analyzed,
+            "total_csv_downloads":           total_csv,
+            "recent_events":                 recent_events,
         }

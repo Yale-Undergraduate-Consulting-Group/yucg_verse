@@ -153,6 +153,7 @@ async def analyze_transcripts(
     )
 
     results = []
+    _sentence_count = 0
 
     for file in files:
         fname = file.filename or "unknown"
@@ -175,6 +176,7 @@ async def analyze_transcripts(
             combined_df  = stage_01_tag_roles(combined_df)
             sentences_df = stage_02_sentence_level(combined_df)
             sentiment_df = stage_03_hf_sentiment(sentences_df)
+            _sentence_count = int(len(sentiment_df))
 
             df_target, df_other = stage_04_separate_services(
                 sentiment_df, company, parsed_other_services or None
@@ -242,6 +244,7 @@ async def analyze_transcripts(
         "success": any("error" not in r for r in results),
         "file_count": len(valid_files),
         "company": company,
+        "sentence_count": _sentence_count,
     })
     if overall_plot:
         analytics_record("graph_generated", {"company": company})
@@ -299,6 +302,7 @@ async def analyze_reddit(req: RedditAnalysisRequest):
             "mode": "single",
             "subreddit_count": 1,
             "subreddit": req.subreddit,
+            "post_count": result.get("total_posts", 0),
         })
         return result
     except Exception as e:
@@ -320,6 +324,7 @@ async def analyze_reddit_multi(req: RedditMultiSubredditRequest):
             "success": result.get("success", False),
             "mode": "multi",
             "subreddit_count": len(req.subreddits),
+            "post_count": result.get("total_posts", 0),
         })
         return result
     except Exception as e:
@@ -411,6 +416,7 @@ async def google_analyze_reviews(req: GoogleReviewsAnalysisRequest):
             "success": True,
             "place_count": len(req.places),
             "n": n,
+            "review_count": sum(r.get("total_reviews_analyzed", 0) for r in results if isinstance(r, dict)),
         })
         return {"success": True, "results": results}
     except Exception as e:

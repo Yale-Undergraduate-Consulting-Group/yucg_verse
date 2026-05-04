@@ -26,18 +26,22 @@ _SERPAPI_URL = "https://serpapi.com/search"
 
 
 def _geocode(location: str) -> tuple[float, float] | None:
-    """Geocode a location string to (lat, lng) using Nominatim (free, no key)."""
-    resp = requests.get(
-        "https://nominatim.openstreetmap.org/search",
-        params={"q": location, "format": "json", "limit": 1},
-        headers={"User-Agent": "YUCG-Reviews-Analyzer/1.0"},
-        timeout=8,
-    )
-    resp.raise_for_status()
-    results = resp.json()
-    if not results:
+    """Geocode a location string to (lat, lng) using Nominatim (free, no key).
+    Returns None on any failure so callers can proceed without coordinates."""
+    try:
+        resp = requests.get(
+            "https://nominatim.openstreetmap.org/search",
+            params={"q": location, "format": "json", "limit": 1},
+            headers={"User-Agent": "YUCG-Reviews-Analyzer/1.0"},
+            timeout=8,
+        )
+        resp.raise_for_status()
+        results = resp.json()
+        if not results:
+            return None
+        return float(results[0]["lat"]), float(results[0]["lon"])
+    except Exception:
         return None
-    return float(results[0]["lat"]), float(results[0]["lon"])
 
 
 def _parse_place(place: dict) -> dict | None:
